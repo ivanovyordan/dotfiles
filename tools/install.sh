@@ -1,15 +1,6 @@
 #!/bin/bash
 echo 'Dotfiles - Yordan Ivanov'
 
-if [[ "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
-
-Usage: $(basename "$0")
-
-See the README for documentation.
-https://github.com/ivanov-yordan/dotfiles
-HELP
-exit; fi
-
 # APT Repositories
 repositories=(
 	ppa:chris-lea/node.js
@@ -64,23 +55,24 @@ packages=(
 # Enables us to add new PPA repositories
 sudo apt-get -qq install python-software-properties
 
-echo "Install all repositories"
 # Install all repositories
+echo "Install all repositories"
 for repository in "${repositories[@]}"; do
 	sudo add-apt-repository -y $repository
 done
 
-echo "Update respositories"
 # Update respositories
+echo "Update respositories"
 sudo apt-get -qq -y update && sudo apt-get -y upgrade
 
-echo "Install all packages"
 # Install all packages
+echo "Install all packages"
 for package in "${packages[@]}"; do
 	sudo apt-get -qq -y install $package
 done
 
-# change default shell to zsh
+# Change default shell to zsh
+echo "Change default shell to zsh"
 chsh -s `which zsh`
 
 # Update NPM registry
@@ -90,6 +82,7 @@ sudo npm search
 sudo npm install -g uglify-js
 
 # Download these dotfiles
+echo "Download these dotfiles"
 git clone --recurse-submodules https://github.com/ivanov-yordan/dotfiles $HOME/.dotfiles
 
 # Install my theme
