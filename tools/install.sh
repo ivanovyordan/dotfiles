@@ -1,5 +1,14 @@
 #!/bin/bash
-echo 'Dotfiles - Yordan Ivanov'
+echo "Dotfiles - Yordan Ivanov"
+
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
+
+Usage: $(basename "$0")
+
+See the README for documentation.
+https://github.com/ivanov-yordan/dotfiles
+HELP
+exit; fi
 
 # APT Repositories
 repositories=(
@@ -97,4 +106,4 @@ ln -s $HOME/.dotfiles/link/.zshrc $HOME/.zshrc
 /usr/bin/env zsh
 source ~/.zshrc
 
-echo 'Dotfiles installed'
+echo "Dotfiles installed"
