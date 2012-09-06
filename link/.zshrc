@@ -34,8 +34,8 @@ for file in $HOME/.dotfiles/source/*; do
 	source "$file"
 done
 
-# Source Z.sh
-. $HOME/.dotfiles/z.sh/z.sh
+# Source Z-zsh
+. $HOME/.dotfiles/z-zsh/z.sh
 function precmd () {
 	z --add "$(pwd -P)"
 }
