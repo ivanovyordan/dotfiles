@@ -1,2 +1,3 @@
-h4. INSTALLATION
-@wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh@
+#### INSTALLATION
+```sh
+wget --no-check-certificate https://github.com/ivanov-yordan/dotfiles/raw/master/tools/install.sh -O - | sh
