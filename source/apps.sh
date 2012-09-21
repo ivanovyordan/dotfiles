@@ -1,9 +1,9 @@
 # Use aptitude if installed, or apt-get if not.
 # You can just set apt_pref='apt-get' to override it.
-if [[ -e $( which aptitude ) ]]; then
-    apt_pref='aptitude'
-else
+if [[ -e $( which apt-get ) ]]; then
     apt_pref='apt-get'
+else
+    apt_pref='aptitude'
 fi
 
 
@@ -44,4 +44,4 @@ alias vi=vim
 alias svi='sudo vi' 
 alias vis='vim "+set si"' 
 alias edit='vim'
-alias subl='/sur/bin/env sublime-text'
+alias subl='/usr/bin/env sublime-text'
