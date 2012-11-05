@@ -1,15 +1,6 @@
 #!/bin/bash
 echo "Dotfiles - Yordan Ivanov"
 
-if [[ "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
-
-Usage: $(basename "$0")
-
-See the README for documentation.
-https://github.com/ivanov-yordan/dotfiles
-HELP
-exit; fi
-
 # APT Repositories
 repositories=(
 	ppa:chris-lea/node.js
@@ -24,7 +15,6 @@ packages=(
 	apache2
 	autojump
 	build-essential
-	chromium-browser
 	curl
 	colordiff
 	deluge
@@ -96,6 +86,10 @@ git clone --recurse-submodules https://github.com/ivanov-yordan/dotfiles $HOME/.
 
 # Install my theme
 ln -s $HOME/.dotfiles/link/ivanov-yordan.zsh-theme $HOME/.dotfiles/.oh-my-zsh/themes
+
+# Vim and JS Hint
+ls -s $HOME/.dotfiles/link/.vimrc $HOME
+ls -s $HOME/.dotfiles/link/.jshintrc $HOME
 
 # Install .zshrc
 if [ -f ~/.zshrc ] || [ -h ~/.zshrc ] then

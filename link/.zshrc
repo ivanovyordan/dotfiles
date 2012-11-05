@@ -25,7 +25,7 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(autojump cpanm debian dircycle git git-flow github lol svn)
+plugins=(autojump dircycle git git-flow github lol npm svn)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -34,12 +34,6 @@ for file in $HOME/.dotfiles/source/*; do
 	source "$file"
 done
 
-# Source Z-zsh
-. $HOME/.dotfiles/z-zsh/z.sh
-function precmd () {
-	z --add "$(pwd -P)"
-}
-
-# Customize to your needs...
+# Customize to your needs
 export PATH="$HOME/.dotfiles/bin:$PATH"
 export EDITOR='subl'

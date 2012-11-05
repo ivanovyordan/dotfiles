@@ -1,97 +1,95 @@
-#!/usr/bin/env node
+#!/usr/bin/node
 var fs = require('fs'),
-        exec = require('child_process').exec;
-        args = {};
+	exec = require('child_process').exec;
+	args = {};
 
 
 function help()
 {
-        console.log('USAGE: vhost -n <server_name> -d <document_root>');
-        console.log('OPTIONS:');
-        console.log('\t-h, --help: This screen');
-        console.log('\t-n, --name: Server name');
-        console.log('\t-d, --droot: Document Root');
-        process.exit();
+	console.log('USAGE: vhost -n <server_name> -d <document_root>');
+	console.log('OPTIONS:');
+	console.log('\t-h, --help: This screen');
+	console.log('\t-n, --name: Server name');
+	console.log('\t-d, --droot: Document Root');
+	process.exit();
 }
 
 
 function parseArguments()
 {
-        var valid = ['-d', '--droot', '-n', '--name'] ;
-        process.argv.forEach(function(value, index, array) {
-                if(valid.indexOf(value) !== -1) {
-                        var key ='';
-                        switch(value) {
-                                case '-d':
-                                case '-droot':
-                                        key = 'droot';
-                                        break;
-                                case '-n':
-                                case '-name':
-                                        key = 'name';
-                                        break;
-                        }
+	var valid = ['-d', '--droot', '-n', '--name'] ;
+	process.argv.forEach(function(value, index, array) {
+		if(valid.indexOf(value) !== -1) {
+			var key ='';
+			switch(value) {
+				case '-d':
+				case '-droot':
+					key = 'droot';
+					break;
+				case '-n':
+				case '-name':
+					key = 'name';
+					break;
+			}
 
-                        if(process.argv[index + 1] !== undefined) {
-                                args[key] = process.argv[index + 1];
-                        }
-                }
-        });
+			if(process.argv[index + 1] !== undefined) {
+				args[key] = process.argv[index + 1];
+			}
+		}
+	});
 
-        if(args.droot === undefined) {
-                args.droot = __dirname;
-        }
+	if(args.droot === undefined) {
+		args.droot = __dirname;
+	}
 }
 
 function checkArguments()
 {
-        if(typeof args.droot === 'undefined') {
-                help();
-        }
+	if(typeof args.droot === 'undefined') {
+		help();
+	}
 
-        if(typeof args.name === 'undefined') {
-                help();
-        }
+	if(typeof args.name === 'undefined') {
+		help();
+	}
 
-        if(process.argv.indexOf('-h') !== -1 || process.argv.indexOf('--help') !== -1) {
-                help();
-        }
-
-        args.name += '.localhost';
+	if(process.argv.indexOf('-h') !== -1 || process.argv.indexOf('--help') !== -1) {
+		help();
+	}
 }
 
 
 function appendToHosts()
 {
-        var content = fs.readFileSync('/etc/hosts', 'utf8');
-        if(content.indexOf(args.name) !== -1) {
-                return;
-        }
+	var content = fs.readFileSync('/etc/hosts', 'utf8');
+	if(content.indexOf(args.name) !== -1) {
+		return;
+	}
 
-        content += '\n127.0.0.1\t' + args.name;
-        fs.writeFileSync('/etc/hosts', content, 'utf8');
+	content += '\n127.0.0.1\t' + args.name;
+	fs.writeFileSync('/etc/hosts', content, 'utf8');
 }
 
 function addToApache()
 {
-        var content = '<VirtualHost *:80>\n';
-        content += '\tDocumentRoot ' + args.droot + '\n';
-        content += '\tServerName ' + args.name + '\n';
-        content += '</VirtualHost>';
+	var content = '<VirtualHost *:80>\n';
+	content += '\tDocumentRoot ' + args.droot + '\n';
+	content += '\tServerName ' + args.name + '\n';
+	content += '</VirtualHost>';
 
-        fs.writeFileSync('/etc/apache2/sites-available/' + args.name, content, 'utf8');
-        exec('ln -s /etc/apache2/sites-available/' + args.name + ' /etc/apache2/sites-enabled/');
+	fs.writeFileSync('/etc/apache2/sites-available/' + args.name, content, 'utf8');
+	exec('ln -s /etc/apache2/sites-available/' + args.name + ' /etc/apache2/sites-enabled/');
 }
 
 function restartApache()
 {
-        exec('service apache2 restart', function(error, stdout, stderr){
-                if(error !== null) {
-                        console.log('ERROR: ' + error);
-                } else {
-                        console.log('Virtual host created. Open http://' + args.name);
-                }
-        });
+	exec('service apache2 restart', function(error, stdout, stderr){
+		if(error !== null) {
+			console.log('ERROR: ' + error);
+		} else {
+			console.log('Virtual host created. Open http://' + args.name);
+		}
+	});
 }
 
 parseArguments();

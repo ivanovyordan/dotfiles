@@ -15,3 +15,7 @@ alias cpuinfo='lscpu'
 
 ## get GPU ram on desktop / laptop## 
 alias gpumeminfo='grep -i --color memory /var/log/Xorg.0.log'
+
+# Remove ALL kernel images and headers EXCEPT the one in use
+alias kclean='sudo aptitude remove -P ?and(~i~nlinux-(ima|hea) \
+	?not(~n`uname -r`))'
