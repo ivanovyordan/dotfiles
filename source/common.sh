@@ -12,9 +12,6 @@ alias sha1='openssl sha1'
 ## Install  colordiff package ##
 alias diff='colordiff'
 
-## Command short cuts to save time ##
-alias j='jobs -l'
-
 ## Create a new set of commands ##
 alias path='echo -e ${PATH//:/\\n}'
 alias now='date +"%T'
@@ -43,4 +40,4 @@ alias shutdown='sudo shutdown'
 alias wget='wget -c'
 
 # top is atop, just like vi is vim
-alias top='atop' 
+alias top='atop'

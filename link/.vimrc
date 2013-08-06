@@ -13,6 +13,9 @@ Bundle 'vim-scripts/matchit.zip'
 Bundle 'scrooloose/nerdtree'
 Bundle 'wincent/Command-T'
 Bundle 'Lokaltog/vim-powerline'
+Bundle 'tomasr/molokai'
+Bundle 'sjl/badwolf'
+Bundle 'w0ng/vim-hybrid'
 
 " Coding
 Bundle 'majutsushi/tagbar'
@@ -45,14 +48,10 @@ Bundle 'alfredodeza/jacinto.vim'
 au BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable
 au BufNewFile,BufReadPost *.coffee setl tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
-" Color
-Bundle 'sjl/badwolf'
-Bundle 'tomasr/molokai'
-Bundle 'w0ng/vim-hybrid'
-
 """""""""""""""""""" GLOBAL
 let mapleader=","
-colorscheme molokai
+let g:rehash256 = 1
+set background=dark
 set gfn=monaco
 set go=
 
@@ -81,13 +80,11 @@ set listchars=tab:>.,trail:.,extends:#,nbsp:.
 set ttyfast
 set mouse=a
 set nocompatible
-set backup
-set backupdir=~/.vim_backup
+set nobackup
 set noswapfile
 set fileformats=unix,dos,mac
 set laststatus=2
-set expandtab
-set softtabstop=2 tabstop=2 shiftwidth=2
+set softtabstop=4 tabstop=4 shiftwidth=4
 set ruler
 set wildignore=*.swp,*.bak
 set wildmode=longest,list

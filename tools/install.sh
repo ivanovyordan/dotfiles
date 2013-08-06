@@ -4,10 +4,9 @@ echo "Dotfiles - Yordan Ivanov"
 # APT Repositories
 repositories=(
 	ppa:chris-lea/node.js
-	ppa:webupd8team/sublime-text-2
 	ppa:rabbitvcs/ppa
-	ppa:otto-kesselgulasch/gimp
-	ppa:hotot-team
+	ppa:teejee2008/ppa
+	ppa:webupd8team/sublime-text-3
 )
 
 # Install APT packages.
@@ -15,19 +14,18 @@ packages=(
 	apache2
 	autojump
 	build-essential
-	curl
 	colordiff
+	curl
 	deluge
 	dia
-	gimp
+	filezilla
 	git-core
 	git-flow
-	hotot
+	git-extras
+	guake
 	htop
 	id3tool
-	keepassx
 	libssl-dev
-	mail-notification
 	meld
 	mysql-server
 	nmap
@@ -38,21 +36,49 @@ packages=(
 	php5-xdebug
 	php-pear
 	phpmyadmin
-	python-software-properties
-	rabbitvcs-cli
-	rabbitvcs-gedit
 	rabbitvcs-nautilus3
 	skype
 	sl
-	sublime-text
+	sublime-text-installer
 	subversion
 	telnet
+	tidy
 	tree
 	zsh
 )
 
-# Enables us to add new PPA repositories
-sudo apt-get -qq install python-software-properties
+# Node.js Packages
+node_packages=(
+	grunt-cli
+	bower
+	yo
+	generator-webapp
+	generator-angular
+	less
+	jslint
+	jshint
+	csslint
+	coffee-script
+	express
+	uglify-js
+)
+
+# Gems
+gems=(
+	compass
+	github
+	jekyll
+	rake
+	sass
+)
+
+
+other_commands=(
+	"git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle"
+	"git clone https://github.com/nojhan/liquidprompt.git ~/.liquidprompt && cp ~/.liquidprompt/liquidpromptrc-dist ~/.config/liquidpromptrc",
+	"curl -s http://getcomposer.org/installer | php && mv composer.phar /usr/bin/composer"
+)
+
 
 # Install all repositories
 echo "Install all repositories"
@@ -60,42 +86,52 @@ for repository in "${repositories[@]}"; do
 	sudo add-apt-repository -y $repository
 done
 
-# Update respositories
+#Update respositories
 echo "Update respositories"
 sudo apt-get -qq -y update && sudo apt-get -y upgrade
 
-# Install all packages
-echo "Install all packages"
+# Install APT packages
+echo "Install APT packages"
 for package in "${packages[@]}"; do
 	sudo apt-get -qq -y install $package
+done
+
+# Update NPM registry
+echo "Update NPM registry"
+sudo npm search && sudo npm update -g
+
+# Install Node.js packages
+echo "Install Node.js packages"
+for package in "${node_packages[@]}"; do
+	sudo npm install -g $package
+done
+
+# Update Ruby gems
+echo "Update Ruby gems"
+sudo gem update
+
+# Install Ruby gems
+echo "Install Ruby gems"
+for package in "${gems[@]}"; do
+	sudo gem install $package
+done
+
+
+# Exec other commands
+echo "Exec other commands"
+for command in "${other_commands[@]}"; do
+	$command
+done
+
+# Link files
+for file in $HOME/.dotfiles/link/*; do
+	ln -s $HOME/.dotfiles/link/$file $HOME
 done
 
 # Change default shell to zsh
 echo "Change default shell to zsh"
 chsh -s `which zsh`
 
-# Update NPM registry
-sudo npm search
-
-# Install some npm packages
-sudo npm install -g uglify-js
-
-# Download these dotfiles
-echo "Download these dotfiles"
-git clone --recurse-submodules https://github.com/ivanov-yordan/dotfiles $HOME/.dotfiles
-
-# Install my theme
-ln -s $HOME/.dotfiles/link/ivanov-yordan.zsh-theme $HOME/.dotfiles/.oh-my-zsh/themes
-
-# Vim and JS Hint
-ls -s $HOME/.dotfiles/link/.vimrc $HOME
-ls -s $HOME/.dotfiles/link/.jshintrc $HOME
-
-# Install .zshrc
-if [ -f ~/.zshrc ] || [ -h ~/.zshrc ] then
-	rm .zshrc
-fi
-ln -s $HOME/.dotfiles/link/.zshrc $HOME/.zshrc
 
 /usr/bin/env zsh
 source ~/.zshrc
