@@ -1,0 +1,23 @@
+[user]
+	name = Yordan Ivanov
+	email = yordan.t.ivanov@gmail.com
+[credential]
+	helper = cache
+
+[core]
+	editor=vim
+	autocrlf=input
+	eol=lf
+
+[color]
+	ui = true
+[merge]
+	tool = meld
+[diff]
+	tool = meld
+
+
+[push]
+	default = matching
+[remote "upstream-prs"]
+	fetch = +refs/pull/*/head:refs/remotes/upstream/pr/*

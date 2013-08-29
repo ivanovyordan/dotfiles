@@ -39,3 +39,6 @@ source $HOME/.liquidprompt/liquidprompt
 # Customize to your needs
 export PATH="$HOME/.dotfiles/bin:$PATH"
 export EDITOR='subl'
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"

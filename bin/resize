@@ -1,12 +1,12 @@
-#!/usr/bin/env zsh
+#!/usr/bin/zsh
 
 # Edit the settings below:
 
-# Output sizes - 
+# Output sizes -
 # Please note the format: each size is wrapped with quotes, width and height are separated with space.
 output=("800 600" "1024 768" "1152 864" "1280 960" "1280 1024" "1400 1050" "1440 960" "1600 1200" "1920 1440" "1024 600" "1366 768" "1440 900" "1600 900" "1680 1050" "1280 800" "1920 1080" "1920 1200" "2560 1440" "2560 1600" "2880 1800")
 
-# If you frequently use the same source file (f.e. "~/Desktop/src.jpg"), 
+# If you frequently use the same source file (f.e. "~/Desktop/src.jpg"),
 # set it in "default_src"
 default_src="src.jpg";
 
@@ -15,10 +15,10 @@ default_src="src.jpg";
 # Destination must include "%", it will be replaced by output size, f.e. "800x600"
 default_dst="%.jpg";
 
-# Add signature? 
+# Add signature?
 default_sign='y'
 
-# If you frequently use the same signature file (f.e. "~/Desktop/sig.png"), 
+# If you frequently use the same signature file (f.e. "~/Desktop/sig.png"),
 # set it in "default_sig"
 default_sig="sig.png";
 
@@ -33,9 +33,9 @@ quality=100
 # ======
 # Welcome to Smashing resizer!
 # Written by Vlad Gerasimov from http://www.vladstudio.com
-# 
+#
 # This script takes one "source" image and saves it in different sizes.
-# 
+#
 # Requires:
 # * imagemagick - http://www.imagemagick.org/
 # * python - I'm sure your PC already has it!
@@ -61,7 +61,7 @@ function save(){
   local dst_w=${1}
   local dst_h=${2}
 
-  # calculate ratio 
+  # calculate ratio
   local ratio=$(math $dst_w/$dst_h);
 
   # calculate "intermediate" width and height

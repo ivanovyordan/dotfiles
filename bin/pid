@@ -1,4 +1,4 @@
-#!/usr/bin/zhs
+#!/usr/bin/zsh
 if [[ "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
 Get PIDs
 http://benalman.com/

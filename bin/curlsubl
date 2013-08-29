@@ -1,4 +1,4 @@
-#!/usr/bin/zhs
+#!/usr/bin/zsh
 
 if [[ ! "$1" || "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
 Curl a remote file into an editor.

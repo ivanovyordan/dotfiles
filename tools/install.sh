@@ -22,7 +22,6 @@ packages=(
 	git-core
 	git-flow
 	git-extras
-	guake
 	htop
 	id3tool
 	libssl-dev
@@ -67,16 +66,24 @@ node_packages=(
 gems=(
 	compass
 	github
-	jekyll
 	rake
 	sass
 )
 
 
 other_commands=(
+	# Vundle
 	"git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle"
+	# Liquid Prompt
 	"git clone https://github.com/nojhan/liquidprompt.git ~/.liquidprompt && cp ~/.liquidprompt/liquidpromptrc-dist ~/.config/liquidpromptrc",
+	# Composer
 	"curl -s http://getcomposer.org/installer | php && mv composer.phar /usr/bin/composer"
+	# PHP CS
+	"sudo pear install PHP_CodeSniffer"
+	# PHP CS Fixer
+	"sudo curl http://cs.sensiolabs.org/get/php-cs-fixer.phar -o /usr/local/bin/php-cs-fixer && sudo chmod a+x /usr/local/bin/php-cs-fixer"
+	# PHP MD
+	"sudo pear channel-discover pear.phpmd.org && sudo pear channel-discover pear.pdepend.org && sudo pear install --alldeps phpmd/PHP_PMD"
 )
 
 
