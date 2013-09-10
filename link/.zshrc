@@ -5,7 +5,7 @@ ZSH=$HOME/.dotfiles/oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-# ZSH_THEME="ivanov-yordan"
+#ZSH_THEME="ivanov-yordan"
 
 # Set to this to use case-sensitive completion
 CASE_SENSITIVE="false"
@@ -25,7 +25,7 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(autojump bower bundler command-not-found compleat dircycle git git-extras git-flow git-flow-avh git-hubflow github heroku lol npm svn)
+plugins=(autojump bower dircycle git git-extras git-flow lol npm svn)
 
 source $ZSH/oh-my-zsh.sh
 
