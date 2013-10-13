@@ -5,7 +5,7 @@ ZSH=$HOME/.dotfiles/oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-#ZSH_THEME="ivanov-yordan"
+ZSH_THEME="ivanov-yordan"
 
 # Set to this to use case-sensitive completion
 CASE_SENSITIVE="false"
@@ -17,7 +17,7 @@ DISABLE_AUTO_UPDATE="true"
 DISABLE_LS_COLORS="false"
 
 # Uncomment following line if you want to disable autosetting terminal title.
-DISABLE_AUTO_TITLE="true"
+# DISABLE_AUTO_TITLE="true"
 
 # Uncomment following line if you want red dots to be displayed while waiting for completion
 COMPLETION_WAITING_DOTS="true"
@@ -25,16 +25,18 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(autojump bower dircycle git git-extras git-flow lol npm svn)
+plugins=(autojump dircycle git svn)
 
 source $ZSH/oh-my-zsh.sh
+#source $HOME/.profile
 
 # Source all files in ~/dotfiles/source/
 for file in $HOME/.dotfiles/source/*; do
 	source "$file"
 done
 
-source $HOME/.liquidprompt/liquidprompt
+# source $HOME/.profile
+# source $HOME/.liquidprompt/liquidprompt
 
 # Customize to your needs
 export PATH="$HOME/.dotfiles/bin:$PATH"
@@ -42,3 +44,6 @@ export EDITOR='subl'
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+#export PATH="$HOME/.rvm/bin:$HOME/.rvm/scripts:$PATH"
+source $HOME/.rvm/bin/rvm > /dev/null

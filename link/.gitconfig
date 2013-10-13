@@ -19,5 +19,8 @@
 
 [push]
 	default = matching
+[pull]
+	rebase = true
+
 [remote "upstream-prs"]
 	fetch = +refs/pull/*/head:refs/remotes/upstream/pr/*

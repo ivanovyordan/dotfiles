@@ -3,6 +3,7 @@ echo "Dotfiles - Yordan Ivanov"
 
 # APT Repositories
 repositories=(
+	ppa:git-core/ppa
 	ppa:chris-lea/node.js
 	ppa:rabbitvcs/ppa
 	ppa:teejee2008/ppa
@@ -12,7 +13,10 @@ repositories=(
 # Install APT packages.
 packages=(
 	apache2
+	autoconf
+	automak
 	autojump
+	bison
 	build-essential
 	colordiff
 	curl
@@ -24,18 +28,30 @@ packages=(
 	git-extras
 	htop
 	id3tool
+	libtool
+	libc6-dev
+	libreadline6
+	libreadline6-dev
+	libyaml-dev
+	libsqlite3-0
+	libsqlite3-dev
+	libxml2-dev
+	libxslt-dev
 	libssl-dev
 	meld
 	mysql-server
+	ncurses-dev
 	nmap
 	nodejs
 	npm
+	openssl
 	php5-cli
 	php5-curl
 	php5-xdebug
 	php-pear
 	phpmyadmin
 	rabbitvcs-nautilus3
+	sqlite3
 	skype
 	sl
 	sublime-text-installer
@@ -43,6 +59,9 @@ packages=(
 	telnet
 	tidy
 	tree
+	vim
+	zlib1g
+	zlib1g-dev
 	zsh
 )
 
@@ -84,6 +103,8 @@ other_commands=(
 	"sudo curl http://cs.sensiolabs.org/get/php-cs-fixer.phar -o /usr/local/bin/php-cs-fixer && sudo chmod a+x /usr/local/bin/php-cs-fixer"
 	# PHP MD
 	"sudo pear channel-discover pear.phpmd.org && sudo pear channel-discover pear.pdepend.org && sudo pear install --alldeps phpmd/PHP_PMD"
+	# Install RVM
+	"curl -L https://get.rvm.io | bash -s stable --rails --autolibs=enabled"
 )
 
 
@@ -113,22 +134,14 @@ for package in "${node_packages[@]}"; do
 	sudo npm install -g $package
 done
 
-# Update Ruby gems
-echo "Update Ruby gems"
-sudo gem update
-
-# Install Ruby gems
-echo "Install Ruby gems"
-for package in "${gems[@]}"; do
-	sudo gem install $package
-done
-
-
 # Exec other commands
 echo "Exec other commands"
 for command in "${other_commands[@]}"; do
 	$command
 done
+
+# Clone the .dotfiles
+git clone --recurse-submodules https://github.com/ivanov-yordan/dotfiles.git $HOME/.dotfiles
 
 # Link files
 for file in $HOME/.dotfiles/link/*; do
@@ -142,5 +155,15 @@ chsh -s `which zsh`
 
 /usr/bin/env zsh
 source ~/.zshrc
+
+# Update Ruby gems
+echo "Update Ruby gems"
+sudo gem update
+
+# Install Ruby gems
+echo "Install Ruby gems"
+for package in "${gems[@]}"; do
+	sudo gem install $package
+done
 
 echo "Dotfiles installed"
