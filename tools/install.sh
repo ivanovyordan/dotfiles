@@ -5,63 +5,29 @@ echo "Dotfiles - Yordan Ivanov"
 repositories=(
 	ppa:git-core/ppa
 	ppa:chris-lea/node.js
-	ppa:rabbitvcs/ppa
-	ppa:teejee2008/ppa
 	ppa:webupd8team/sublime-text-3
 )
 
 # Install APT packages.
 packages=(
-	apache2
-	autoconf
-	automak
 	autojump
-	bison
 	build-essential
 	colordiff
 	curl
 	deluge
-	dia
-	filezilla
 	git-core
 	git-flow
-	git-extras
 	htop
-	id3tool
-	libtool
-	libc6-dev
-	libreadline6
-	libreadline6-dev
-	libyaml-dev
-	libsqlite3-0
-	libsqlite3-dev
-	libxml2-dev
-	libxslt-dev
-	libssl-dev
 	meld
-	mysql-server
-	ncurses-dev
-	nmap
 	nodejs
-	npm
-	openssl
-	php5-cli
-	php5-curl
-	php5-xdebug
-	php-pear
-	phpmyadmin
-	rabbitvcs-nautilus3
-	sqlite3
 	skype
-	sl
 	sublime-text-installer
 	subversion
 	telnet
 	tidy
 	tree
 	vim
-	zlib1g
-	zlib1g-dev
+	vlc
 	zsh
 )
 
@@ -91,18 +57,12 @@ gems=(
 
 
 other_commands=(
+	# git-extras
+	"cd /tmp && git clone --depth 1 https://github.com/visionmedia/git-extras.git && cd git-extras && sudo make install",
 	# Vundle
 	"git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle"
 	# Liquid Prompt
 	"git clone https://github.com/nojhan/liquidprompt.git ~/.liquidprompt && cp ~/.liquidprompt/liquidpromptrc-dist ~/.config/liquidpromptrc",
-	# Composer
-	"curl -s http://getcomposer.org/installer | php && mv composer.phar /usr/bin/composer"
-	# PHP CS
-	"sudo pear install PHP_CodeSniffer"
-	# PHP CS Fixer
-	"sudo curl http://cs.sensiolabs.org/get/php-cs-fixer.phar -o /usr/local/bin/php-cs-fixer && sudo chmod a+x /usr/local/bin/php-cs-fixer"
-	# PHP MD
-	"sudo pear channel-discover pear.phpmd.org && sudo pear channel-discover pear.pdepend.org && sudo pear install --alldeps phpmd/PHP_PMD"
 	# Install RVM
 	"curl -L https://get.rvm.io | bash -s stable --rails --autolibs=enabled"
 )
@@ -124,10 +84,6 @@ for package in "${packages[@]}"; do
 	sudo apt-get -qq -y install $package
 done
 
-# Update NPM registry
-echo "Update NPM registry"
-sudo npm search && sudo npm update -g
-
 # Install Node.js packages
 echo "Install Node.js packages"
 for package in "${node_packages[@]}"; do
@@ -141,7 +97,7 @@ for command in "${other_commands[@]}"; do
 done
 
 # Clone the .dotfiles
-git clone --recurse-submodules https://github.com/ivanov-yordan/dotfiles.git $HOME/.dotfiles
+# git clone --recurse-submodules https://github.com/ivanov-yordan/dotfiles.git $HOME/.dotfiles
 
 # Link files
 for file in $HOME/.dotfiles/link/*; do

@@ -9,7 +9,7 @@ alias iwconfig='iwconfig wlan0'
 ## Control firewall (iptables) output ##
 ## shortcut  for iptables and pass it via sudo#
 alias ipt='sudo /sbin/iptables'
- 
+
 # display all rules #
 alias iptlist='sudo /sbin/iptables -L -n -v --line-numbers'
 alias iptlistin='sudo /sbin/iptables -L INPUT -n -v --line-numbers'
@@ -36,13 +36,6 @@ alias ports='netstat -tulanp'
 ## Debug web server / cdn problems with curl ##
 # get web server headers #
 alias header='curl -I'
- 
+
 # find out if remote server supports gzip / mod_deflate or not #
 alias headerc='curl -I --compress'
-
-## Control Home Router ##
-# Reboot my home Linksys WAG160N / WAG54 / WAG320 / WAG120N Router / Gateway from *nix.
-alias rebootlinksys="curl -u 'admin:my-super-password' 'http://192.168.1.2/setup.cgi?todo=reboot'"
-
-# Reboot tomato based Asus NT16 wireless bridge 
-alias reboottomato="ssh admin@192.168.1.1 /sbin/reboot"

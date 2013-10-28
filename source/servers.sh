@@ -8,7 +8,7 @@ alias httpdreload='sudo /usr/sbin/apachectl -k graceful'
 alias httpdtest='sudo /usr/sbin/apachectl -t && /usr/sbin/apachectl -t -D DUMP_VHOSTS'
 
 ## Alias into our backup stuff ##
-# if cron fails or if you want backup on demand just run these commands # 
+# if cron fails or if you want backup on demand just run these commands #
 # again pass it via sudo so whoever is in admin group can start the job #
 # Backup scripts #
 alias backup='sudo /home/scripts/admin/scripts/backup/wrapper.backup.sh --type local --taget /raid1/backups'

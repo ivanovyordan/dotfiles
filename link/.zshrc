@@ -25,10 +25,9 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(autojump dircycle git svn)
+plugins=(autojump dircycle git git-flow git-extras svn)
 
 source $ZSH/oh-my-zsh.sh
-#source $HOME/.profile
 
 # Source all files in ~/dotfiles/source/
 for file in $HOME/.dotfiles/source/*; do
@@ -42,8 +41,4 @@ done
 export PATH="$HOME/.dotfiles/bin:$PATH"
 export EDITOR='subl'
 
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-
-#export PATH="$HOME/.rvm/bin:$HOME/.rvm/scripts:$PATH"
 source $HOME/.rvm/bin/rvm > /dev/null
