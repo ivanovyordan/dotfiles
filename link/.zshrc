@@ -5,7 +5,7 @@ ZSH=$HOME/.dotfiles/oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="ivanov-yordan"
+ZSH_THEME="robbyrussell"
 
 # Set to this to use case-sensitive completion
 CASE_SENSITIVE="false"
@@ -22,10 +22,13 @@ DISABLE_LS_COLORS="false"
 # Uncomment following line if you want red dots to be displayed while waiting for completion
 COMPLETION_WAITING_DOTS="true"
 
+# Disable correction suggestion
+DISABLE_CORRECTION="true"
+
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(autojump dircycle git git-flow git-extras svn)
+plugins=(autojump bower command-not-found dircycle gem git git-extras git-flow lol npm svn)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -34,11 +37,9 @@ for file in $HOME/.dotfiles/source/*; do
 	source "$file"
 done
 
-# source $HOME/.profile
-# source $HOME/.liquidprompt/liquidprompt
+source $HOME/.nvm/nvm.sh
+source $HOME/.liquidprompt/liquidprompt
 
 # Customize to your needs
 export PATH="$HOME/.dotfiles/bin:$PATH"
 export EDITOR='subl'
-
-source $HOME/.rvm/bin/rvm > /dev/null
