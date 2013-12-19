@@ -37,8 +37,9 @@ for file in $HOME/.dotfiles/source/*; do
 	source "$file"
 done
 
-source $HOME/.nvm/nvm.sh
 source $HOME/.liquidprompt/liquidprompt
+source $HOME/.nvm/nvm.sh
+source $HOME/.rvm/scripts/rvm
 
 # Customize to your needs
 export PATH="$HOME/.dotfiles/bin:$PATH"
