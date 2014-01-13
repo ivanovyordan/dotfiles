@@ -123,9 +123,9 @@ for package in "${gems[@]}"; do
 done
 
 # Install Node.js
-nvm install 0.10.23
-nvm use 0.10.23
-nvm alias default 0.10.23
+nvm install 0.10.24
+nvm use 0.10.24
+nvm alias default 0.10.24
 
 # Install Node.js packages
 echo "Install Node.js packages"
