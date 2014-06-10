@@ -3,8 +3,8 @@ echo "Dotfiles - Yordan Ivanov"
 
 # APT Repositories
 sudo add-apt-repository ppa:git-core/ppa
-sudo add- apt-repository ppa:webupd8team/sublime-text-3
-sudo add- apt-repository ppa:nilarimogard/webupd8
+sudo add-apt-repository ppa:webupd8team/sublime-text-3
+sudo add-apt-repository ppa:nilarimogard/webupd8
 
 sudo apt-get -qq -y update && sudo apt-get -y upgrade
 
