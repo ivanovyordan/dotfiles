@@ -5,7 +5,7 @@ ZSH=$HOME/.dotfiles/oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
+ZSH_THEME="ivanov-yordan"
 
 # Set to this to use case-sensitive completion
 CASE_SENSITIVE="false"
@@ -37,7 +37,7 @@ for file in $HOME/.dotfiles/source/*; do
 	source "$file"
 done
 
-source $HOME/.liquidprompt/liquidprompt
+#source $HOME/.liquidprompt/liquidprompt
 source $HOME/.nvm/nvm.sh
 source $HOME/.rvm/scripts/rvm
 

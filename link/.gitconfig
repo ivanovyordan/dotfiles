@@ -1,6 +1,6 @@
 [user]
 	name = Yordan Ivanov
-	email = yordan.t.ivanov@gmail.com
+	email = mail@ivanovyordan.com
 [credential]
 	helper = cache
 
@@ -15,7 +15,6 @@
 	tool = meld
 [diff]
 	tool = meld
-
 
 [push]
 	default = matching
