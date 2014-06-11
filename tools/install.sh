@@ -1,43 +1,45 @@
 #!/bin/bash
 echo "Dotfiles - Yordan Ivanov"
 
-# APT Repositories
+# APT repositories
 sudo add-apt-repository ppa:git-core/ppa
 sudo add-apt-repository ppa:webupd8team/sublime-text-3
 sudo add-apt-repository ppa:nilarimogard/webupd8
 
+# Add Google Chrome to sources list
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
+sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+
+# Update the system
 sudo apt-get -qq -y update && sudo apt-get -y upgrade
 
+# Install packages
 sudo apt-get install\
 	autojump\
-	uild-essential\
+	build-essential\
 	curl\
 	colordiff\
 	dropbox\
-	skype\
 	freshplayerplugin\
 	git-core\
 	git-flow\
 	git-extras\
+	google-chrome-stable\
+	lamp-server^\
+	libgl1-mesa-dev\
+	libglu1-mesa-dev\
 	meld\
+	mesa-common-dev\
+	openssh-server\
+	phpmyadmin\
+	python-gpgme\
+	skype\
+	steam-launcher\
 	subversion\
 	sublime-text-installer\
 	vim\
 	vlc\
-	zsh\
-	apache2\
-	php5\
-	php5-curl\
-	php5-gd\
-	php5-mcrypt\
-	php5-xdebug\
-	php-pear\
-	mysql-server\
-	mysql-client\
-	phpmyadmin\
-	mesa-common-dev\
-	libgl1-mesa-dev\
-	libglu1-mesa-dev
+	zsh
 
 # Install vundle
 git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
@@ -46,35 +48,12 @@ git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 curl -sSL https://get.rvm.io | bash -s stable --ruby
 
 # Install NVM
-curl https://raw.github.com/creationix/nvm/master/install.sh | sh
+wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.7.0/install.sh | sh
 
 # Install Node.js
 nvm install 0.10.28
 nvm use 0.10.28
 nvm alias default 0.10.28
-
-# Configure Apache Document Root
-sudo adduser $USER www-data
-sudo chgrp -hR www-data $HOME/workspace/
-
-sudo cp /etc/apache2/sites-available/default /etc/apache2/sites-available/localhost
-sudo ln -s /etc/apache2/sites-available/localhost /etc/apache2/sites-enabled/localhost
-sudo sed -i "s/var\/www/home\/$USER\/workspace/g" /etc/apache2/sites-available/localhost
-sudo a2enmod rewrite
-sudo service apache 2 restart
-
-# Clone the .dotfiles
-git clone --recurse-submodules https://github.com/ivanov-yordan/dotfiles.git $HOME/.dotfiles
-
-# Link default theme
-ln -s $HOME/.dotfiles/custom/ivanov-yordan.zsh-theme $HOME/.dotfiles/oh-my-zsh/themes/
-
-# Change default shell to zsh
-echo "Change default shell to zsh"
-chsh -s `which zsh`
-
-/usr/bin/env zsh
-source ~/.zshrc
 
 # Install Ruby gems
 gem install\
@@ -91,7 +70,27 @@ npm install -g\
 	uglify-js\
 	hexo
 
+# Clone the .dotfiles
+git clone --recurse-submodules https://github.com/ivanov-yordan/dotfiles.git $HOME/.dotfiles
+
+# Link default theme
+ln -s $HOME/.dotfiles/custom/ivanov-yordan.zsh-theme $HOME/.dotfiles/oh-my-zsh/themes/
+
 # Link files
-ln -s $HOME/.dotfiles/link/* $HOME/
+rm $HOME/.zshrc
+find $HOME/.dotfiles/link/ -maxdepth 1 -print "%P\n" | while read file; do ln -s "$HOME/.dotfiles/link/$file" "$HOME/$file"; done
+
+# Configure Apache
+sudo ln -s /var/www/html $HOME/public_html
+sudo adduser $USER www-data
+sudo chown -R $USER:www-data $HOME/public_html
+sudo a2enmod rewrite
+sudo cp /etc/apache2/sites-available/default{,.backup}
+udo sed -i "s/AllowOverride\ None/None \None/g" /etc/apache2/sites-available/default
+sudo service apache2 restart
+
+# Change default shell to zsh
+echo "Change default shell to zsh"
+chsh -s `which zsh`
 
 echo "Dotfiles installed"
