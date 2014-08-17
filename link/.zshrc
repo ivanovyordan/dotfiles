@@ -5,7 +5,7 @@ ZSH=$HOME/.dotfiles/oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="ivanov-yordan"
+ZSH_THEME="kolo"
 
 # Set to this to use case-sensitive completion
 CASE_SENSITIVE="false"
@@ -42,5 +42,5 @@ source $HOME/.nvm/nvm.sh
 source $HOME/.rvm/scripts/rvm
 
 # Customize to your needs
-export PATH="$HOME/.dotfiles/bin:$PATH"
+export PATH="$HOME/.dotfiles/bin:/opt/lampp/bin:$PATH"
 export EDITOR='subl'

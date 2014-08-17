@@ -55,3 +55,5 @@ alias amzcdnmdel='/home/scripts/admin/cdn/purge_cdn_cache --profile amazon --std
 
 ## Create simple server ##
 alias server='python -m SimpleHTTPServer'
+
+alias xampp='sudo /opt/lampp/xampp'
