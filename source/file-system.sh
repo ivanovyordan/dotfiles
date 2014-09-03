@@ -35,6 +35,12 @@ alias ln='ln -i'
 ## Make mount command output pretty and human readable format ##
 alias mount='mount |column -t'
 
+# because typing 'cd' is A LOT of work!!
+alias ..='cd ../'
+alias ...='cd ../../'
+alias ....='cd ../../../'
+alias .....='cd ../../../../'
+
 # Create a new directory and enter it
 function take() {
 	mkdir -p "$@" && cd "$@"
