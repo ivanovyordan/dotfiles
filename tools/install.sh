@@ -6,6 +6,7 @@ apt_repositories=(
 	"ppa:git-core/ppa" # git
 	"ppa:webupd8team/sublime-text-3" # Sublime text 3
 	"ppa:versable/elementary-update" # Customization
+	"ppa:nitrux/nitrux-artwork" # Nitrux icons
 	"ppa:numix/ppa" # Numix icons
 	"ppa:moka/stable" # Moka icons
 	"deb http://dl.google.com/linux/chrome/deb/ stable main" # Google Chrome
@@ -63,6 +64,8 @@ packages=(
 	faba-colors
 	faba-icon-theme
 	faba-mono-icons
+	compass-icon-theme
+	nitrux-icon-theme
 	elementary-*-theme
 	elementary-*-icons
 )
