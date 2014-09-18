@@ -5,6 +5,7 @@ echo "Dotfiles - Yordan Ivanov"
 apt_repositories=(
 	"ppa:git-core/ppa" # git
 	"ppa:webupd8team/sublime-text-3" # Sublime text 3
+	"ppa:webupd8team/popcorntime" # Popcorn time
 	"ppa:versable/elementary-update" # Customization
 	"ppa:nitrux/nitrux-artwork" # Nitrux icons
 	"ppa:numix/ppa" # Numix icons
@@ -52,6 +53,7 @@ packages=(
 	# Fun
 	skype
 	vlc
+	popcorn-time
 	foto
 	steam-launcher
 	ubuntu-restricted-extras
