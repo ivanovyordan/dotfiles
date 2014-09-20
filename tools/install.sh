@@ -10,6 +10,7 @@ apt_repositories=(
 	"ppa:nitrux/nitrux-artwork" # Nitrux icons
 	"ppa:numix/ppa" # Numix icons
 	"ppa:moka/stable" # Moka icons
+	"ppa:otto-kesselgulasch/gimp"
 	"deb http://dl.google.com/linux/chrome/deb/ stable main" # Google Chrome
 )
 
@@ -70,6 +71,12 @@ packages=(
 	nitrux-icon-theme
 	elementary-*-theme
 	elementary-*-icons
+
+	# GIMP
+	gimp
+	gimp-plugin-registry
+	gimp-gmic
+	gimp-lensfun
 )
 
 npm_packages=(
