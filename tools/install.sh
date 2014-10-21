@@ -137,6 +137,8 @@ git clone --recurse-submodules https://github.com/ivanov-yordan/dotfiles.git $HO
 cd $HOME/.dotfiles
 git submodule foreach git pull origin master
 
+ln -s $HOME/.dotfiles/custom/plugins/zsh-syntax-highlighting $HOME/.dotfiles/oh-my-zsh/custom/plugins
+
 echo 'Link files'
 rm $HOME/.zshrc
 
