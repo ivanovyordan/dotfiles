@@ -3,19 +3,6 @@
 # dirs  755 drwxr-xr-x (777 minus 022)
 umask 022
 
-## Colorize the ls output ##
-alias ls='ls -hF --color=auto'
-alias ll='ls -lah --group-directories-first'	# Use a long listing format
-alias l.='ls -d .* --color=auto'				# Show hidden files
-alias lx='ls -lXBh'								# sort by extension
-alias lk='ls -lSrh'								# sort by size, biggest last
-alias lc='ls -ltcrh'							# sort by and show change time, most recent last
-alias lu='ls -lturh'							# sort by and show access time, most recent last
-alias lt='ls -ltrh'								# sort by date, most recent last
-alias lm='ls -alh |more'						# pipe through 'more'
-alias lr='ls -lRh'								# recursive ls
-alias tree='tree -Csu'							# nice alternative to 'recursive ls'
-
 # File size
 alias fs="stat -f '%z bytes'"
 alias df="df -h"

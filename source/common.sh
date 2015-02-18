@@ -12,12 +12,6 @@ alias sha1='openssl sha1'
 ## Install  colordiff package ##
 alias diff='colordiff'
 
-## Create a new set of commands ##
-alias path='echo -e ${PATH//:/\\n}'
-alias now='date +"%T'
-alias nowtime=now
-alias nowdate='date +"%d-%m-%Y"'
-
 # Parenting changing perms on / #
 alias chown='chown --preserve-root'
 alias chmod='chmod --preserve-root'
@@ -36,7 +30,7 @@ alias halt='sudo halt'
 alias shutdown='sudo shutdown'
 
 ## Resume wget by default ##
-## this one saved by butt so many times ##
+## this one saved my butt so many times ##
 alias wget='wget -c'
 
 # top is atop, just like vi is vim

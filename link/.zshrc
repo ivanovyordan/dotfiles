@@ -5,7 +5,7 @@ ZSH=$HOME/.dotfiles/oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="kolo"
+ZSH_THEME=""
 
 # Set to this to use case-sensitive completion
 CASE_SENSITIVE="false"
@@ -35,10 +35,12 @@ plugins=(
 	dircycle
 	command-not-found
 	zsh-syntax-highlighting
+	liquidprompt
 
 	# system
 	autojump
 	lol
+	common-aliases
 
 	# git
 	git
@@ -51,22 +53,20 @@ plugins=(
 	npm
 
 	#other
-	gem
 	atom
 	extract
+	yii2
 )
 
 source $ZSH/oh-my-zsh.sh
 
 # Source all files in ~/dotfiles/source/
-for file in $HOME/.dotfiles/source/*; do
-	source "$file"
+for FILE in $HOME/.dotfiles/source/*; do
+	source "$FILE"
 done
 
-#source $HOME/.liquidprompt/liquidprompt
 source $HOME/.nvm/nvm.sh
 source $HOME/.rvm/scripts/rvm
 
 # Customize to your needs
 export PATH="$HOME/.dotfiles/bin:/opt/lampp/bin:$PATH"
-export EDITOR='subl'
