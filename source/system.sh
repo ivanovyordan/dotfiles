@@ -10,6 +10,11 @@ alias psmem10='ps auxf | sort -nr -k 4 | head -10'
 alias pscpu='ps auxf | sort -nr -k 3'
 alias pscpu10='ps auxf | sort -nr -k 3 | head -10'
 
+# lists zombie processes
+function zombie() {
+	ps aux | awk '{if ($8=="Z") { print $2 }}'
+}
+
 # Get server cpu info
 alias cpuinfo='lscpu'
 
