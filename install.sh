@@ -89,7 +89,7 @@ NPM_PACKAGES=(
 	eslint
 	grunt-cli
 	gulp
-	hexo
+	hexo-cli
 	jshint
 	less
 	uglify-js
@@ -157,6 +157,10 @@ echo "Install Ruby gems"
 RUBY_GEMS=$(IFS=$' '; echo "${RUBY_GEMS[*]}")
 gem install $RUBY_GEMS
 
+# Clonning the repository #
+echo 'clonning the repository'
+git clone --recursive git@github.com:ivanovyordan/dotfiles.git
+
 # SETTING UP #
 echo "Create links"
 FILES=$(ls -A "$LINK_SOURCE_DIR")
@@ -175,5 +179,9 @@ done
 ## Change default shell to zsh ##
 echo "Change default shell to zsh"
 chsh -s $(which zsh)
+
+## Initialize antogen ##
+echo 'Initialize antigen'
+source $HOME/.zshrc
 
 echo "Dotfiles installed"
