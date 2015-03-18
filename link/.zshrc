@@ -1,6 +1,6 @@
 source "$HOME/.dotfiles/antigen/antigen.zsh"
 
-antigen-= use oh-my-zsh
+antigen use oh-my-zsh
 
 # shell
 antigen bundle dircycle
