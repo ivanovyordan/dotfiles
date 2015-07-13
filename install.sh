@@ -31,7 +31,7 @@ PPA_REPOSITORIES=(
 APT_KEYS=(
 	"wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -" # Google Chrome
 	"sudo apt-key adv --keyserver pgp.mit.edu --recv-keys 5044912E" # Drobox
-	"sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 94558F59" # Spotify
+	"sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys D2C19886" # Spotify
 )
 
 ## Packages ##
@@ -71,6 +71,7 @@ APT_PACKAGES=(
 
 	# Fun
 	vlc
+	spotify-client
 	popcorn-time
 	steam-launcher
 

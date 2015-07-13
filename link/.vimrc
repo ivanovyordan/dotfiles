@@ -1,50 +1,50 @@
 """""""""""""""""""" PLUGINS
 filetype off
 
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#rc()
 
-Bundle 'gmarik/vundle'
-Bundle 'tsaleh/vim-align'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'mattn/zencoding-vim'
-Bundle 'vim-scripts/matchit.zip'
-Bundle 'scrooloose/nerdtree'
-Bundle 'wincent/Command-T'
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'tomasr/molokai'
-Bundle 'sjl/badwolf'
-Bundle 'w0ng/vim-hybrid'
+Plugin 'gmarik/vundle'
+Plugin 'tsaleh/vim-align'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'mattn/zencoding-vim'
+Plugin 'vim-scripts/matchit.zip'
+Plugin 'scrooloose/nerdtree'
+Plugin 'wincent/Command-T'
+Plugin 'Lokaltog/vim-powerline'
+Plugin 'tomasr/molokai'
+Plugin 'sjl/badwolf'
+Plugin 'w0ng/vim-hybrid'
 
 " Coding
-Bundle 'majutsushi/tagbar'
+Plugin 'majutsushi/tagbar'
 nmap <leader>t :TagbarToggle<CR>
 
-Bundle 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdcommenter'
 nmap <leader># :call NERDComment(0, "invert")<cr>
 vmap <leader># :call NERDComment(0, "invert")<cr>
 
-Bundle 'tpope/vim-fugitive'
+Plugin 'tpope/vim-fugitive'
 nmap <leader>g :Ggrep
 " ,f for global git serach for word under the cursor (with highlight)
 nmap <leader>f :let @/="\\<<C-R><C-W>\\>"<CR>:set hls<CR>:silent Ggrep -w "<C-R><C-W>"<CR>:ccl<CR>:cw<CR><CR>
 " same in visual mode
 :vmap <leader>f y:let @/=escape(@", '\\[]$^*.')<CR>:set hls<CR>:silent Ggrep -F "<C-R>=escape(@", '\\"#')<CR>"<CR>:ccl<CR>:cw<CR><CR>
 
-Bundle 'scrooloose/syntastic'
+Plugin 'scrooloose/syntastic'
 let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=1
 
 " HTML
-Bundle 'juvenn/mustache.vim'
-Bundle 'tpope/vim-markdown'
+Plugin 'juvenn/mustache.vim'
+Plugin 'tpope/vim-markdown'
 au BufNewFile,BufReadPost *.html setl shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 
 " JavaScript
-Bundle 'kchmck/vim-coffee-script'
+Plugin 'kchmck/vim-coffee-script'
 au BufNewFile,BufReadPost *.coffee setl shiftwidth=2 tabstop=2 softtabstop=2 expandtab
-Bundle 'alfredodeza/jacinto.vim'
+Plugin 'alfredodeza/jacinto.vim'
 au BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable
 au BufNewFile,BufReadPost *.coffee setl tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 

@@ -40,4 +40,4 @@ source $HOME/.nvm/nvm.sh
 source $HOME/.rvm/scripts/rvm
 
 # Customize to your needs
-export PATH="$HOME/.dotfiles/bin:/opt/lampp/bin:$PATH"
+export PATH="$HOME/.dotfiles/bin:$PATH"
