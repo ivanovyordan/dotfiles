@@ -3,9 +3,6 @@ echo "Dotfiles - Yordan Ivanov"
 
 # CONFIG #
 
-## NVM Node.js Version ##
-NODE_VERSION="v0.12"
-
 ## Link Directories ##
 LINK_SOURCE_DIR="$HOME/.dotfiles/link/"
 LINK_DEST_DIR="$HOME/"
@@ -17,20 +14,14 @@ PPA_REPOSITORIES=(
 	"ppa:webupd8team/sublime-text-3" # Sublime text 3
 	"ppa:webupd8team/popcorntime" # Popcorn time
 	"ppa:otto-kesselgulasch/gimp" # GIMP
-	"ppa:tualatrix/ppa" # Ubuntu Tweak
 	"ppa:numix/ppa" # Numix
 	"deb http://dl.google.com/linux/chrome/deb/ stable main" # Google Chrome
-	"deb http://linux.dropbox.com/ubuntu/ $(lsb_release -sc) main" # Dropbox
 	"deb http://repository.spotify.com stable non-free" # Spotify
-	# Ubuntu repositories
-	"deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) main universe restricted multiverse"
-	"deb http://archive.canonical.com/ubuntu $(lsb_release -sc) partner"
 )
 
 ## DEB Repositories keys ##
 APT_KEYS=(
 	"wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -" # Google Chrome
-	"sudo apt-key adv --keyserver pgp.mit.edu --recv-keys 5044912E" # Drobox
 	"sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys D2C19886" # Spotify
 )
 
@@ -54,26 +45,21 @@ APT_PACKAGES=(
 	colordiff
 
 	# Visual
-	ubuntu-tweak
 	numix-gtk-theme
 	numix-icon-theme
 	numix-icon-theme-circle
-	compass-icon-theme
 
 	# Other
-	dropbox
 	autojump
 	curl
 	google-chrome-stable
 	python-gpgme
 	zsh
-	ibus-pinyin
 
 	# Fun
 	vlc
 	spotify-client
 	popcorn-time
-	steam-launcher
 
 	# GIMP
 	gimp
@@ -84,16 +70,11 @@ APT_PACKAGES=(
 
 ## Node.js Packages ##
 NPM_PACKAGES=(
-	bower
-	jspm
-	csslint
-	eslint
 	grunt-cli
 	gulp
+	csslint
+	eslint
 	hexo-cli
-	jshint
-	less
-	uglify-js
 )
 
 ## Ruby Gems ##
@@ -142,9 +123,9 @@ apt-get install -y $APT_PACKAGES
 echo "Install NVM"
 wget -qO- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | sh
 source $HOME/.nvm/nvm.sh
-nvm install $NODE_VERSION
-nvm use $NODE_VERSION
-nvm alias default $NODE_VERSION
+nvm install stable
+nvm use stable
+nvm alias default stable
 
 echo "Install Node.js packages"
 NPM_PACKAGES=$(IFS=$' '; echo "${NPM_PACKAGES[*]}")

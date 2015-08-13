@@ -11,7 +11,11 @@
 
 [color]
 	ui = true
-[merget]
+
+[commit]
+	template = ~/.gitmessage
+
+[merge]
 	tool = meld
 [difft]
 	tool = meld
