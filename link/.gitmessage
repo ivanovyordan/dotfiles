@@ -12,7 +12,7 @@
 # not been working (that is part of the bug report already).
 # Keep the whole line below 50 characters if possible, but below 80 in any case.
 
-# <flag>
+# [flag]
 # Possible flags are:
 # * [!!!]: Breaking change.
 # * [WIP]: Work In Progress. Changes marked WIP are never merged.
