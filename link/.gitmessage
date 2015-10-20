@@ -1,18 +1,16 @@
-# Summary
-[flag]<[type]> <summary>
+# Topic
+[flag]<type> <summary>
 
 # Body
 <body>
 
 # Footer:
-Resolves: <issue_key>
+<relation> <issue_key>
 
 # Topic:
-# Most importantly, describe what is changed with the commit
-# and not what is has not been working
-# (that is part of the bug report already).
-# Keep the whole line below 52 characters if possible,
-# but below 80 in any case.
+# Most importantly, describe what is changed with the commit and not what has
+# not been working (that is part of the bug report already).
+# Keep the whole line below 50 characters if possible, but below 80 in any case.
 
 # <flag>
 # Possible flags are:
@@ -31,7 +29,7 @@ Resolves: <issue_key>
 # * [CHORE]: Updating build tasks etc.
 
 # <summary>
-# Sumarize the changes introduced with this commit.
+# Summarize the changes introduced with this commit.
 # Write your commit message in the '''imperative present tense'''
 # ("Fix bug", not "Fixed bug"). This convention matches up with generated
 # commit messages by commands like git merge and git revert.
@@ -40,12 +38,16 @@ Resolves: <issue_key>
 
 # <body>
 # Problem description as well as testing and/or reproduction instructions
-# shall be part of the Forge ticket referenced below.
+# shall be part of the ticket referenced below.
 # Wrap at 80 characters.
 
 # Footer:
 # Bug tracking related information
 
+# <relation>
+# One of the following:
+# * Related: This commit is related with an issue
+# * Resolve: This commit resolves an issue
+
 # <issue_key>
 # ID of the related bug.
-

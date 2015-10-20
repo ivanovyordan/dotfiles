@@ -44,3 +44,4 @@ source $HOME/.rvm/scripts/rvm
 
 # Customize to your needs
 export PATH="$HOME/.dotfiles/bin:$HOME/.composer/vendor/bin:$PATH"
+export JAVA_HOME="/usr/lib/jvm/java-8-oracle/jre/bin/java"
