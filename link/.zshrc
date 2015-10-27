@@ -39,8 +39,8 @@ for FILE in $HOME/.dotfiles/source/*; do
 	source "$FILE"
 done
 
-source $HOME/.nvm/nvm.sh
-source $HOME/.rvm/scripts/rvm
+#source $HOME/.nvm/nvm.sh
+#source $HOME/.rvm/scripts/rvm
 
 # Customize to your needs
 export PATH="$HOME/.dotfiles/bin:$HOME/.composer/vendor/bin:$PATH"
