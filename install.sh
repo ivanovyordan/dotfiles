@@ -11,10 +11,12 @@ STARTUP_SOURCE_DIR="$HOME/.dotfiles/startup/"
 ## APT Repositories ##
 PPA_REPOSITORIES=(
 	"ppa:git-core/ppa" # git
+	"ppa:webupd8team/java" # Java
 	"ppa:webupd8team/sublime-text-3" # Sublime text 3
-	"ppa:webupd8team/popcorntime" # Popcorn time
+	"ppa:nilarimogard/webupd8" # Screenkey
 	"ppa:otto-kesselgulasch/gimp" # GIMP
-	"ppa:numix/ppa" # Numix
+	"ppa:numix/ppa" # Numix Theme
+	"ppa:snwh/pulp" # Paper Theme
 	"deb http://dl.google.com/linux/chrome/deb/ stable main" # Google Chrome
 	"deb http://repository.spotify.com stable non-free" # Spotify
 )
@@ -39,27 +41,35 @@ APT_PACKAGES=(
 	git-extras
 
 	# Development
+	cmake # YouCompleteMe dependency
+	python-dev # YouCompleteMe dependency
+	oracle-java8-installer
 	sublime-text-installer
 	vim
 	meld
 	colordiff
 
+	# DevOps
+	virtualbox
+	vagrant
+
 	# Visual
 	numix-gtk-theme
 	numix-icon-theme
 	numix-icon-theme-circle
+	paper-gtk-theme
 
 	# Other
 	autojump
 	curl
 	google-chrome-stable
-	python-gpgme
 	zsh
 
 	# Fun
 	vlc
+	smplayer
 	spotify-client
-	popcorn-time
+	screenkey
 
 	# GIMP
 	gimp
@@ -72,29 +82,22 @@ APT_PACKAGES=(
 NPM_PACKAGES=(
 	grunt-cli
 	gulp
-	csslint
 	eslint
 	hexo-cli
-)
-
-## Ruby Gems ##
-RUBY_GEMS=(
-	sass
-	compass
 )
 
 function create_starter {
 	STARTER_PATH="$HOME/.config/autostart/$1.desktop"
 	SCRIPT_PATH="$HOME/.dotfiles/startup/$1"
 
-	touch FILENAME
-	cat "[Desktop Entry]" >> $STARTER_PATH
-	cat "Type=Application" >> $STARTER_PATH
-	cat "Exec=$SCRIPT_PATH" >> $STARTER_PATH
-	cat "Hidden=false" >> $STARTER_PATH
-	cat "NoDisplay=false" >> $STARTER_PATH
-	cat "X-GNOME-Autostart-enabled=true" >> $STARTER_PATH
-	cat "Name=$1" >> $STARTER_PATH
+	touch $STARTER_PATH
+	echo "[Desktop Entry]" >> $STARTER_PATH
+	echo "Type=Application" >> $STARTER_PATH
+	echo "Exec=$SCRIPT_PATH" >> $STARTER_PATH
+	echo "Hidden=false" >> $STARTER_PATH
+	echo "NoDisplay=false" >> $STARTER_PATH
+	echo "X-GNOME-Autostart-enabled=true" >> $STARTER_PATH
+	echo "Name=$1" >> $STARTER_PATH
 }
 
 # INSTALLATION #
@@ -131,13 +134,8 @@ echo "Install Node.js packages"
 NPM_PACKAGES=$(IFS=$' '; echo "${NPM_PACKAGES[*]}")
 npm install -g $NPM_PACKAGES
 
-echo "Install RVM"
-curl -sSL https://get.rvm.io | bash -s stable --ruby
-source $HOME/.rvm/scripts/rvm
-
-echo "Install Ruby gems"
-RUBY_GEMS=$(IFS=$' '; echo "${RUBY_GEMS[*]}")
-gem install $RUBY_GEMS
+# Install Vundle
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 # Clonning the repository #
 echo 'clonning the repository'
@@ -145,11 +143,11 @@ git clone --recursive git@github.com:ivanovyordan/dotfiles.git
 
 # SETTING UP #
 echo "Create links"
-FILES=$(ls -A "$LINK_SOURCE_DIR")
-for FILE in $FILES
-do
-	ln -s "$LINK_SOURCE_DIR/$FILE" "$LINK_DEST_DIR/$FILE"
-done
+ln -s $LINK_SOURCE_DIR/* $HOME
+
+# Setup vim
+vim +PluginInstall +qall
+sh $HOME/.vim/bundle/YouCompleteMe/install.sh
 
 echo "Create startup scripts"
 FILES=$(ls -A "$STARTUP_SOURCE_DIR")

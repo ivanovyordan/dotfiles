@@ -1,47 +1,54 @@
-source "$HOME/.dotfiles/antigen/antigen.zsh"
+source "$HOME/.dotfiles/zgen/zgen.zsh"
 
-antigen use oh-my-zsh
+# Check if there's no init script
+if ! zgen saved
+then
+  echo "Creating a zgen save"
 
-# shell
-antigen bundle dircycle
-antigen bundle command-not-found
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-completions src
-antigen bundle nojhan/liquidprompt
+  zgen oh-my-zsh
 
-# system
-antigen bundle autojump
-antigen bundle lol
-antigen bundle common-aliases
+  # Plugins
+  # shell
+  zgen oh-my-zsh plugins/dircycle
+  zgen oh-my-zsh plugins/command-not-found
+  zgen load zsh-users/zsh-syntax-highlighting
+  zgen load zsh-users/zsh-completions src
+  zgen load nojhan/liquidprompt
 
-# git
-antigen bundle git
-antigen bundle gitignore
-antigen bundle git-extras
-antigen bundle git-flow
+  # system
+  zgen oh-my-zsh plugins/autojump
+  zgen oh-my-zsh plugins/lol
+  zgen oh-my-zsh plugins/common-aliases
 
-# node.js
-antigen bundle bower
-antigen bundle npm
+  # git
+  zgen oh-my-zsh plugins/git
+  zgen oh-my-zsh plugins/gitignore
+  zgen oh-my-zsh plugins/git-extras
+  zgen oh-my-zsh plugins/git-flow
 
-#other
-antigen bundle atom
-antigen bundle extract
-antigen bundle yii2
+  # node.js
+  zgen oh-my-zsh plugins/bower
+  zgen oh-my-zsh plugins/npm
 
-# theme
-# antigen theme kolo
+  # devops
+  zgen oh-my-zsh plugins/docker
+  zgen oh-my-zsh plugins/vagrant
 
-antigen apply
+  #other
+  zgen oh-my-zsh plugins/extract
+  zgen oh-my-zsh plugins/composer
+  zgen oh-my-zsh plugins/yii2
 
-# Source all files in ~/dotfiles/source/
+  zgen save
+fi
+
+# Source all files under ~/dotfiles/source/
 for FILE in $HOME/.dotfiles/source/*; do
 	source "$FILE"
 done
 
-#source $HOME/.nvm/nvm.sh
-#source $HOME/.rvm/scripts/rvm
+source $HOME/.nvm/nvm.sh
 
 # Customize to your needs
-export PATH="$HOME/.dotfiles/bin:$HOME/.composer/vendor/bin:$PATH"
+export PATH="$HOME/.dotfiles/bin:$PATH"
 export JAVA_HOME="/usr/lib/jvm/java-8-oracle/jre/bin/java"
