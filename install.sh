@@ -86,18 +86,24 @@ NPM_PACKAGES=(
 	hexo-cli
 )
 
+## Ruby Gems ##
+RUBY_GEMS=(
+	bundler
+	sass
+)
+
 function create_starter {
 	STARTER_PATH="$HOME/.config/autostart/$1.desktop"
 	SCRIPT_PATH="$HOME/.dotfiles/startup/$1"
 
-	touch $STARTER_PATH
-	echo "[Desktop Entry]" >> $STARTER_PATH
-	echo "Type=Application" >> $STARTER_PATH
-	echo "Exec=$SCRIPT_PATH" >> $STARTER_PATH
-	echo "Hidden=false" >> $STARTER_PATH
-	echo "NoDisplay=false" >> $STARTER_PATH
-	echo "X-GNOME-Autostart-enabled=true" >> $STARTER_PATH
-	echo "Name=$1" >> $STARTER_PATH
+	touch "$STARTER_PATH"
+	echo "[Desktop Entry]" >> "$STARTER_PATH"
+	echo "Type=Application" >> "$STARTER_PATH"
+	echo "Exec=$SCRIPT_PATH" >> "$STARTER_PATH"
+	echo "Hidden=false" >> "$STARTER_PATH"
+	echo "NoDisplay=false" >> "$STARTER_PATH"
+	echo "X-GNOME-Autostart-enabled=true" >> "$STARTER_PATH"
+	echo "Name=$1" >> "$STARTER_PATH"
 }
 
 # INSTALLATION #
@@ -111,7 +117,7 @@ done
 
 ## Add DEB Repository keys ##
 echo "Add repository keys"
-for KEY in "${REPOSITORY_KEYS[@]}"
+for KEY in "${APT_KEYS[@]}"
 do
 	$($KEY)
 done
@@ -121,18 +127,26 @@ sudo apt-get -qq -y update && sudo apt-get -y upgrade
 
 echo "Install packages"
 APT_PACKAGES=$(IFS=$' '; echo "${APT_PACKAGES[*]}")
-apt-get install -y $APT_PACKAGES
+apt-get install -y "$APT_PACKAGES"
 
 echo "Install NVM"
 wget -qO- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | sh
-source $HOME/.nvm/nvm.sh
+source "$HOME/.nvm/nvm.sh"
 nvm install stable
 nvm use stable
 nvm alias default stable
 
 echo "Install Node.js packages"
 NPM_PACKAGES=$(IFS=$' '; echo "${NPM_PACKAGES[*]}")
-npm install -g $NPM_PACKAGES
+npm install -g "$NPM_PACKAGES"
+
+echo "Install RVM"
+curl -sSL https://rvm.io/mpapis.asc | gpg --import -
+curl -sSL https://get.rvm.io | bash -s stable --ruby
+
+echo "Install Ruby gems"
+RUBY_GEMS=$(IFS=$' '; echo "${RUBY_GEMS[*]}")
+gem install "$RUBY_GEMS"
 
 # Install Vundle
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
@@ -143,25 +157,25 @@ git clone --recursive git@github.com:ivanovyordan/dotfiles.git
 
 # SETTING UP #
 echo "Create links"
-ln -s $LINK_SOURCE_DIR/* $HOME
+ln -s "$LINK_SOURCE_DIR/*" "$LINK_DEST_DIR"
 
 # Setup vim
 vim +PluginInstall +qall
-sh $HOME/.vim/bundle/YouCompleteMe/install.sh
+sh "$HOME/.vim/bundle/YouCompleteMe/install.sh"
 
 echo "Create startup scripts"
 FILES=$(ls -A "$STARTUP_SOURCE_DIR")
 for FILE in $FILES
 do
-	create_starter $FILE
+	create_starter "$FILE"
 done
 
 ## Change default shell to zsh ##
 echo "Change default shell to zsh"
-chsh -s $(which zsh)
+chsh -s "$(which zsh)"
 
 ## Initialize antogen ##
 echo 'Initialize antigen'
-source $HOME/.zshrc
+source "$HOME/.zshrc"
 
 echo "Dotfiles installed"

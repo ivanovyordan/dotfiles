@@ -48,6 +48,7 @@ for FILE in $HOME/.dotfiles/source/*; do
 done
 
 source $HOME/.nvm/nvm.sh
+source $HOME/.rvm/scripts/rvm
 
 # Customize to your needs
 export PATH="$HOME/.dotfiles/bin:$PATH"
