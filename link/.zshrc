@@ -35,6 +35,8 @@ then
   zgen oh-my-zsh plugins/vagrant
 
   #other
+  zgen oh-my-zsh plugins/docker
+  zgen oh-my-zsh plugins/docker-compose
   zgen oh-my-zsh plugins/extract
   zgen oh-my-zsh plugins/composer
   zgen oh-my-zsh plugins/yii2
@@ -53,3 +55,4 @@ source $HOME/.rvm/scripts/rvm
 # Customize to your needs
 export PATH="$HOME/.dotfiles/bin:$PATH"
 export JAVA_HOME="/usr/lib/jvm/java-8-oracle/jre/bin/java"
+export ANDROID_NDK_ROOT="$HOME/.applications/android/ndk"
