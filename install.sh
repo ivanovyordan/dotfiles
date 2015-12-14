@@ -1,4 +1,5 @@
 #!/bin/bash
+{ # this ensures the entire script is downloaded #
 echo "Dotfiles - Yordan Ivanov"
 
 # CONFIG #
@@ -179,3 +180,5 @@ echo 'Initialize antigen'
 source "$HOME/.zshrc"
 
 echo "Dotfiles installed"
+
+} # this ensures the entire script is downloaded #
