@@ -32,11 +32,10 @@ then
 
   # devops
   zgen oh-my-zsh plugins/docker
+  zgen oh-my-zsh plugins/docker-compose
   zgen oh-my-zsh plugins/vagrant
 
   #other
-  zgen oh-my-zsh plugins/docker
-  zgen oh-my-zsh plugins/docker-compose
   zgen oh-my-zsh plugins/extract
   zgen oh-my-zsh plugins/composer
   zgen oh-my-zsh plugins/yii2
