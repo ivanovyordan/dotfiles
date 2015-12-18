@@ -150,11 +150,11 @@ RUBY_GEMS=$(IFS=$' '; echo "${RUBY_GEMS[*]}")
 gem install "$RUBY_GEMS"
 
 # Install Vundle
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+gitt clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 # Clonning the repository #
-echo 'clonning the repository'
-git clone --recursive git@github.com:ivanovyordan/dotfiles.git .dotfiles
+echo 'Clonning the repository'
+git clone --recursive git@github.com:ivanovyordan/dotfiles.git ~/.dotfiles
 
 # SETTING UP #
 echo "Create links"
