@@ -22,12 +22,6 @@ alias ln='ln -i'
 ## Make mount command output pretty and human readable format ##
 alias mount='mount |column -t'
 
-# because typing 'cd' is A LOT of work!!
-alias ..='cd ../'
-alias ...='cd ../../'
-alias ....='cd ../../../'
-alias .....='cd ../../../../'
-
 # Go up [n] directories
 function up() {
 	local cdir="$(pwd)"
@@ -49,6 +43,12 @@ function up() {
 	fi
 	cd "${cdir}"
 }
+
+# Because typing 'cd' is A LOT of work!!
+alias ..='up 1'
+alias ...='up 2'
+alias ....='cup 3'
+alias .....='up 4'
 
 # Create a new directory and enter it
 function take() {

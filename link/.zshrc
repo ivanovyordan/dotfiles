@@ -52,6 +52,14 @@ source $HOME/.nvm/nvm.sh
 source $HOME/.rvm/scripts/rvm
 
 # Customize to your needs
-export PATH="$HOME/.dotfiles/bin:$PATH"
-export JAVA_HOME="/usr/lib/jvm/java-8-oracle/jre/bin/java"
+export JAVA_HOME="/usr/lib/jvm/java-8-oracle"
 export ANDROID_NDK_ROOT="$HOME/.applications/android/ndk"
+export ANDROID_SDK_ROOT="$HOME/.applications/android/sdk"
+export GRADLE_HOME="$HOME/.applications/android/gradle"
+
+export PATH="$HOME/.dotfiles/bin:$PATH"
+export PATH="$ANDROID_SDK_ROOT/tools:$PATH"
+export PATH="$ANDROID_SDK_ROOT/platform-tools:$PATH"
+export PATH="$GRADLE_HOME/bin:$PATH"
+
+fortune

@@ -71,6 +71,8 @@ APT_PACKAGES=(
 	smplayer
 	spotify-client
 	screenkey
+	cowsay
+	fortune-mod
 
 	# GIMP
 	gimp
@@ -154,7 +156,7 @@ gitt clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 # Clonning the repository #
 echo 'Clonning the repository'
-git clone --recursive git@github.com:ivanovyordan/dotfiles.git ~/.dotfiles
+git clone --recursive git@github.com:ivanovyordan/dotfiles.git "$HOME/.dotfiles"
 
 # SETTING UP #
 echo "Create links"

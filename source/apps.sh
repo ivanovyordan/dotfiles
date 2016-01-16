@@ -11,5 +11,12 @@ alias chrome="google-chrome &"
 alias browser="x-www-browser &"
 
 # Docker
-alias drm="docker rm $(docker ps -a -q)"
-alias drmi="docker rmi $(docker images -q)"
+function docker() {
+  if [[ "${1}" == "clean" ]];
+  then
+    docker rm $(docker ps -a -q)
+    docker rmi $(docker images -q)
+  else
+    /usr/bin/docker "$@"
+  fi
+}
