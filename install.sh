@@ -146,6 +146,7 @@ npm install -g "$NPM_PACKAGES"
 echo "Install RVM"
 curl -sSL https://rvm.io/mpapis.asc | gpg --import -
 curl -sSL https://get.rvm.io | bash -s stable --ruby
+source "$HOME/.rvm/scripts/rvm"
 
 echo "Install Ruby gems"
 RUBY_GEMS=$(IFS=$' '; echo "${RUBY_GEMS[*]}")
