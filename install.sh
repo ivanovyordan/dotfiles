@@ -132,6 +132,10 @@ echo "Install packages"
 APT_PACKAGES=$(IFS=$' '; echo "${APT_PACKAGES[*]}")
 apt-get install -y "$APT_PACKAGES"
 
+echo "Install Docker"
+wget -qO- https://get.docker.com/ | sh
+sudo usermod -aG docker "$USER"
+
 echo "Install NVM"
 wget -qO- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | sh
 source "$HOME/.nvm/nvm.sh"
