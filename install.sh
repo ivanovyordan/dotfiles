@@ -64,6 +64,7 @@ APT_PACKAGES=(
 	autojump
 	curl
 	google-chrome-stable
+	whois
 	zsh
 
 	# Fun
