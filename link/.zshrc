@@ -1,3 +1,4 @@
+ZSH_THEME=kolo
 source "$HOME/.dotfiles/zgen/zgen.zsh"
 
 # Check if there's no init script
@@ -13,7 +14,7 @@ then
   zgen oh-my-zsh plugins/command-not-found
   zgen load zsh-users/zsh-syntax-highlighting
   zgen load zsh-users/zsh-completions src
-  zgen load nojhan/liquidprompt
+  # zgen load nojhan/liquidprompt
 
   # system
   zgen oh-my-zsh plugins/autojump
@@ -35,10 +36,13 @@ then
   zgen oh-my-zsh plugins/docker-compose
   zgen oh-my-zsh plugins/vagrant
 
-  #other
+  # other
   zgen oh-my-zsh plugins/extract
   zgen oh-my-zsh plugins/composer
   zgen oh-my-zsh plugins/yii2
+
+  # themes
+  zgen oh-my-zsh themes/kolo
 
   zgen save
 fi
