@@ -148,6 +148,19 @@ echo "Install Node.js packages"
 NPM_PACKAGES=$(IFS=$' '; echo "${NPM_PACKAGES[*]}")
 npm install -g "$NPM_PACKAGES"
 
+echo "Install Anaconda"
+mkdir $HOME/.applications
+wget https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
+bash Miniconda-latest-Linux-x86_64.sh -b -p $HOME/.applications/miniconda
+rm Miniconda-latest-Linux-x86_64.sh
+
+echo "Update Anaconda"
+source $HOME/.bashrc
+conda update -y conda
+
+echo "Install Anaconda Python 3"
+conda create -y --name python3 python=3
+
 echo "Install RVM"
 curl -sSL https://rvm.io/mpapis.asc | gpg --import -
 curl -sSL https://get.rvm.io | bash -s stable --ruby
@@ -184,7 +197,7 @@ echo "Change default shell to zsh"
 chsh -s "$(which zsh)"
 
 ## Initialize antogen ##
-echo 'Initialize antigen'
+echo "Initialize antigen"
 source "$HOME/.zshrc"
 
 echo "Dotfiles installed"
