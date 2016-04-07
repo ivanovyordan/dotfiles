@@ -148,17 +148,17 @@ echo "Install Node.js packages"
 NPM_PACKAGES=$(IFS=$' '; echo "${NPM_PACKAGES[*]}")
 npm install -g "$NPM_PACKAGES"
 
-echo "Install Anaconda"
+echo "Install Miniconda"
 mkdir $HOME/.applications
 wget https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
 bash Miniconda-latest-Linux-x86_64.sh -b -p $HOME/.applications/miniconda
 rm Miniconda-latest-Linux-x86_64.sh
 
-echo "Update Anaconda"
+echo "Update Miniconda"
 source $HOME/.bashrc
 conda update -y conda
 
-echo "Install Anaconda Python 3"
+echo "Install Miniconda Python 3"
 conda create -y --name python3 python=3
 
 echo "Install RVM"
@@ -170,8 +170,14 @@ echo "Install Ruby gems"
 RUBY_GEMS=$(IFS=$' '; echo "${RUBY_GEMS[*]}")
 gem install "$RUBY_GEMS"
 
+# Setup ADB rules
+sudo wget "http://source.android.com/source/51-android.rules" -O "/etc/udev/rules.d/51-android.rules"
+sudo sed -i "s/<username>/${USERNAME}/g" "/etc/udev/rules.d/51-android.rules"
+sudo chmod 644 "/etc/udev/rules.d/51-android.rules"
+sudo service udev restart
+
 # Install Vundle
-gitt clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+gitt clone https://github.com/VundleVim/Vundle.vim.git "$HOME/.vim/bundle/Vundle.vim"
 
 # Clonning the repository #
 echo 'Clonning the repository'
