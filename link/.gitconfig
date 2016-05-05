@@ -6,15 +6,16 @@
 	helper = cache
 
 [core]
-	editor=vim
-	autocrlf=input
-	eol=lf
+	editor = vim
+	autocrlf = input
+	eol = lf
 
 [color]
 	ui = true
 
 [commit]
 	template = ~/.gitmessage
+	gpgsign = true
 
 [merge]
 	tool = meld
