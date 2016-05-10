@@ -49,6 +49,7 @@ APT_PACKAGES=(
 	vim
 	meld
 	colordiff
+	graphviz
 
 	# DevOps
 	virtualbox
