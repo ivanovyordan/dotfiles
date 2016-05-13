@@ -139,6 +139,14 @@ echo "Install Docker"
 wget -qO- https://get.docker.com/ | sh
 sudo usermod -aG docker "$USER"
 
+echo "Install Docker Compose"
+curl -L https://raw.githubusercontent.com/docker/compose/master/script/run/run.sh > docker-compose
+chmod +x docker-compose
+sudo mv docker-compose /usr/local/bin/
+
+mkdir -p $HOME/.zsh/completion
+curl -L https://raw.githubusercontent.com/docker/compose/$(docker-compose version --short)/contrib/completion/zsh/_docker-compose > $HOME/.zsh/completion/_docker-compose
+
 echo "Install NVM"
 wget -qO- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | sh
 source "$HOME/.nvm/nvm.sh"
@@ -203,9 +211,9 @@ done
 echo "Change default shell to zsh"
 chsh -s "$(which zsh)"
 
-## Initialize antogen ##
+## Reload shell ##
 echo "Initialize antigen"
-source "$HOME/.zshrc"
+exec $SHELL -l
 
 echo "Dotfiles installed"
 
