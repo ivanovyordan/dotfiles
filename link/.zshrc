@@ -70,3 +70,5 @@ export PATH="$ANDROID_SDK_ROOT/tools:$PATH"
 export PATH="$ANDROID_SDK_ROOT/platform-tools:$PATH"
 export PATH="$GRADLE_HOME/bin:$PATH"
 export PATH="/opt/lampp/bin:$PATH"
+
+fortune | cowsay
