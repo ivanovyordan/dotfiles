@@ -8,7 +8,7 @@ echo "Dotfiles - Yordan Ivanov"
 
 ## Link Directories ##
 DOTFILES_DIR="$HOME/.dotfiles"
-LINK_SOURCE_DIR="$HOME/link"
+LINK_SOURCE_DIR="$DOTFILES_DIR/link"
 STARTUP_SOURCE_DIR="$DOTFILES_DIR/startup"
 STARTUP_DEST_DIR="$HOME/.config/autostart"
 
@@ -76,8 +76,7 @@ sudo add-apt-repository multiverse
 
 # INSTALLATION #
 echo "Add new APT software repositories"
-for REPOSITORY in "${PPA_REPOSITORIES[@]}"
-do
+for REPOSITORY in "${PPA_REPOSITORIES[@]}"; do
   sudo add-apt-repository -y "$REPOSITORY"
 done
 
@@ -89,8 +88,7 @@ APT_PACKAGES=$(IFS=$" "; echo "${APT_PACKAGES[*]}")
 apt-get install -y "$APT_PACKAGES"
 
 echo "Download .deb files"
-for URL in "${DEB_FILES[@]}"
-do
+for URL in "${DEB_FILES[@]}"; do
   wget "$URL" -qO "$FILE"
   sudo dpkg -i "$FILE"
   rm "$FILE"
@@ -141,8 +139,7 @@ git clone https://github.com/ivanovyordan/dotfiles.git "$DOTFILES_DIR"
 
 echo "Create startup scripts"
 FILES=$(ls -A "$STARTUP_SOURCE_DIR")
-for FILE in $FILES
-do
+for FILE in $FILES; do
   echo "[Desktop Entry]" > "$STARTUP_DEST_DIR/$FILE.desktop"
   echo "Type=Application" >> "$STARTUP_DEST_DIR/$FILE.desktop"
   echo "Exec=$STARTUP_SOURCE_DIR/$FILE" >> "$STARTUP_DEST_DIR/$FILE.desktop"
@@ -154,9 +151,8 @@ done
 
 echo "Create links"
 FILES=$(ls -A "$LINK_SOURCE_DIR")
-for FILE in $FILES
-do
-  ln -s "$LINK_SOURCE_DIR/$FILE" "$HOME"
+for FILE in $FILES; do
+  ln -sf "$LINK_SOURCE_DIR/$FILE" "$HOME"
 done
 
 echo "Setup vim"
