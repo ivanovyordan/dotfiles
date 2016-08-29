@@ -6,14 +6,12 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround'
 Plugin 'mattn/emmet-vim'
 Plugin 'scrooloose/nerdtree'
-Plugin 'kien/ctrlp.vim'
-Plugin 'Lokaltog/vim-powerline'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'ap/vim-buftabline'
 
 call vundle#end()
 filetype plugin indent on
@@ -35,13 +33,8 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 map <C-T> :NERDTreeToggle<CR>
 
-" Powerline
-let g:Powerline_symbols = 'fancy'
-let g:Powerline_cache_enabled = 1
-
-" Buftabline
-nnoremap <C-N> :bnext<CR>
-nnoremap <C-P> :bprev<CR>
+" Airline
+let g:airline#extensions#tabline#enabled = 1
 
 let mapleader=","
 set encoding=utf-8

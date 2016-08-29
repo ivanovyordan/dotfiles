@@ -1,139 +1,103 @@
 #!/bin/bash
-{ # this ensures the entire script is downloaded #
+
+# this ensures the entire script is downloaded #
+{
 echo "Dotfiles - Yordan Ivanov"
 
 # CONFIG #
 
 ## Link Directories ##
-LINK_SOURCE_DIR="$HOME/.dotfiles/link/"
-LINK_DEST_DIR="$HOME/"
-STARTUP_SOURCE_DIR="$HOME/.dotfiles/startup/"
+DOTFILES_DIR="$HOME/.dotfiles"
+LINK_SOURCE_DIR="$HOME/link"
+STARTUP_SOURCE_DIR="$DOTFILES_DIR/startup"
+STARTUP_DEST_DIR="$HOME/.config/autostart"
 
 ## APT Repositories ##
 PPA_REPOSITORIES=(
-	"ppa:git-core/ppa" # git
-	"ppa:webupd8team/java" # Java
-	"ppa:webupd8team/sublime-text-3" # Sublime text 3
-	"ppa:nilarimogard/webupd8" # Screenkey
-	"ppa:otto-kesselgulasch/gimp" # GIMP
-	"ppa:numix/ppa" # Numix Theme
-	"ppa:snwh/pulp" # Paper Theme
-	"deb http://dl.google.com/linux/chrome/deb/ stable main" # Google Chrome
-	"deb http://repository.spotify.com stable non-free" # Spotify
-)
-
-## DEB Repositories keys ##
-APT_KEYS=(
-	"wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -" # Google Chrome
-	"sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys D2C19886" # Spotify
+  "ppa:git-core/ppa" # git
+  "ppa:peterlevi/ppa" # Variery
+  "ppa:numix/ppa" # Numix Theme
+  "ppa:snwh/pulp" # Paper Theme
+  "ppa:oranchelo/oranchelo-icon-theme" # Oranchelo Icon Theme
 )
 
 ## Packages ##
 APT_PACKAGES=(
-	# Qt related
-	build-essential
-	libgl1-mesa-dev
-	libglu1-mesa-dev
-	mesa-common-dev
+  # Git
+  git-core
+  git-flow
+  git-extras
 
-	# VCS
-	git-core
-	git-flow
-	git-extras
+  # Development
+  build-essential
+  vim
+  meld
+  colordiff
+  graphviz
+  virtualbox
 
-	# Development
-	cmake # YouCompleteMe dependency
-	python-dev # YouCompleteMe dependency
-	oracle-java8-installer
-	sublime-text-installer
-	vim
-	meld
-	colordiff
-	graphviz
+  # Visual
+  variety
+  unity-tweak-tool
+  numix-gtk-theme
+  paper-gtk-theme
+  numix-icon-theme
+  numix-icon-theme-circle
+  oranchelo-icon-theme
 
-	# DevOps
-	virtualbox
-	vagrant
+  # Other
+  vlc
+  smplayer
+  autojump
+  curl
+  whois
+  zsh
+  steam
+  skype
+)
 
-	# Visual
-	numix-gtk-theme
-	numix-icon-theme
-	numix-icon-theme-circle
-	paper-gtk-theme
-
-	# Other
-	autojump
-	curl
-	google-chrome-stable
-	whois
-	zsh
-
-	# Fun
-	vlc
-	smplayer
-	spotify-client
-	screenkey
-	cowsay
-	fortune-mod
-
-	# GIMP
-	gimp
-	gimp-plugin-registry
-	gimp-gmic
-	gimp-lensfun
+# DEB FILES
+DEB_FILES=(
+  "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" # Chrome
+  "https://atom.io/download/deb" # Atom
+  "https://releases.hashicorp.com/vagrant/1.8.4/vagrant_1.8.4_x86_64.deb" # Vagrant
+  "https://mega.nz/linux/MEGAsync/xUbuntu_16.04/amd64/megasync-xUbuntu_16.04_amd64.deb" # MEGA sync client
+  "https://mega.nz/linux/MEGAsync/xUbuntu_16.04/amd64/nautilus-megasync-xUbuntu_16.04_amd64.deb" # Mega Nautilus extension
 )
 
 ## Node.js Packages ##
 NPM_PACKAGES=(
-	grunt-cli
-	gulp
-	eslint
-	hexo-cli
-	typescript
+  gulp
+  eslint
+  typescript
 )
 
-## Ruby Gems ##
-RUBY_GEMS=(
-	bundler
-	sass
-)
-
-function create_starter {
-	STARTER_PATH="$HOME/.config/autostart/$1.desktop"
-	SCRIPT_PATH="$HOME/.dotfiles/startup/$1"
-
-	touch "$STARTER_PATH"
-	echo "[Desktop Entry]" >> "$STARTER_PATH"
-	echo "Type=Application" >> "$STARTER_PATH"
-	echo "Exec=$SCRIPT_PATH" >> "$STARTER_PATH"
-	echo "Hidden=false" >> "$STARTER_PATH"
-	echo "NoDisplay=false" >> "$STARTER_PATH"
-	echo "X-GNOME-Autostart-enabled=true" >> "$STARTER_PATH"
-	echo "Name=$1" >> "$STARTER_PATH"
-}
+sudo add-apt-repository multiverse
 
 # INSTALLATION #
-
-## Add PPA Repositories ##
 echo "Add new APT software repositories"
 for REPOSITORY in "${PPA_REPOSITORIES[@]}"
 do
-	sudo add-apt-repository -y "$REPOSITORY"
-done
-
-## Add DEB Repository keys ##
-echo "Add repository keys"
-for KEY in "${APT_KEYS[@]}"
-do
-	$($KEY)
+  sudo add-apt-repository -y "$REPOSITORY"
 done
 
 echo "Update repositories"
 sudo apt-get -qq -y update && sudo apt-get -y upgrade
 
 echo "Install packages"
-APT_PACKAGES=$(IFS=$' '; echo "${APT_PACKAGES[*]}")
+APT_PACKAGES=$(IFS=$" "; echo "${APT_PACKAGES[*]}")
 apt-get install -y "$APT_PACKAGES"
+
+echo "Download .deb files"
+for URL in "${DEB_FILES[@]}"
+do
+  wget "$URL" -qO "$FILE"
+  sudo dpkg -i "$FILE"
+  rm "$FILE"
+done
+
+echo "Install dependecies"
+sudo apt-get -f install
 
 echo "Install Docker"
 wget -qO- https://get.docker.com/ | sh
@@ -144,9 +108,6 @@ curl -L https://raw.githubusercontent.com/docker/compose/master/script/run/run.s
 chmod +x docker-compose
 sudo mv docker-compose /usr/local/bin/
 
-mkdir -p $HOME/.zsh/completion
-curl -L https://raw.githubusercontent.com/docker/compose/$(docker-compose version --short)/contrib/completion/zsh/_docker-compose > $HOME/.zsh/completion/_docker-compose
-
 echo "Install NVM"
 wget -qO- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | sh
 source "$HOME/.nvm/nvm.sh"
@@ -155,12 +116,12 @@ nvm use stable
 nvm alias default stable
 
 echo "Install Node.js packages"
-NPM_PACKAGES=$(IFS=$' '; echo "${NPM_PACKAGES[*]}")
+NPM_PACKAGES=$(IFS=$" "; echo "${NPM_PACKAGES[*]}")
 npm install -g "$NPM_PACKAGES"
 
 echo "Install Miniconda"
 wget https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
-bash Miniconda-latest-Linux-x86_64.sh -b -p $HOME/.applications/miniconda
+bash Miniconda-latest-Linux-x86_64.sh -b -p "$HOME/.applications/miniconda"
 rm Miniconda-latest-Linux-x86_64.sh
 
 echo "Update Miniconda"
@@ -170,51 +131,38 @@ conda update -y conda
 echo "Install Miniconda Python 3"
 conda create -y --name python3 python=3
 
-echo "Install RVM"
-curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -
-curl -sSL https://get.rvm.io | bash -s stable --ruby
-source "$HOME/.rvm/scripts/rvm"
+echo "Install oh-my-zsh"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+git clone git://github.com/zsh-users/zsh-autosuggestions "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
 
-echo "Install Ruby gems"
-RUBY_GEMS=$(IFS=$' '; echo "${RUBY_GEMS[*]}")
-gem install "$RUBY_GEMS"
-
-# Setup ADB rules
-sudo wget "http://source.android.com/source/51-android.rules" -O "/etc/udev/rules.d/51-android.rules"
-sudo sed -i "s/<username>/${USER}/g" "/etc/udev/rules.d/51-android.rules"
-sudo chmod 644 "/etc/udev/rules.d/51-android.rules"
-sudo service udev restart
-
-
-# Clonning the repository #
-echo 'Clonning the repository'
-git clone --recursive git@github.com:ivanovyordan/dotfiles.git "$HOME/.dotfiles"
-
-# SETTING UP #
-echo "Create links"
-ln -s "$LINK_SOURCE_DIR/*" "$LINK_DEST_DIR"
-
-# Setup vim
-# Install Vundle
-git clone https://github.com/VundleVim/Vundle.vim.git "$HOME/.vim/bundle/Vundle.vim"
-$HOME/.vim/bundle/YouCompleteMe/install.py --all
-vim +PluginInstall +qall
+echo "Clonning the repository"
+git clone https://github.com/ivanovyordan/dotfiles.git "$DOTFILES_DIR"
 
 echo "Create startup scripts"
 FILES=$(ls -A "$STARTUP_SOURCE_DIR")
 for FILE in $FILES
 do
-	create_starter "$FILE"
+  echo "[Desktop Entry]" > "$STARTUP_DEST_DIR/$FILE.desktop"
+  echo "Type=Application" >> "$STARTUP_DEST_DIR/$FILE.desktop"
+  echo "Exec=$STARTUP_SOURCE_DIR/$FILE" >> "$STARTUP_DEST_DIR/$FILE.desktop"
+  echo "Hidden=false" >> "$STARTUP_DEST_DIR/$FILE.desktop"
+  echo "NoDisplay=false" >> "$STARTUP_DEST_DIR/$FILE.desktop"
+  echo "X-GNOME-Autostart-enabled=true" >> "$STARTUP_DEST_DIR/$FILE.desktop"
+  echo "$FILE" >> "$STARTUP_DEST_DIR/$FILE.desktop"
 done
 
-## Change default shell to zsh ##
+echo "Create links"
+FILES=$(ls -A "$LINK_SOURCE_DIR")
+for FILE in $FILES
+do
+  ln -s "$LINK_SOURCE_DIR/$FILE" "$HOME"
+done
+
+echo "Setup vim"
+git clone https://github.com/VundleVim/Vundle.vim.git "$HOME/.vim/bundle/Vundle.vim"
+vim +PluginInstall +qall
+
 echo "Change default shell to zsh"
-chsh -s "$(which zsh)"
-
-## Reload shell ##
-echo "Initialize antigen"
-exec $SHELL -l
-
-echo "Dotfiles installed"
-
-} # this ensures the entire script is downloaded #
+chsh -s "$(which zsh)" "$USER"
+}

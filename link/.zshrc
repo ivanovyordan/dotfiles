@@ -1,74 +1,93 @@
-ZSH_THEME=kolo
-source "$HOME/.dotfiles/zgen/zgen.zsh"
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Check if there's no init script
-if ! zgen saved
-then
-  echo "Creating a zgen save"
+# Path to your oh-my-zsh installation.
+export ZSH=/home/yordan/.oh-my-zsh
 
-  zgen oh-my-zsh
+# Set name of the theme to load. Optionally, if you set this to "random"
+# it'll load a random theme each time that oh-my-zsh is loaded.
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+ZSH_THEME="kolo"
 
-  # Plugins
-  # shell
-  zgen oh-my-zsh plugins/dircycle
-  zgen oh-my-zsh plugins/command-not-found
-  zgen load zsh-users/zsh-syntax-highlighting
-  zgen load zsh-users/zsh-completions src
-  # zgen load nojhan/liquidprompt
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
 
-  # system
-  zgen oh-my-zsh plugins/autojump
-  zgen oh-my-zsh plugins/lol
-  zgen oh-my-zsh plugins/common-aliases
+# Uncomment the following line to use hyphen-insensitive completion. Case
+# sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
 
-  # git
-  zgen oh-my-zsh plugins/git
-  zgen oh-my-zsh plugins/gitignore
-  zgen oh-my-zsh plugins/git-extras
-  zgen oh-my-zsh plugins/git-flow
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
 
-  # node.js
-  zgen oh-my-zsh plugins/bower
-  zgen oh-my-zsh plugins/npm
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
 
-  # devops
-  zgen oh-my-zsh plugins/docker
-  zgen oh-my-zsh plugins/docker-compose
-  zgen oh-my-zsh plugins/vagrant
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
 
-  # other
-  zgen oh-my-zsh plugins/extract
-  zgen oh-my-zsh plugins/composer
-  zgen oh-my-zsh plugins/yii2
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
 
-  # themes
-  zgen oh-my-zsh themes/kolo
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
 
-  zgen save
-fi
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(autojump bower command-not-found composer dircycle docker git git-extras git-flow npm vagrant yii2 zsh-autosuggestions zsh-syntax-highlighting)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# ssh
+# export SSH_KEY_PATH="~/.ssh/dsa_id"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Source nvm
+source $HOME/.nvm/nvm.sh
 
 # Source all files under ~/dotfiles/source/
 for FILE in $HOME/.dotfiles/source/*; do
-	source "$FILE"
+  source "$FILE"
 done
-
-source $HOME/.nvm/nvm.sh
-source $HOME/.rvm/scripts/rvm
-
-fpath=($HOME/.zsh/completion $fpath)
-autoload -Uz compinit && compinit -i
-
-# Customize to your needs
-export JAVA_HOME="/usr/lib/jvm/java-8-oracle"
-export ANDROID_NDK_ROOT="$HOME/.applications/android/ndk"
-export ANDROID_SDK_ROOT="$HOME/.applications/android/sdk"
-export GRADLE_HOME="$HOME/.applications/android/gradle"
-
-export PATH="$HOME/.dotfiles/bin:$PATH"
-export PATH="$HOME/.applications/miniconda/bin:$PATH"
-export PATH="$ANDROID_SDK_ROOT/tools:$PATH"
-export PATH="$ANDROID_SDK_ROOT/platform-tools:$PATH"
-export PATH="$GRADLE_HOME/bin:$PATH"
-export PATH="/opt/lampp/bin:$PATH"
-
-fortune | cowsay
