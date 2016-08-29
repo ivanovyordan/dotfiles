@@ -1,8 +1,9 @@
 # Package management
-alias update="sudo apt-get update && sudo apt-get upgrade"
+alias update="sudo apt-get update; sudo apt-get upgrade"
+alias upgrade="sudo apt-get dist-upgrade"
 alias install="sudo apt-get install"
 alias remove="sudo apt-get remove"
-alias clean="sudo apt-get autoremove && sudo apt-get autoclean"
+alias clean="sudo apt-get autoremove; sudo apt-get autoclean"
 alias search="apt-cache search"
 
 # Web browsers

@@ -1,7 +1,6 @@
 [user]
 	name = Yordan Ivanov
 	email = mail@ivanovyordan.com
-	signingkey = 3B19EDBC
 [credential]
 	helper = cache
 
@@ -15,7 +14,6 @@
 
 [commit]
 	template = ~/.gitmessage
-	gpgsign = true
 
 [merge]
 	tool = meld
@@ -26,6 +24,3 @@
 	default = matching
 [pull]
 	rebase = true
-
-[remote "pull-requests"]
-	fetch = +refs/pull/*/head:refs/remotes/upstream/pr/*
