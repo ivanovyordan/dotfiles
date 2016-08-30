@@ -11,9 +11,11 @@ DOTFILES_DIR="$HOME/.dotfiles"
 LINK_SOURCE_DIR="$DOTFILES_DIR/link"
 STARTUP_SOURCE_DIR="$DOTFILES_DIR/startup"
 STARTUP_DEST_DIR="$HOME/.config/autostart"
+APPS_DIR="$HOME/.applications"
 
 ## APT Repositories ##
 PPA_REPOSITORIES=(
+  "multiverse"
   "ppa:git-core/ppa" # git
   "ppa:peterlevi/ppa" # Variery
   "ppa:numix/ppa" # Numix Theme
@@ -24,36 +26,36 @@ PPA_REPOSITORIES=(
 ## Packages ##
 APT_PACKAGES=(
   # Git
-  git-core
-  git-flow
-  git-extras
+  "git-core"
+  "git-flow"
+  "git-extras"
 
   # Development
-  build-essential
-  vim
-  meld
-  colordiff
-  graphviz
-  virtualbox
+  "build-essential"
+  "vim"
+  "meld"
+  "colordiff"
+  "graphviz"
+  "virtualbox"
 
   # Visual
-  variety
-  unity-tweak-tool
-  numix-gtk-theme
-  paper-gtk-theme
-  numix-icon-theme
-  numix-icon-theme-circle
-  oranchelo-icon-theme
+  "variety"
+  "unity-tweak-tool"
+  "numix-gtk-theme"
+  "paper-gtk-theme"
+  "numix-icon-theme"
+  "numix-icon-theme-circle"
+  "oranchelo-icon-theme"
 
   # Other
-  vlc
-  smplayer
-  autojump
-  curl
-  whois
-  zsh
-  steam
-  skype
+  "vlc"
+  "smplayer"
+  "autojump"
+  "curl"
+  "whois"
+  "zsh"
+  "steam"
+  "skype"
 )
 
 # DEB FILES
@@ -66,99 +68,190 @@ DEB_FILES=(
 )
 
 ## Node.js Packages ##
-NPM_PACKAGES=(
-  gulp
-  eslint
-  typescript
+NODE_MODULES=(
+  "gulp"
+  "eslint"
+  "typescript"
 )
 
-sudo add-apt-repository multiverse
+ZSH_PLUGINS=(
+  "https://github.com/zsh-users/zsh-syntax-highlighting.git"
+  "https://github.com/zsh-users/zsh-autosuggestions.git"
+)
 
 # INSTALLATION #
-echo "Add new APT software repositories"
-for REPOSITORY in "${PPA_REPOSITORIES[@]}"; do
-  sudo add-apt-repository -y "$REPOSITORY"
-done
 
-echo "Update repositories"
-sudo apt-get -qq -y update && sudo apt-get -y upgrade
+function add_respositories() {
+  echo "Adding new APT software repositories"
 
-echo "Install packages"
-APT_PACKAGES=$(IFS=$" "; echo "${APT_PACKAGES[*]}")
-apt-get install -y "$APT_PACKAGES"
+  for REPOSITORY in "${PPA_REPOSITORIES[@]}"; do
+    sudo add-apt-repository -y "$REPOSITORY"
+  done
+}
 
-echo "Download .deb files"
-for URL in "${DEB_FILES[@]}"; do
-  wget "$URL" -qO "$FILE"
-  sudo dpkg -i "$FILE"
-  rm "$FILE"
-done
+function update_repositories() {
+  echo "Updating repositories"
 
-echo "Install dependecies"
-sudo apt-get -f install
+  sudo apt-get -qq -y update && sudo apt-get -y upgrade
+}
 
-echo "Install Docker"
-wget -qO- https://get.docker.com/ | sh
-sudo usermod -aG docker "$USER"
+function install_system_packages() {
+  echo "Installing system packages"
 
-echo "Install Docker Compose"
-curl -L https://raw.githubusercontent.com/docker/compose/master/script/run/run.sh > docker-compose
-chmod +x docker-compose
-sudo mv docker-compose /usr/local/bin/
+  APT_PACKAGES=$(IFS=$" "; echo "${APT_PACKAGES[*]}")
+  apt-get install -y "$APT_PACKAGES"
+}
 
-echo "Install NVM"
-wget -qO- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | sh
-source "$HOME/.nvm/nvm.sh"
-nvm install stable
-nvm use stable
-nvm alias default stable
+function install_debs() {
+  echo "Downloading .deb files"
 
-echo "Install Node.js packages"
-NPM_PACKAGES=$(IFS=$" "; echo "${NPM_PACKAGES[*]}")
-npm install -g "$NPM_PACKAGES"
+  for URL in "${DEB_FILES[@]}"; do
+    wget "$URL"
+  done
 
-echo "Install Miniconda"
-wget https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
-bash Miniconda-latest-Linux-x86_64.sh -b -p "$HOME/.applications/miniconda"
-rm Miniconda-latest-Linux-x86_64.sh
+  sudo dpkg -i *deb
+  sudo apt-get -f install
+  rm -f *deb
+}
 
-echo "Update Miniconda"
-export PATH="$HOME/.applications/miniconda/bin:$PATH"
-conda update -y conda
+function install_docker() {
+  echo "Installing Docker"
 
-echo "Install Miniconda Python 3"
-conda create -y --name python3 python=3
+  wget -qO- https://get.docker.com/ | sh
+  sudo usermod -aG docker "$USER"
+}
 
-echo "Install oh-my-zsh"
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
-git clone git://github.com/zsh-users/zsh-autosuggestions "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+function install_docker_compose() {
+  echo "Installing Docker Compose"
 
-echo "Clonning the repository"
-git clone https://github.com/ivanovyordan/dotfiles.git "$DOTFILES_DIR"
+  curl -L https://raw.githubusercontent.com/docker/compose/master/script/run/run.sh > docker-compose
+  chmod +x docker-compose
+  sudo mv docker-compose /usr/local/bin/
+}
 
-echo "Create startup scripts"
-FILES=$(ls -A "$STARTUP_SOURCE_DIR")
-for FILE in $FILES; do
-  echo "[Desktop Entry]" > "$STARTUP_DEST_DIR/$FILE.desktop"
-  echo "Type=Application" >> "$STARTUP_DEST_DIR/$FILE.desktop"
-  echo "Exec=$STARTUP_SOURCE_DIR/$FILE" >> "$STARTUP_DEST_DIR/$FILE.desktop"
-  echo "Hidden=false" >> "$STARTUP_DEST_DIR/$FILE.desktop"
-  echo "NoDisplay=false" >> "$STARTUP_DEST_DIR/$FILE.desktop"
-  echo "X-GNOME-Autostart-enabled=true" >> "$STARTUP_DEST_DIR/$FILE.desktop"
-  echo "$FILE" >> "$STARTUP_DEST_DIR/$FILE.desktop"
-done
+function install_nvm() {
+  echo "Installing NVM"
 
-echo "Create links"
-FILES=$(ls -A "$LINK_SOURCE_DIR")
-for FILE in $FILES; do
-  ln -sf "$LINK_SOURCE_DIR/$FILE" "$HOME"
-done
+  wget -qO- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | sh
+  source "$HOME/.nvm/nvm.sh"
+  nvm install stable
+  nvm use stable
+  nvm alias default stable
+}
 
-echo "Setup vim"
-git clone https://github.com/VundleVim/Vundle.vim.git "$HOME/.vim/bundle/Vundle.vim"
-vim +PluginInstall +qall
+function install_node_modules() {
+  echo "Installing  Node.js modules"
 
-echo "Change default shell to zsh"
-chsh -s "$(which zsh)" "$USER"
+  NODE_MODULES=$(IFS=$" "; echo "${NODE_MODULES[*]}")
+  npm install -g "$NODE_MODULES"
+}
+
+function install_miniconda() {
+  echo "Installing Miniconda"
+
+  wget https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
+  bash Miniconda-latest-Linux-x86_64.sh -b -p "$APPS_DIR/miniconda"
+  rm Miniconda-latest-Linux-x86_64.sh
+}
+
+function update_miniconda() {
+  echo "Updating Miniconda"
+
+  export PATH="$APPS_DIR/miniconda/bin:$PATH"
+  conda update -y conda
+}
+
+function install_python3() {
+  echo "Installing Miniconda Python 3"
+
+  conda create -y --name python3 python=3
+}
+
+function install_oh_my_zsh() {
+  echo "Installing oh-my-zsh"
+
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+}
+
+function install_zsh_plugins() {
+  echo "Installing zsh plugins"
+
+  cd "$HOME/.oh-my-zsh/custom/plugins"
+
+  for URL in "${ZSH_PLUGINS[@]}"; do
+    git clone "$URL"
+  done
+
+  cd -
+}
+
+function clone_repository() {
+  echo "Clonning the repository"
+
+  git clone https://github.com/ivanovyordan/dotfiles.git "$DOTFILES_DIR"
+}
+
+function create_startup_scripts() {
+  echo "Creating startup scripts"
+
+  FILES=$(ls -A "$STARTUP_SOURCE_DIR")
+  for FILE in $FILES; do
+    echo "[Desktop Entry]" > "$STARTUP_DEST_DIR/$FILE.desktop"
+    echo "Type=Application" >> "$STARTUP_DEST_DIR/$FILE.desktop"
+    echo "Exec=$STARTUP_SOURCE_DIR/$FILE" >> "$STARTUP_DEST_DIR/$FILE.desktop"
+    echo "Hidden=false" >> "$STARTUP_DEST_DIR/$FILE.desktop"
+    echo "NoDisplay=false" >> "$STARTUP_DEST_DIR/$FILE.desktop"
+    echo "X-GNOME-Autostart-enabled=true" >> "$STARTUP_DEST_DIR/$FILE.desktop"
+    echo "Name=$FILE" >> "$STARTUP_DEST_DIR/$FILE.desktop"
+    echo "Comment=$FILE" >> "$STARTUP_DEST_DIR/$FILE.desktop"
+  done
+}
+
+function create_symlinks() {
+  echo "Create links"
+
+  FILES=$(ls -A "$LINK_SOURCE_DIR")
+  for FILE in $FILES; do
+    ln -sf "$LINK_SOURCE_DIR/$FILE" "$HOME"
+  done
+}
+
+function install_vundle() {
+  echo "Installing vundle"
+
+  git clone https://github.com/VundleVim/Vundle.vim.git "$HOME/.vim/bundle/Vundle.vim"
+}
+
+function setup_vim() {
+  echo "Setup vim"
+
+  vim +PluginInstall +qall
+}
+
+function start_zsh() {
+  echo "Change default shell to zsh"
+
+  chsh -s "$(which zsh)" "$USER"
+  `which zsh`
+}
+
+add_respositories
+update_repositories
+install_system_packages
+install_debs
+install_docker
+install_docker_compose
+install_nvm
+install_node_modules
+install_miniconda
+update_miniconda
+install_python3
+install_oh_my_zsh
+install_zsh_plugins
+clone_repository
+create_startup_scripts
+create_symlinks
+install_vundle
+setup_vim
+start_zsh
 }
