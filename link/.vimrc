@@ -64,7 +64,9 @@ set nobackup
 set noswapfile
 set fileformats=unix,dos,mac
 set laststatus=2
-set softtabstop=4 tabstop=4 shiftwidth=4
+set expandtab
+set softtabstop=2
+set shiftwidth=2
 set ruler
 set wildignore=*.swp,*.bak
 set wildmode=longest,list
