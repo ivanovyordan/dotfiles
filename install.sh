@@ -90,7 +90,7 @@ function add_basic_packages() {
   echo "Adding basic packages"
   
   BASIC_PACKAGES=$(IFS=$" "; echo "${BASIC_PACKAGES[*]}")
-  sudo apt-get install -y "$BASIC_PACKAGES"
+  sudo apt-get install -y $BASIC_PACKAGES
 }
 
 function add_respositories() {
@@ -111,7 +111,7 @@ function install_system_packages() {
   echo "Installing system packages"
 
   APT_PACKAGES=$(IFS=$" "; echo "${APT_PACKAGES[*]}")
-  sudo apt-get install -y "$APT_PACKAGES"
+  sudo apt-get install -y $APT_PACKAGES
 }
 
 function install_debs() {
