@@ -155,7 +155,7 @@ function install_node_modules() {
   echo "Installing  Node.js modules"
 
   NODE_MODULES=$(IFS=$" "; echo "${NODE_MODULES[*]}")
-  npm install -g "$NODE_MODULES"
+  npm install -g $NODE_MODULES
 }
 
 function install_miniconda() {
