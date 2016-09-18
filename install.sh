@@ -56,7 +56,6 @@ APT_PACKAGES=(
   "whois"
   "zsh"
   "steam"
-  "skype"
 )
 
 # DEB FILES
