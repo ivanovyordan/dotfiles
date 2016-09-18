@@ -30,12 +30,10 @@ BASIC_PACKAGES=(
 
 ## Packages ##
 APT_PACKAGES=(
-  # Git
   "git-core"
   "git-flow"
   "git-extras"
 
-  # Development
   "build-essential"
   "vim"
   "meld"
@@ -43,7 +41,6 @@ APT_PACKAGES=(
   "graphviz"
   "virtualbox"
 
-  # Visual
   "variety"
   "unity-tweak-tool"
   "numix-gtk-theme"
@@ -52,7 +49,6 @@ APT_PACKAGES=(
   "numix-icon-theme-circle"
   "oranchelo-icon-theme"
 
-  # Other
   "vlc"
   "smplayer"
   "autojump"
