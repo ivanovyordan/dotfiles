@@ -23,6 +23,11 @@ PPA_REPOSITORIES=(
   "ppa:oranchelo/oranchelo-icon-theme" # Oranchelo Icon Theme
 )
 
+## Basic Packages ##
+BASIC_PACKAGES=(
+  "software-properties-common"
+)
+
 ## Packages ##
 APT_PACKAGES=(
   # Git
@@ -81,6 +86,13 @@ ZSH_PLUGINS=(
 
 # INSTALLATION #
 
+function add_basic_packages() {
+  echo "Adding basic packages"
+  
+  BASIC_PACKAGES=$(IFS=$" "; echo "${BASIC_PACKAGES[*]}")
+  apt-get install -y "$BASIC_PACKAGES"
+}
+
 function add_respositories() {
   echo "Adding new APT software repositories"
 
@@ -99,7 +111,7 @@ function install_system_packages() {
   echo "Installing system packages"
 
   APT_PACKAGES=$(IFS=$" "; echo "${APT_PACKAGES[*]}")
-  apt-get install -y "$APT_PACKAGES"
+  sudo apt-get install -y "$APT_PACKAGES"
 }
 
 function install_debs() {
@@ -235,6 +247,7 @@ function start_zsh() {
   `which zsh`
 }
 
+add_basic_packages
 add_respositories
 update_repositories
 install_system_packages
