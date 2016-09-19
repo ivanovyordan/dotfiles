@@ -83,7 +83,7 @@ ZSH_PLUGINS=(
 
 function add_basic_packages() {
   echo "Adding basic packages"
-  
+
   BASIC_PACKAGES=$(IFS=$" "; echo "${BASIC_PACKAGES[*]}")
   sudo apt-get install -y $BASIC_PACKAGES
 }
@@ -235,6 +235,12 @@ function setup_vim() {
   vim +PluginInstall +qall
 }
 
+function install_ycm() {
+  echo "Installing YouCompleteMe"
+
+  python "$HOME/.vim/bundle/YouCompleteMe/install.py" --clang-completer --tern-completer
+}
+
 function start_zsh() {
   echo "Change default shell to zsh"
 
@@ -242,6 +248,7 @@ function start_zsh() {
   `which zsh`
 }
 
+install_ycm
 add_basic_packages
 add_respositories
 update_repositories
