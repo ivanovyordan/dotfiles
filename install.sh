@@ -16,6 +16,7 @@ APPS_DIR="$HOME/.applications"
 ## APT Repositories ##
 PPA_REPOSITORIES=(
   "multiverse"
+  "ppa:graphics-drivers/ppa" # Graphics drivers
   "ppa:git-core/ppa" # git
   "ppa:peterlevi/ppa" # Variery
   "ppa:numix/ppa" # Numix Theme
@@ -107,6 +108,12 @@ function install_system_packages() {
 
   APT_PACKAGES=$(IFS=$" "; echo "${APT_PACKAGES[*]}")
   sudo apt-get install -y $APT_PACKAGES
+}
+
+function install_drivers() {
+  echo "Installing recommended drivers"
+
+  sudo ubuntu-drivers autoinstall
 }
 
 function install_debs() {
@@ -245,7 +252,6 @@ function start_zsh() {
   echo "Change default shell to zsh"
 
   chsh -s "$(which zsh)" "$USER"
-  `which zsh`
 }
 
 install_ycm
@@ -253,6 +259,7 @@ add_basic_packages
 add_respositories
 update_repositories
 install_system_packages
+install_drivers
 install_debs
 install_docker
 install_docker_compose
