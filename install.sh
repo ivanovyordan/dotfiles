@@ -248,13 +248,12 @@ function install_ycm() {
   python "$HOME/.vim/bundle/YouCompleteMe/install.py" --clang-completer --tern-completer
 }
 
-function start_zsh() {
+function select_zsh() {
   echo "Change default shell to zsh"
 
   chsh -s "$(which zsh)" "$USER"
 }
 
-install_ycm
 add_basic_packages
 add_respositories
 update_repositories
@@ -275,5 +274,6 @@ create_startup_scripts
 create_symlinks
 install_vundle
 setup_vim
-start_zsh
+install_ycm
+select_zsh
 }
