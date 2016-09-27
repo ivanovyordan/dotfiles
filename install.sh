@@ -45,6 +45,7 @@ APT_PACKAGES=(
   "git-extras"
 
   "build-essential"
+  "cmake"
   "vim"
   "meld"
   "colordiff"
