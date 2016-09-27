@@ -12,8 +12,7 @@ LINK_SOURCE_DIR="$DOTFILES_DIR/link"
 STARTUP_SOURCE_DIR="$DOTFILES_DIR/startup"
 STARTUP_DEST_DIR="$HOME/.config/autostart"
 APPS_DIR="$HOME/.applications"
-
-[[ `lsb_release -si` = "Ubuntu\n" ]] ; IS_UBUNTU=$?
+DISTRO=`lsb_release -is`
 
 ## APT Repositories ##
 PPA_REPOSITORIES=(
@@ -120,10 +119,11 @@ function add_ubuntu_repositories() {
 }
 
 function add_distro_repositories() {
-  if [ $IS_UBUNTU = 1 ]
+  if [ $DISTRO = "Ubuntu" ]
   then
     add_ubuntu_repositories
-  else
+  elif [ $DISTRO = "elementary" ]
+  then
     add_elementary_repositories
   fi
 }
@@ -159,10 +159,11 @@ function install_elementary_packages() {
 }
 
 function install_distro_packages() {
-  if [ $IS_UBUNTU = 1 ]
+  if [ $DISTRO = "Ubuntu" ]
   then
     install_ubuntu_packages
-  else
+  elif [ $DISTRO = "elementary" ]
+  then
     install_elementary_packages
   fi
 }
