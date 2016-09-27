@@ -13,15 +13,24 @@ STARTUP_SOURCE_DIR="$DOTFILES_DIR/startup"
 STARTUP_DEST_DIR="$HOME/.config/autostart"
 APPS_DIR="$HOME/.applications"
 
+[[ `lsb_release -si` = "Ubuntu\n" ]] ; IS_UBUNTU=$?
+
 ## APT Repositories ##
 PPA_REPOSITORIES=(
   "multiverse"
   "ppa:graphics-drivers/ppa" # Graphics drivers
   "ppa:git-core/ppa" # git
+)
+
+UBUNTU_PPA_REPOSITORIES=(
   "ppa:peterlevi/ppa" # Variery
   "ppa:numix/ppa" # Numix Theme
   "ppa:snwh/pulp" # Paper Theme
   "ppa:oranchelo/oranchelo-icon-theme" # Oranchelo Icon Theme
+)
+
+ELEMENTARY_PPA_REPOSITORIES=(
+  "ppa:philip.scott/elementary-tweaks" # elementary tweaks
 )
 
 ## Basic Packages ##
@@ -42,6 +51,15 @@ APT_PACKAGES=(
   "graphviz"
   "virtualbox"
 
+  "vlc"
+  "smplayer"
+  "autojump"
+  "curl"
+  "whois"
+  "zsh"
+)
+
+UBUNTU_APT_PACKAGES=(
   "variety"
   "unity-tweak-tool"
   "numix-gtk-theme"
@@ -49,14 +67,10 @@ APT_PACKAGES=(
   "numix-icon-theme"
   "numix-icon-theme-circle"
   "oranchelo-icon-theme"
+)
 
-  "vlc"
-  "smplayer"
-  "autojump"
-  "curl"
-  "whois"
-  "zsh"
-  "steam"
+ELEMENTARY_APT_PACKAGES=(
+  "elementary-tweaks"
 )
 
 # DEB FILES
@@ -65,7 +79,6 @@ DEB_FILES=(
   "https://atom.io/download/deb" # Atom
   "https://releases.hashicorp.com/vagrant/1.8.4/vagrant_1.8.4_x86_64.deb" # Vagrant
   "https://mega.nz/linux/MEGAsync/xUbuntu_16.04/amd64/megasync-xUbuntu_16.04_amd64.deb" # MEGA sync client
-  "https://mega.nz/linux/MEGAsync/xUbuntu_16.04/amd64/nautilus-megasync-xUbuntu_16.04_amd64.deb" # Mega Nautilus extension
 )
 
 ## Node.js Packages ##
@@ -89,12 +102,39 @@ function add_basic_packages() {
   sudo apt-get install -y $BASIC_PACKAGES
 }
 
+function add_elementary_repositories() {
+  echo "Adding elementary APT software repositories"
+
+  for REPOSITORY in "${ELEMENTARY_PPA_REPOSITORIES[@]}"; do
+    sudo add-apt-repository -y "$REPOSITORY"
+  done
+}
+
+function add_ubuntu_repositories() {
+  echo "Adding Ubuntu APT software repositories"
+
+  for REPOSITORY in "${UBUNTU_PPA_REPOSITORIES[@]}"; do
+    sudo add-apt-repository -y "$REPOSITORY"
+  done
+}
+
+function add_distro_repositories() {
+  if [ $IS_UBUNTU = 1 ]
+  then
+    add_ubuntu_repositories
+  else
+    add_elementary_repositories
+  fi
+}
+
 function add_respositories() {
-  echo "Adding new APT software repositories"
+  echo "Adding common APT software repositories"
 
   for REPOSITORY in "${PPA_REPOSITORIES[@]}"; do
     sudo add-apt-repository -y "$REPOSITORY"
   done
+
+  add_distro_repositories
 }
 
 function update_repositories() {
@@ -103,11 +143,36 @@ function update_repositories() {
   sudo apt-get -qq -y update && sudo apt-get -y upgrade
 }
 
+function install_ubuntu_packages() {
+  echo "Installing Ubuntu system packages"
+
+  UBUNTU_APT_PACKAGES=$(IFS=$" "; echo "${UBUNTU_APT_PACKAGES[*]}")
+  sudo apt-get install -y $UBUNTU_APT_PACKAGES
+}
+
+function install_elementary_packages() {
+  echo "Installing elementary system packages"
+
+  ELEMENTARY_APT_PACKAGES=$(IFS=$" "; echo "${ELEMENTARY_APT_PACKAGES[*]}")
+  sudo apt-get install -y $ELEMENTARY_APT_PACKAGES
+}
+
+function install_distro_packages() {
+  if [ $IS_UBUNTU = 1 ]
+  then
+    install_ubuntu_packages
+  else
+    install_elementary_packages
+  fi
+}
+
 function install_system_packages() {
   echo "Installing system packages"
 
   APT_PACKAGES=$(IFS=$" "; echo "${APT_PACKAGES[*]}")
   sudo apt-get install -y $APT_PACKAGES
+
+  install_distro_packages
 }
 
 function install_drivers() {
