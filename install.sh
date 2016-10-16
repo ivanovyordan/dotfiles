@@ -25,6 +25,7 @@ UBUNTU_PPA_REPOSITORIES=(
   "ppa:peterlevi/ppa" # Variery
   "ppa:numix/ppa" # Numix Theme
   "ppa:snwh/pulp" # Paper Theme
+  "ppa:tista/adapta" # Adapta theme
   "ppa:oranchelo/oranchelo-icon-theme" # Oranchelo Icon Theme
 )
 
@@ -63,9 +64,12 @@ UBUNTU_APT_PACKAGES=(
   "variety"
   "unity-tweak-tool"
   "numix-gtk-theme"
-  "paper-gtk-theme"
   "numix-icon-theme"
   "numix-icon-theme-circle"
+  "paper-gtk-theme"
+  "paper-icon-theme"
+  "paper-cursor-theme"
+  "adapta-gtk-theme"
   "oranchelo-icon-theme"
 )
 
