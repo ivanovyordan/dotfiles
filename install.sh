@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # this ensures the entire script is downloaded #
 {
@@ -12,13 +12,20 @@ LINK_SOURCE_DIR="$DOTFILES_DIR/link"
 STARTUP_SOURCE_DIR="$DOTFILES_DIR/startup"
 STARTUP_DEST_DIR="$HOME/.config/autostart"
 APPS_DIR="$HOME/.applications"
-DISTRO=`lsb_release -is`
+DISTRO_NAME=`lsb_release -is`
+DISTRO_VERSION=`lsb_release -sc`
+
+## Repository Keys ##
+REPOSITORY_KEYS=(
+  "pgp.mit.edu:5044912E"
+)
 
 ## APT Repositories ##
 PPA_REPOSITORIES=(
   "multiverse"
+  "deb http://linux.dropbox.com/ubuntu $DISTRO_VERSION main" #Dropbox
   "ppa:graphics-drivers/ppa" # Graphics drivers
-  "ppa:git-core/ppa" # git
+  "ppa:git-core/ppa" # Git
 )
 
 UBUNTU_PPA_REPOSITORIES=(
@@ -82,12 +89,11 @@ DEB_FILES=(
   "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" # Chrome
   "https://atom.io/download/deb" # Atom
   "https://releases.hashicorp.com/vagrant/1.8.4/vagrant_1.8.4_x86_64.deb" # Vagrant
-  "https://mega.nz/linux/MEGAsync/xUbuntu_16.04/amd64/megasync-xUbuntu_16.04_amd64.deb" # MEGA sync client
 )
 
 ## Node.js Packages ##
 NODE_MODULES=(
-  "gulp"
+  "gulp-cli"
   "eslint"
   "typescript"
 )
@@ -123,13 +129,21 @@ function add_ubuntu_repositories() {
 }
 
 function add_distro_repositories() {
-  if [ $DISTRO = "Ubuntu" ]
+  if [ $DISTRO_NAME = "Ubuntu" ]
   then
     add_ubuntu_repositories
-  elif [ $DISTRO = "elementary" ]
+  elif [ $DISTRO_NAME = "elementary" ]
   then
     add_elementary_repositories
   fi
+}
+
+function add_keys() {
+  for item in "${REPOSITORY_KEYS[@]}" ; do
+    SERVER="${item%%:*}"
+    KEY="${item##*:}"
+    sudo apt-key adv --keyserver $SERVER --recv-keys KEY
+  done
 }
 
 function add_respositories() {
@@ -163,10 +177,10 @@ function install_elementary_packages() {
 }
 
 function install_distro_packages() {
-  if [ $DISTRO = "Ubuntu" ]
+  if [ $DISTRO_NAME = "Ubuntu" ]
   then
     install_ubuntu_packages
-  elif [ $DISTRO = "elementary" ]
+  elif [ $DISTRO_NAME = "elementary" ]
   then
     install_elementary_packages
   fi
@@ -195,7 +209,7 @@ function install_debs() {
   done
 
   sudo dpkg -i *deb
-  sudo apt-get -f install
+  sudo apt-get -f
   rm -f *deb
 }
 
@@ -270,6 +284,10 @@ function install_zsh_plugins() {
   cd -
 }
 
+function change_shell() {
+  chsh -s `which zsh`
+}
+
 function clone_repository() {
   echo "Clonning the repository"
 
@@ -320,6 +338,7 @@ function install_ycm() {
 }
 
 add_basic_packages
+add_keys
 add_respositories
 update_repositories
 install_system_packages
@@ -334,6 +353,7 @@ update_miniconda
 install_python3
 install_oh_my_zsh
 install_zsh_plugins
+change_shelll
 clone_repository
 create_startup_scripts
 create_symlinks
