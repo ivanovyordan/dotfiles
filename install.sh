@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # this ensures the entire script is downloaded #
 {
@@ -12,15 +12,32 @@ LINK_SOURCE_DIR="$DOTFILES_DIR/link"
 STARTUP_SOURCE_DIR="$DOTFILES_DIR/startup"
 STARTUP_DEST_DIR="$HOME/.config/autostart"
 APPS_DIR="$HOME/.applications"
+DISTRO_NAME=`lsb_release -is`
+DISTRO_VERSION=`lsb_release -sc`
+
+## Repository Keys ##
+REPOSITORY_KEYS=(
+  "pgp.mit.edu:5044912E"
+)
 
 ## APT Repositories ##
 PPA_REPOSITORIES=(
   "multiverse"
-  "ppa:git-core/ppa" # git
+  "deb http://linux.dropbox.com/ubuntu $DISTRO_VERSION main" #Dropbox
+  "ppa:graphics-drivers/ppa" # Graphics drivers
+  "ppa:git-core/ppa" # Git
+)
+
+UBUNTU_PPA_REPOSITORIES=(
   "ppa:peterlevi/ppa" # Variery
   "ppa:numix/ppa" # Numix Theme
   "ppa:snwh/pulp" # Paper Theme
+  "ppa:tista/adapta" # Adapta theme
   "ppa:oranchelo/oranchelo-icon-theme" # Oranchelo Icon Theme
+)
+
+ELEMENTARY_PPA_REPOSITORIES=(
+  "ppa:philip.scott/elementary-tweaks" # elementary tweaks
 )
 
 ## Basic Packages ##
@@ -35,19 +52,12 @@ APT_PACKAGES=(
   "git-extras"
 
   "build-essential"
+  "cmake"
   "vim"
   "meld"
   "colordiff"
   "graphviz"
   "virtualbox"
-
-  "variety"
-  "unity-tweak-tool"
-  "numix-gtk-theme"
-  "paper-gtk-theme"
-  "numix-icon-theme"
-  "numix-icon-theme-circle"
-  "oranchelo-icon-theme"
 
   "vlc"
   "smplayer"
@@ -55,7 +65,23 @@ APT_PACKAGES=(
   "curl"
   "whois"
   "zsh"
-  "steam"
+)
+
+UBUNTU_APT_PACKAGES=(
+  "variety"
+  "unity-tweak-tool"
+  "numix-gtk-theme"
+  "numix-icon-theme"
+  "numix-icon-theme-circle"
+  "paper-gtk-theme"
+  "paper-icon-theme"
+  "paper-cursor-theme"
+  "adapta-gtk-theme"
+  "oranchelo-icon-theme"
+)
+
+ELEMENTARY_APT_PACKAGES=(
+  "elementary-tweaks"
 )
 
 # DEB FILES
@@ -63,13 +89,11 @@ DEB_FILES=(
   "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" # Chrome
   "https://atom.io/download/deb" # Atom
   "https://releases.hashicorp.com/vagrant/1.8.4/vagrant_1.8.4_x86_64.deb" # Vagrant
-  "https://mega.nz/linux/MEGAsync/xUbuntu_16.04/amd64/megasync-xUbuntu_16.04_amd64.deb" # MEGA sync client
-  "https://mega.nz/linux/MEGAsync/xUbuntu_16.04/amd64/nautilus-megasync-xUbuntu_16.04_amd64.deb" # Mega Nautilus extension
 )
 
 ## Node.js Packages ##
 NODE_MODULES=(
-  "gulp"
+  "gulp-cli"
   "eslint"
   "typescript"
 )
@@ -88,12 +112,48 @@ function add_basic_packages() {
   sudo apt-get install -y $BASIC_PACKAGES
 }
 
+function add_elementary_repositories() {
+  echo "Adding elementary APT software repositories"
+
+  for REPOSITORY in "${ELEMENTARY_PPA_REPOSITORIES[@]}"; do
+    sudo add-apt-repository -y "$REPOSITORY"
+  done
+}
+
+function add_ubuntu_repositories() {
+  echo "Adding Ubuntu APT software repositories"
+
+  for REPOSITORY in "${UBUNTU_PPA_REPOSITORIES[@]}"; do
+    sudo add-apt-repository -y "$REPOSITORY"
+  done
+}
+
+function add_distro_repositories() {
+  if [ $DISTRO_NAME = "Ubuntu" ]
+  then
+    add_ubuntu_repositories
+  elif [ $DISTRO_NAME = "elementary" ]
+  then
+    add_elementary_repositories
+  fi
+}
+
+function add_keys() {
+  for item in "${REPOSITORY_KEYS[@]}" ; do
+    SERVER="${item%%:*}"
+    KEY="${item##*:}"
+    sudo apt-key adv --keyserver $SERVER --recv-keys KEY
+  done
+}
+
 function add_respositories() {
-  echo "Adding new APT software repositories"
+  echo "Adding common APT software repositories"
 
   for REPOSITORY in "${PPA_REPOSITORIES[@]}"; do
     sudo add-apt-repository -y "$REPOSITORY"
   done
+
+  add_distro_repositories
 }
 
 function update_repositories() {
@@ -102,11 +162,43 @@ function update_repositories() {
   sudo apt-get -qq -y update && sudo apt-get -y upgrade
 }
 
+function install_ubuntu_packages() {
+  echo "Installing Ubuntu system packages"
+
+  UBUNTU_APT_PACKAGES=$(IFS=$" "; echo "${UBUNTU_APT_PACKAGES[*]}")
+  sudo apt-get install -y $UBUNTU_APT_PACKAGES
+}
+
+function install_elementary_packages() {
+  echo "Installing elementary system packages"
+
+  ELEMENTARY_APT_PACKAGES=$(IFS=$" "; echo "${ELEMENTARY_APT_PACKAGES[*]}")
+  sudo apt-get install -y $ELEMENTARY_APT_PACKAGES
+}
+
+function install_distro_packages() {
+  if [ $DISTRO_NAME = "Ubuntu" ]
+  then
+    install_ubuntu_packages
+  elif [ $DISTRO_NAME = "elementary" ]
+  then
+    install_elementary_packages
+  fi
+}
+
 function install_system_packages() {
   echo "Installing system packages"
 
   APT_PACKAGES=$(IFS=$" "; echo "${APT_PACKAGES[*]}")
   sudo apt-get install -y $APT_PACKAGES
+
+  install_distro_packages
+}
+
+function install_drivers() {
+  echo "Installing recommended drivers"
+
+  sudo ubuntu-drivers autoinstall
 }
 
 function install_debs() {
@@ -117,7 +209,7 @@ function install_debs() {
   done
 
   sudo dpkg -i *deb
-  sudo apt-get -f install
+  sudo apt-get -f
   rm -f *deb
 }
 
@@ -192,6 +284,10 @@ function install_zsh_plugins() {
   cd -
 }
 
+function change_shell() {
+  chsh -s `which zsh`
+}
+
 function clone_repository() {
   echo "Clonning the repository"
 
@@ -241,18 +337,12 @@ function install_ycm() {
   python "$HOME/.vim/bundle/YouCompleteMe/install.py" --clang-completer --tern-completer
 }
 
-function start_zsh() {
-  echo "Change default shell to zsh"
-
-  chsh -s "$(which zsh)" "$USER"
-  `which zsh`
-}
-
-install_ycm
 add_basic_packages
+add_keys
 add_respositories
 update_repositories
 install_system_packages
+install_drivers
 install_debs
 install_docker
 install_docker_compose
@@ -263,10 +353,11 @@ update_miniconda
 install_python3
 install_oh_my_zsh
 install_zsh_plugins
+change_shelll
 clone_repository
 create_startup_scripts
 create_symlinks
 install_vundle
 setup_vim
-start_zsh
+install_ycm
 }
