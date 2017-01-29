@@ -56,6 +56,7 @@ APT_PACKAGES=(
   "vim"
   "meld"
   "colordiff"
+  "default-jre"
   "graphviz"
   "virtualbox"
 
@@ -65,6 +66,9 @@ APT_PACKAGES=(
   "curl"
   "whois"
   "zsh"
+
+  "sni-qt"
+  "sni-qt:i386"
 )
 
 UBUNTU_APT_PACKAGES=(
@@ -337,6 +341,13 @@ function install_ycm() {
   python "$HOME/.vim/bundle/YouCompleteMe/install.py" --clang-completer --tern-completer
 }
 
+function install_papirus() {
+  echo "Installing Papirus theme"
+
+  wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/master/install-papirus-home-gtk.sh | sh
+  wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-smplayer-theme/master/install-papirus-root.sh | sh
+}
+
 add_basic_packages
 add_keys
 add_respositories
@@ -360,4 +371,5 @@ create_symlinks
 install_vundle
 setup_vim
 install_ycm
+install_papirus
 }
