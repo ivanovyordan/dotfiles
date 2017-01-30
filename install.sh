@@ -59,7 +59,9 @@ APT_PACKAGES=(
   "default-jre"
   "graphviz"
   "virtualbox"
-
+   
+  "dropbox"
+  "python-gpgme"
   "vlc"
   "smplayer"
   "autojump"
@@ -213,7 +215,7 @@ function install_debs() {
   done
 
   sudo dpkg -i *deb
-  sudo apt-get -f
+  sudo apt-get install -f
   rm -f *deb
 }
 
