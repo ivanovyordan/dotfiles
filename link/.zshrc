@@ -51,7 +51,7 @@ ZSH_THEME="schminitz"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(autojump bower command-not-found dircycle docker docker-compose git git-extras git-flow lol npm ssh-agent vagrant zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(autojump bower command-not-found dircycle docker docker-compose git git-extras git-flow lol npm vagrant zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 

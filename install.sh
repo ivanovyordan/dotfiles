@@ -115,6 +115,10 @@ ZSH_PLUGINS=(
   "https://github.com/zsh-users/zsh-autosuggestions.git"
 )
 
+ZSH_THEMES=(
+  "https://gist.githubusercontent.com/schminitz/9931af23bbb59e772eec/raw/schminitz.zsh-theme"
+)
+
 # INSTALLATION #
 
 function add_basic_packages() {
@@ -299,7 +303,7 @@ function install_zsh_plugins() {
 function install_zsh_themes() {
   echo "Installing zsh themes"
 
-  mkdir -p "$HOME/.oh-my-zsh/custom/themes";
+  mkdir -p "$HOME/.oh-my-zsh/custom/themes"
   cd "$HOME/.oh-my-zsh/custom/themes"
 
   for URL in "${ZSH_THEMES[@]}"; do
