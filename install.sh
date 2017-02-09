@@ -290,6 +290,19 @@ function install_zsh_plugins() {
   cd -
 }
 
+function install_zsh_themes() {
+  echo "Installing zsh themes"
+
+  mkdir -p "$HOME/.oh-my-zsh/custom/themes";
+  cd "$HOME/.oh-my-zsh/custom/themes"
+
+  for URL in "${ZSH_THEMES[@]}"; do
+    curl -O "$URL"
+  done
+
+  cd -
+}
+
 function change_shell() {
   chsh -s `which zsh`
 }
@@ -366,6 +379,7 @@ update_miniconda
 install_python3
 install_oh_my_zsh
 install_zsh_plugins
+install_zsh_themes
 change_shelll
 clone_repository
 create_startup_scripts
