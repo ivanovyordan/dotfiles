@@ -26,6 +26,7 @@ PPA_REPOSITORIES=(
   "deb http://linux.dropbox.com/ubuntu $DISTRO_VERSION main" #Dropbox
   "ppa:graphics-drivers/ppa" # Graphics drivers
   "ppa:git-core/ppa" # Git
+  "add-apt-repository ppa:otto-kesselgulasch/gimp" # GIMP
 )
 
 UBUNTU_PPA_REPOSITORIES=(
@@ -59,7 +60,7 @@ APT_PACKAGES=(
   "default-jre"
   "graphviz"
   "virtualbox"
-   
+
   "dropbox"
   "python-gpgme"
   "vlc"
@@ -68,6 +69,9 @@ APT_PACKAGES=(
   "curl"
   "whois"
   "zsh"
+
+  "gimp"
+  "gimp-plugin-registry"
 
   "sni-qt"
   "sni-qt:i386"
