@@ -295,7 +295,7 @@ function change_shell() {
 }
 
 function clone_repository() {
-  echo "Clonning the repository"
+  echo "Cloning the repository"
 
   git clone https://github.com/ivanovyordan/dotfiles.git "$DOTFILES_DIR"
 }
