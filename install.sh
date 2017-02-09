@@ -26,7 +26,8 @@ PPA_REPOSITORIES=(
   "deb http://linux.dropbox.com/ubuntu $DISTRO_VERSION main" #Dropbox
   "ppa:graphics-drivers/ppa" # Graphics drivers
   "ppa:git-core/ppa" # Git
-  "add-apt-repository ppa:otto-kesselgulasch/gimp" # GIMP
+  "ppa:otto-kesselgulasch/gimp" # GIMP
+  "ppa:pmjdebruijn/darktable-release" # Darktable
 )
 
 UBUNTU_PPA_REPOSITORIES=(
@@ -72,6 +73,7 @@ APT_PACKAGES=(
 
   "gimp"
   "gimp-plugin-registry"
+  "darktable"
 
   "sni-qt"
   "sni-qt:i386"
