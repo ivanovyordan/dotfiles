@@ -1,26 +1,38 @@
 [user]
-	name = Yordan Ivanov
-	email = mail@ivanovyordan.com
+  name = Yordan Ivanov
+  email = mail@ivanovyordan.com
+  signkey = 0621C9F3657425C0
+
 [credential]
-	helper = cache
+  helper = cache
 
 [core]
-	editor = vim
-	autocrlf = input
-	eol = lf
+  editor = vim
+  autocrlf = input
+  eol = lf
 
 [color]
-	ui = true
+  ui = true
 
 [commit]
-	template = ~/.gitmessage
+  template = ~/.gitmessage
+  gpgsign = true
 
-[merge]
-	tool = meld
-[difft]
-	tool = meld
-
-[push]
-	default = matching
 [pull]
-	rebase = true
+  rebase = true
+
+[remote "origin"]
+  # GitHub
+  fetch = +refs/pull/*/head:refs/remotes/origin/pr/*
+  # GitLab
+  fetch = +refs/merge-requests/*/head:refs/remotes/origin/merge-requests/*
+
+[rerere]
+  enabled = true
+  autoupdate = true
+
+[web]
+  browser = google-chrome
+
+[instaweb]
+  httpd = webrick
