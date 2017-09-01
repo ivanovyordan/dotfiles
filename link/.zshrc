@@ -2,7 +2,8 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/home/yordan/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
+export DOTFILES=$HOME/.dotfiles
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -51,7 +52,25 @@ ZSH_THEME="schminitz"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(autojump bower command-not-found dircycle docker docker-compose git git-extras git-flow lol npm vagrant zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(
+  zsh-syntax-highlighting
+  autojump
+  command-not-found
+  dircycle
+  docker
+  docker-compose
+  extract
+  git
+  git-extras
+  git-flow
+  kubectl
+  npm
+  nvm
+  rbenv
+  zsh-autosuggestionsz
+  zsh-history-substring-search
+  zsh-navigation-tools
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -66,15 +85,14 @@ source $ZSH/oh-my-zsh.sh
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
-#   export EDITOR='vim'
+#   export EDITOR='mvim'
 # fi
-export EDITOR='vim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
+# export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -85,10 +103,21 @@ export EDITOR='vim'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# Source nvm
-source $HOME/.nvm/nvm.sh
-
 # Source all files under ~/dotfiles/source/
-for FILE in $HOME/.dotfiles/source/*; do
-  source "$FILE"
+for DIR in $(ls $DOTFILES/source)
+do
+  for FILE in $DOTFILES/source/$DIR/*
+  do
+    source $FILE
+  done
 done
+
+# Source custom files
+CUSTOM=$(ls -A $HOME/.source)
+if [ $CUSTOM ]
+then
+  for FILE in $CUSTOM
+  do
+    source $HOME/.source/$FILE
+  done
+fi

@@ -3,26 +3,23 @@
 # dirs  755 drwxr-xr-x (777 minus 022)
 umask 022
 
+# Parenting changing perms on /
+alias chown='chown --preserve-root'
+alias chmod='chmod --preserve-root'
+alias chgrp='chgrp --preserve-root'
+
 # File size
 alias fs="stat -f '%z bytes'"
 alias df="df -h"
 alias du='du -ch'
 
-## Create parent directories on demand ##
+# Create parent directories on demand
 alias mkdir='mkdir -pv'
 
-# do not delete / or prompt if deleting more than 3 files at a time #
-alias rm='rm -I --preserve-root'
-
-# confirmation #
+# Confirmation
 alias mv='mv -i'
 alias cp='cp -i'
 alias ln='ln -i'
 
-## Make mount command output pretty and human readable format ##
+# Make mount command output pretty and human readable format
 alias mount='mount | column -t'
-
-# Create a new directory and enter it
-function take() {
-  mkdir -p "$@" && cd "$@"
-}

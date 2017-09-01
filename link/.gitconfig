@@ -7,32 +7,22 @@
   helper = cache
 
 [core]
-  editor = vim
+  editor = nvim
   autocrlf = input
   eol = lf
+  excludesfile = ~/.gitignore_global
 
 [color]
   ui = true
 
 [commit]
-  template = ~/.gitmessage
   gpgsign = true
 
 [pull]
   rebase = true
 
-[remote "origin"]
-  # GitHub
-  fetch = +refs/pull/*/head:refs/remotes/origin/pr/*
-  # GitLab
-  fetch = +refs/merge-requests/*/head:refs/remotes/origin/merge-requests/*
-
 [rerere]
   enabled = true
-  autoupdate = true
 
-[web]
-  browser = google-chrome
-
-[instaweb]
-  httpd = webrick
+[rebase]
+  auosquash = true

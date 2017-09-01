@@ -2,400 +2,178 @@
 
 # this ensures the entire script is downloaded #
 {
-echo "Dotfiles - Yordan Ivanov"
+DOTFILES_DIR=~/.dotfiles
+LINK_SOURCE_DIR=$DOTFILES_DIR/link
 
-# CONFIG #
-
-## Link Directories ##
-DOTFILES_DIR="$HOME/.dotfiles"
-LINK_SOURCE_DIR="$DOTFILES_DIR/link"
-STARTUP_SOURCE_DIR="$DOTFILES_DIR/startup"
-STARTUP_DEST_DIR="$HOME/.config/autostart"
-APPS_DIR="$HOME/.applications"
-DISTRO_NAME=`lsb_release -is`
-DISTRO_VERSION=`lsb_release -sc`
-
-## Repository Keys ##
-REPOSITORY_KEYS=(
-  "pgp.mit.edu:5044912E"
-)
-
-## APT Repositories ##
-PPA_REPOSITORIES=(
-  "multiverse"
-  "deb http://linux.dropbox.com/ubuntu $DISTRO_VERSION main" #Dropbox
-  "ppa:graphics-drivers/ppa" # Graphics drivers
-  "ppa:git-core/ppa" # Git
-  "ppa:otto-kesselgulasch/gimp" # GIMP
-  "ppa:pmjdebruijn/darktable-release" # Darktable
-)
-
-UBUNTU_PPA_REPOSITORIES=(
-  "ppa:peterlevi/ppa" # Variery
-  "ppa:numix/ppa" # Numix Theme
-  "ppa:snwh/pulp" # Paper Theme
-  "ppa:tista/adapta" # Adapta theme
-  "ppa:oranchelo/oranchelo-icon-theme" # Oranchelo Icon Theme
-)
-
-ELEMENTARY_PPA_REPOSITORIES=(
-  "ppa:philip.scott/elementary-tweaks" # elementary tweaks
-)
-
-## Basic Packages ##
-BASIC_PACKAGES=(
-  "software-properties-common"
-)
-
-## Packages ##
-APT_PACKAGES=(
-  "git-core"
-  "git-flow"
-  "git-extras"
-
-  "build-essential"
-  "cmake"
-  "vim"
-  "meld"
-  "colordiff"
-  "default-jre"
-  "graphviz"
-  "virtualbox"
-
-  "dropbox"
-  "python-gpgme"
-  "vlc"
-  "smplayer"
-  "autojump"
-  "curl"
-  "whois"
-  "zsh"
-
-  "gimp"
-  "gimp-plugin-registry"
-  "darktable"
-
-  "sni-qt"
-  "sni-qt:i386"
-)
-
-UBUNTU_APT_PACKAGES=(
-  "variety"
-  "unity-tweak-tool"
-  "numix-gtk-theme"
-  "numix-icon-theme"
-  "numix-icon-theme-circle"
-  "paper-gtk-theme"
-  "paper-icon-theme"
-  "paper-cursor-theme"
-  "adapta-gtk-theme"
-  "oranchelo-icon-theme"
-)
-
-ELEMENTARY_APT_PACKAGES=(
-  "elementary-tweaks"
-)
-
-# DEB FILES
-DEB_FILES=(
-  "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" # Chrome
-  "https://atom.io/download/deb" # Atom
-  "https://releases.hashicorp.com/vagrant/1.8.4/vagrant_1.8.4_x86_64.deb" # Vagrant
-)
-
-## Node.js Packages ##
-NODE_MODULES=(
-  "gulp-cli"
-  "eslint"
-  "typescript"
-)
-
-ZSH_PLUGINS=(
-  "https://github.com/zsh-users/zsh-syntax-highlighting.git"
-  "https://github.com/zsh-users/zsh-autosuggestions.git"
-)
-
-ZSH_THEMES=(
-  "https://gist.githubusercontent.com/schminitz/9931af23bbb59e772eec/raw/schminitz.zsh-theme"
-)
-
-# INSTALLATION #
-
-function add_basic_packages() {
-  echo "Adding basic packages"
-
-  BASIC_PACKAGES=$(IFS=$" "; echo "${BASIC_PACKAGES[*]}")
-  sudo apt-get install -y $BASIC_PACKAGES
+function github_release {
+  local release=$(curl -s "https://api.github.com/repos/$1/releases/latest" | grep tag_name | cut -d '"' -f 4)
+  echo $release
 }
 
-function add_elementary_repositories() {
-  echo "Adding elementary APT software repositories"
+# Update repositories
+sudo apt update
 
-  for REPOSITORY in "${ELEMENTARY_PPA_REPOSITORIES[@]}"; do
-    sudo add-apt-repository -y "$REPOSITORY"
-  done
-}
+# apt-add-repository
+sudo apt install -y \
+  software-properties-common \
+  curl \
+  apt-transport-https
 
-function add_ubuntu_repositories() {
-  echo "Adding Ubuntu APT software repositories"
+# Add PGP keys
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - # Docker
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886 0DF731E45CE24F27EEEB1450EFDC8610341D9410 # Spotify
 
-  for REPOSITORY in "${UBUNTU_PPA_REPOSITORIES[@]}"; do
-    sudo add-apt-repository -y "$REPOSITORY"
-  done
-}
+# Add repositories
+sudo apt-add-repository -y multiverse # steam
+sudo apt-add-repository -y ppa:graphics-drivers/ppa # drivers
+sudo apt-add-repository -y ppa:git-core/ppa # git
+sudo apt-add-repository -y ppa:philip.scott/elementary-tweaks # elementary-tweaks
+sudo apt-add-repository -y ppa:cybre/elementaryplus # elementaryplus
+sudo apt-add-repository -y ppa:neovim-ppa/stable # neovim
+sudo apt-add-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable" # docker-ce
+sudo apt-add-repository -y "deb http://repository.spotify.com stable non-free" # Spotify
 
-function add_distro_repositories() {
-  if [ $DISTRO_NAME = "Ubuntu" ]
-  then
-    add_ubuntu_repositories
-  elif [ $DISTRO_NAME = "elementary" ]
-  then
-    add_elementary_repositories
-  fi
-}
+# Update system
+sudo apt update
+sudo apt full-upgrade -y
 
-function add_keys() {
-  for item in "${REPOSITORY_KEYS[@]}" ; do
-    SERVER="${item%%:*}"
-    KEY="${item##*:}"
-    sudo apt-key adv --keyserver $SERVER --recv-keys KEY
-  done
-}
+# Install packages
+sudo DEBIAN_FRONTEND=noninteractive apt install -y \
+  apt-transport-https \
+  artha \
+  autojump \
+  build-essential \
+  ca-certificates \
+  chromium-browser \
+  colordiff \
+  com.github.artemanufrij.screencast \
+  com.github.davidmhewitt.clipped \
+  com.github.donadigo.eddy \
+  com.github.luizaugustomm.tomato \
+  default-jre \
+  docker-ce \
+  elementary-tweaks \
+  elementaryplus \
+  git-core \
+  git-extras \
+  git-flow \
+  graphviz \
+  libpq-dev \
+  libreadline-dev \
+  libssl-dev \
+  nautilus-dropbox \
+  neovim \
+  pepperflashplugin-nonfree \
+  postgresql \
+  postgresql-contrib \
+  powerline \
+  python-dev \
+  python-gpgme \
+  python-pip \
+  python2.7 \
+  python3-dev \
+  python3-pip \
+  smplayer \
+  spotify-client \
+  steam \
+  tlp-rdw \
+  tmux \
+  transmission \
+  ubuntu-restricted-extras \
+  virtualbox \
+  whois \
+  zsh \
+  zlib1g-dev
 
-function add_respositories() {
-  echo "Adding common APT software repositories"
+# Install graphics drivers
+sudo ubuntu-drivers autoinstall
 
-  for REPOSITORY in "${PPA_REPOSITORIES[@]}"; do
-    sudo add-apt-repository -y "$REPOSITORY"
-  done
+# Install Dropbox
+wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
 
-  add_distro_repositories
-}
+# Install skype
+curl -O https://repo.skype.com/latest/skypeforlinux-64.deb
+sudo dpkg -i skypeforlinux-64.deb
+rm -rf skypeforlinux-64.deb
 
-function update_repositories() {
-  echo "Updating repositories"
+# Clean up
+sudo apt install -f
+sudo apt autoremove -y
+sudo apt autoclean
 
-  sudo apt-get -qq -y update && sudo apt-get -y upgrade
-}
+# Install nvm
+curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+source ~/.nvm/nvm.sh
+nvm install --lts
 
-function install_ubuntu_packages() {
-  echo "Installing Ubuntu system packages"
+# Install npm packages
+npm i -g \
+  npm \
+  yarn
 
-  UBUNTU_APT_PACKAGES=$(IFS=$" "; echo "${UBUNTU_APT_PACKAGES[*]}")
-  sudo apt-get install -y $UBUNTU_APT_PACKAGES
-}
+# Install rbenv
+git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+PATH=~/.rbenv/bin:$PATH
+eval "$(rbenv init -)"
+LATEST_RUBY=$(rbenv install -l | grep -v - | tail -1)
+rbenv install $LATEST_RUBY
+rbenv global $LATEST_RUBY
 
-function install_elementary_packages() {
-  echo "Installing elementary system packages"
+# Install ruby gems
+gem install \
+  bundler \
+  rails
+rbenv rehash
 
-  ELEMENTARY_APT_PACKAGES=$(IFS=$" "; echo "${ELEMENTARY_APT_PACKAGES[*]}")
-  sudo apt-get install -y $ELEMENTARY_APT_PACKAGES
-}
+# Install neovim dependencies
+pip install --user --upgrade pip neovim
+pip3 install --user --upgrade pip neovim
+gem install neovim
 
-function install_distro_packages() {
-  if [ $DISTRO_NAME = "Ubuntu" ]
-  then
-    install_ubuntu_packages
-  elif [ $DISTRO_NAME = "elementary" ]
-  then
-    install_elementary_packages
-  fi
-}
+# Setup SpaceVim
+curl -sLf https://spacevim.org/install.sh | bash
+sudo usermod -aG docker $USER
 
-function install_system_packages() {
-  echo "Installing system packages"
+# Install docker compose and kubernetes
+COMPOSE_RELEASE=$(github_release docker/compose)
+KUBECTL_RELEASE=$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)
+sudo curl -L https://github.com/docker/compose/releases/download/$COMPOSE_RELEASE/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose
+sudo curl https://storage.googleapis.com/kubernetes-release/release/$KUBECTL_RELEASE/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl
+sudo curl https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 -o /usr/local/bin/minikube
+sudo chmod +x /usr/local/bin/{docker-compose,kubectl,minikube}
 
-  APT_PACKAGES=$(IFS=$" "; echo "${APT_PACKAGES[*]}")
-  sudo apt-get install -y $APT_PACKAGES
+# Install oh-my-zsh
+chsh -s $(which zsh)
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+ZSH_CUSTOM=~/.oh-my-zsh/custom
 
-  install_distro_packages
-}
+mkdir -p $ZSH_CUSTOM/plugins
+git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-history-substring-search $ZSH_CUSTOM/plugins/zsh-history-substring-search
+git clone https://github.com/zsh-users/zsh-syntax-highlighting $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 
-function install_drivers() {
-  echo "Installing recommended drivers"
+mkdir -p $ZSH_CUSTOM/themes
+curl curl -O https://gist.githubusercontent.com/schminitz/9931af23bbb59e772eec/raw/schminitz.zsh-theme -o $ZSH_CUSTOM/themes/schminitz.zsh-theme
 
-  sudo ubuntu-drivers autoinstall
-}
+# Install powerline fonts
+git clone https://github.com/powerline/fonts.git --depth=1
+cd fonts
+./install.sh
+cd ..
+rm -rf fonts
+curl -fL https://raw.githubusercontent.com/ryanoasis/powerline-extra-symbols/master/patched-fonts/DroidSansMonoForPowerlinePlusNerdFileTypesMono.otf -o ~/.local/share/fonts DroidSansMonoForPowerlinePlusNerdFileTypesMono.otf
 
-function install_debs() {
-  echo "Downloading .deb files"
+# Download dotfiles
+git clone https://github.com/ivanovyordan/dotfiles.git $DOTFILES_DIR
 
-  for URL in "${DEB_FILES[@]}"; do
-    wget "$URL"
-  done
+# Link files
+FILES=$(ls -A $LINK_SOURCE_DIR)
+for FILE in $FILES
+do
+  ln -sf $LINK_SOURCE_DIR/$FILE ~/
+done
 
-  sudo dpkg -i *deb
-  sudo apt-get install -f
-  rm -f *deb
-}
-
-function install_docker() {
-  echo "Installing Docker"
-
-  wget -qO- https://get.docker.com/ | sh
-  sudo usermod -aG docker "$USER"
-}
-
-function install_docker_compose() {
-  echo "Installing Docker Compose"
-
-  curl -L https://raw.githubusercontent.com/docker/compose/master/script/run/run.sh > docker-compose
-  chmod +x docker-compose
-  sudo mv docker-compose /usr/local/bin/
-}
-
-function install_nvm() {
-  echo "Installing NVM"
-
-  wget -qO- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | sh
-  source "$HOME/.nvm/nvm.sh"
-  nvm install stable
-  nvm use stable
-  nvm alias default stable
-}
-
-function install_node_modules() {
-  echo "Installing  Node.js modules"
-
-  NODE_MODULES=$(IFS=$" "; echo "${NODE_MODULES[*]}")
-  npm install -g $NODE_MODULES
-}
-
-function install_miniconda() {
-  echo "Installing Miniconda"
-
-  wget https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
-  bash Miniconda-latest-Linux-x86_64.sh -b -p "$APPS_DIR/miniconda"
-  rm Miniconda-latest-Linux-x86_64.sh
-}
-
-function update_miniconda() {
-  echo "Updating Miniconda"
-
-  export PATH="$APPS_DIR/miniconda/bin:$PATH"
-  conda update -y conda
-}
-
-function install_python3() {
-  echo "Installing Miniconda Python 3"
-
-  conda create -y --name python3 python=3
-}
-
-function install_oh_my_zsh() {
-  echo "Installing oh-my-zsh"
-
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-}
-
-function install_zsh_plugins() {
-  echo "Installing zsh plugins"
-
-  cd "$HOME/.oh-my-zsh/custom/plugins"
-
-  for URL in "${ZSH_PLUGINS[@]}"; do
-    git clone "$URL"
-  done
-
-  cd -
-}
-
-function install_zsh_themes() {
-  echo "Installing zsh themes"
-
-  mkdir -p "$HOME/.oh-my-zsh/custom/themes"
-  cd "$HOME/.oh-my-zsh/custom/themes"
-
-  for URL in "${ZSH_THEMES[@]}"; do
-    curl -O "$URL"
-  done
-
-  cd -
-}
-
-function change_shell() {
-  chsh -s `which zsh`
-}
-
-function clone_repository() {
-  echo "Cloning the repository"
-
-  git clone https://github.com/ivanovyordan/dotfiles.git "$DOTFILES_DIR"
-}
-
-function create_startup_scripts() {
-  echo "Creating startup scripts"
-
-  FILES=$(ls -A "$STARTUP_SOURCE_DIR")
-  for FILE in $FILES; do
-    echo "[Desktop Entry]" > "$STARTUP_DEST_DIR/$FILE.desktop"
-    echo "Type=Application" >> "$STARTUP_DEST_DIR/$FILE.desktop"
-    echo "Exec=$STARTUP_SOURCE_DIR/$FILE" >> "$STARTUP_DEST_DIR/$FILE.desktop"
-    echo "Hidden=false" >> "$STARTUP_DEST_DIR/$FILE.desktop"
-    echo "NoDisplay=false" >> "$STARTUP_DEST_DIR/$FILE.desktop"
-    echo "X-GNOME-Autostart-enabled=true" >> "$STARTUP_DEST_DIR/$FILE.desktop"
-    echo "Name=$FILE" >> "$STARTUP_DEST_DIR/$FILE.desktop"
-    echo "Comment=$FILE" >> "$STARTUP_DEST_DIR/$FILE.desktop"
-  done
-}
-
-function create_symlinks() {
-  echo "Create links"
-
-  FILES=$(ls -A "$LINK_SOURCE_DIR")
-  for FILE in $FILES; do
-    ln -sf "$LINK_SOURCE_DIR/$FILE" "$HOME"
-  done
-}
-
-function install_vundle() {
-  echo "Installing vundle"
-
-  git clone https://github.com/VundleVim/Vundle.vim.git "$HOME/.vim/bundle/Vundle.vim"
-}
-
-function setup_vim() {
-  echo "Setup vim"
-
-  vim +PluginInstall +qall
-}
-
-function install_ycm() {
-  echo "Installing YouCompleteMe"
-
-  python "$HOME/.vim/bundle/YouCompleteMe/install.py" --clang-completer --tern-completer
-}
-
-function install_papirus() {
-  echo "Installing Papirus theme"
-
-  wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/master/install-papirus-home-gtk.sh | sh
-  wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-smplayer-theme/master/install-papirus-root.sh | sh
-}
-
-add_basic_packages
-add_keys
-add_respositories
-update_repositories
-install_system_packages
-install_drivers
-install_debs
-install_docker
-install_docker_compose
-install_nvm
-install_node_modules
-install_miniconda
-update_miniconda
-install_python3
-install_oh_my_zsh
-install_zsh_plugins
-install_zsh_themes
-change_shelll
-clone_repository
-create_startup_scripts
-create_symlinks
-install_vundle
-setup_vim
-install_ycm
-install_papirus
+# Custom source scripts
+mkdir -p ~/.source
 }
