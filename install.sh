@@ -2,8 +2,7 @@
 
 # this ensures the entire script is downloaded #
 {
-DOTFILES_DIR=~/.dotfiles
-LINK_SOURCE_DIR=$DOTFILES_DIR/link
+DOTFILES_DIR=$HOME/.dotfiles
 
 function github_release {
   local release=$(curl -s "https://api.github.com/repos/$1/releases/latest" | grep tag_name | cut -d '"' -f 4)
@@ -73,6 +72,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt install -y \
   python2.7 \
   python3-dev \
   python3-pip \
+  silversearcher-ag \
   smplayer \
   spotify-client \
   steam \
@@ -103,7 +103,7 @@ sudo apt autoclean
 
 # Install nvm
 curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
-source ~/.nvm/nvm.sh
+source $HOME/.nvm/nvm.sh
 nvm install --lts
 
 # Install npm packages
@@ -112,9 +112,9 @@ npm i -g \
   yarn
 
 # Install rbenv
-git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
-PATH=~/.rbenv/bin:$PATH
+git clone https://github.com/rbenv/rbenv.git $HOME/.rbenv
+git clone https://github.com/rbenv/ruby-build.git $HOME/.rbenv/plugins/ruby-build
+PATH=$HOME/.rbenv/bin:$PATH
 eval "$(rbenv init -)"
 LATEST_RUBY=$(rbenv install -l | grep -v - | tail -1)
 rbenv install $LATEST_RUBY
@@ -126,15 +126,6 @@ gem install \
   rails
 rbenv rehash
 
-# Install neovim dependencies
-pip install --user --upgrade pip neovim
-pip3 install --user --upgrade pip neovim
-gem install neovim
-
-# Setup SpaceVim
-curl -sLf https://spacevim.org/install.sh | bash
-sudo usermod -aG docker $USER
-
 # Install docker compose and kubernetes
 COMPOSE_RELEASE=$(github_release docker/compose)
 KUBECTL_RELEASE=$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)
@@ -142,11 +133,12 @@ sudo curl -L https://github.com/docker/compose/releases/download/$COMPOSE_RELEAS
 sudo curl https://storage.googleapis.com/kubernetes-release/release/$KUBECTL_RELEASE/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl
 sudo curl https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 -o /usr/local/bin/minikube
 sudo chmod +x /usr/local/bin/{docker-compose,kubectl,minikube}
+sudo usermod -aG docker $USER
 
 # Install oh-my-zsh
 chsh -s $(which zsh)
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-ZSH_CUSTOM=~/.oh-my-zsh/custom
+ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
 
 mkdir -p $ZSH_CUSTOM/plugins
 git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
@@ -162,18 +154,32 @@ cd fonts
 ./install.sh
 cd ..
 rm -rf fonts
-curl -fL https://raw.githubusercontent.com/ryanoasis/powerline-extra-symbols/master/patched-fonts/DroidSansMonoForPowerlinePlusNerdFileTypesMono.otf -o ~/.local/share/fonts DroidSansMonoForPowerlinePlusNerdFileTypesMono.otf
+curl -fLo "$HOME/.local/share/fonts/Droid Sans Mono for Powerline Nerd Font Complete.otf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf
+
+# Install neovim dependencies
+pip install --user --upgrade pip neovim
+pip3 install --user --upgrade pip neovim
+gem install neovim
+curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | bash -s -- $HOME/.cache/dein
+sudo chown -R $USERNAME $HOME/.cache
+
+# Setup pgp agent
+mkdir -p $HOME/.gnupg
+echo "no-tty\nuse-agent" >> $HOME/.gnupg/gpg.conf
 
 # Download dotfiles
 git clone https://github.com/ivanovyordan/dotfiles.git $DOTFILES_DIR
 
 # Link files
-FILES=$(ls -A $LINK_SOURCE_DIR)
-for FILE in $FILES
+for FILE in $DOTFILES_DIR/link/*
 do
-  ln -sf $LINK_SOURCE_DIR/$FILE ~/
+  NAME=$(basename $FILE)
+  ln -s $DOTFILES_DIR/link/$NAME $HOME/.$FILE
 done
 
+ln -s $DOTFILES_DIR/vim $HOME/.config/nvim
+
 # Custom source scripts
-mkdir -p ~/.source
+mkdir -p $HOME/.dotfiles.local/{source,bin}
+touch $HOME/.dotfiles.local/init.vim
 }

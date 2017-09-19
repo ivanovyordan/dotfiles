@@ -1,0 +1,3 @@
+#!/usr/bin/env zsh
+
+find-all $1 | xargs kill --

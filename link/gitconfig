@@ -10,7 +10,7 @@
   editor = nvim
   autocrlf = input
   eol = lf
-  excludesfile = ~/.gitignore_global
+  excludesfile = $HOME/.gitignore
 
 [color]
   ui = true
@@ -18,11 +18,17 @@
 [commit]
   gpgsign = true
 
-[pull]
-  rebase = true
-
 [rerere]
   enabled = true
 
 [rebase]
   auosquash = true
+
+[merge]
+  ff = no
+
+[pull]
+  rebase = preserve
+
+[push]
+  default = simple

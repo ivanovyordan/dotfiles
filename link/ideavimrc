@@ -1,0 +1,4 @@
+set showmode
+
+imap jk <Esc>
+set timeoutlen=1000

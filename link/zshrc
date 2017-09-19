@@ -4,6 +4,7 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 export DOTFILES=$HOME/.dotfiles
+export EDITOR=nvim
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -67,7 +68,7 @@ plugins=(
   npm
   nvm
   rbenv
-  zsh-autosuggestionsz
+  zsh-autosuggestions
   zsh-history-substring-search
   zsh-navigation-tools
 )
@@ -113,11 +114,8 @@ do
 done
 
 # Source custom files
-CUSTOM=$(ls -A $HOME/.source)
-if [ $CUSTOM ]
-then
-  for FILE in $CUSTOM
-  do
-    source $HOME/.source/$FILE
-  done
-fi
+for FILE in $HOME/.dotfiles.local/source/*
+do
+  test -f $FILE || continue
+  source $FILE
+done

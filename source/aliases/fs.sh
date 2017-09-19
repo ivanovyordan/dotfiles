@@ -3,11 +3,6 @@
 # dirs  755 drwxr-xr-x (777 minus 022)
 umask 022
 
-# Parenting changing perms on /
-alias chown='chown --preserve-root'
-alias chmod='chmod --preserve-root'
-alias chgrp='chgrp --preserve-root'
-
 # File size
 alias fs="stat -f '%z bytes'"
 alias df="df -h"

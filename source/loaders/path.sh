@@ -1,3 +1,2 @@
 # Load custom PATH directories
-
-PATH=~/.dotfiles/bin:$PATH
+PATH=$HOME/.dotfiles.local/bin:$HOME/.dotfiles/bin:$PATH
