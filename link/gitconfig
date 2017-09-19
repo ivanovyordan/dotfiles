@@ -10,7 +10,7 @@
   editor = nvim
   autocrlf = input
   eol = lf
-  excludesfile = $HOME/.gitignore
+  excludesfile = ~/.gitignore
 
 [color]
   ui = true
