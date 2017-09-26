@@ -57,6 +57,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt install -y \
   git-extras \
   git-flow \
   graphviz \
+  httpie \
   libpq-dev \
   libreadline-dev \
   libssl-dev \
