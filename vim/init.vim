@@ -33,6 +33,7 @@ if dein#load_state('~/.cache/dein')
   " Ruby
   call dein#add('vim-ruby/vim-ruby')
   call dein#add('tpope/vim-rails')
+  call dein#add('slim-template/vim-slim')
   call dein#add('ngmy/vim-rubocop')
   call dein#add('thoughtbot/vim-rspec')
   call dein#add('tpope/vim-endwise')
@@ -100,8 +101,6 @@ set number relativenumber
 set encoding=utf-8
 " The encoding written to file
 set fileencoding=utf-8
-" Wrap commit messages
-autocmd Filetype gitcommit textwidth=72
 " Keep the changes to the buffer without writing them to the file
 set hidden
 " Turn off automatic line wrapping
