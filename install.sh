@@ -124,7 +124,8 @@ rbenv global $LATEST_RUBY
 # Install ruby gems
 gem install \
   bundler \
-  rails
+  rails \
+  scss-lint
 rbenv rehash
 
 # Install docker compose and kubernetes
