@@ -69,8 +69,6 @@ plugins=(
   nvm
   rbenv
   zsh-autosuggestions
-  zsh-history-substring-search
-  zsh-navigation-tools
 )
 
 source $ZSH/oh-my-zsh.sh

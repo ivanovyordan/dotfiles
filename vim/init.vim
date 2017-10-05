@@ -65,9 +65,10 @@ if dein#load_state('~/.cache/dein')
   call dein#add('itmammoth/doorboy.vim')
   call dein#add('tpope/vim-repeat')
   call dein#add('terryma/vim-multiple-cursors')
-  call dein#add('ctrlpvim/ctrlp.vim')
   call dein#add('scrooloose/nerdcommenter')
-  call dein#add('Numkil/ag.nvim')
+  call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
+  call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
+  call dein#add('tpope/vim-dispatch')
 
   " Theme
   call dein#add('mhartington/oceanic-next')
@@ -225,11 +226,11 @@ nmap <F3> :VimFilerExplorer<CR>
 nmap <F2> :TagbarToggle<CR>
 
 " Rspec
-let g:rspec_command = "Dispatch rspec {spec}"
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-map <Leader>a :call RunAllSpecs()<CR>
+let g:rspec_command = "Dispatch bin/rspec {spec}"
+map <leader>t :call RunCurrentSpecFile()<CR>
+map <leader>s :call RunNearestSpec()<CR>
+map <leader>l :call RunLastSpec()<CR>
+map <leader>a :call RunAllSpecs()<CR>
 
 " NERDCommenter
 let g:NERDSpaceDelims = 1
@@ -245,18 +246,38 @@ let g:multi_cursor_next_key='<C-n>'
 let g:multi_cursor_prev_key='<C-p>'
 let g:multi_cursor_skip_key='<C-x>'
 
-" CtrlP
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = get(g:, 'ctrlp_working_path_mode', 'ra')
-let g:ctrlp_show_hidden = get(g:, 'ctrlp_show_hidden', 1)
-" caching
-let g:ctrlp_use_caching = get(g:, 'ctrlp_use_caching', 500)
-let g:ctrlp_clear_cache_on_exit = get(g:, 'ctrlp_clear_cache_on_exit', 1)
-let g:ctrlp_cache_dir = get(g:, 'ctrlp_cache_dir', $HOME.'/.cache/ctrlp')
+" Neosnippet
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)": pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : neocomplete#start_manual_complete()
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)": "\<TAB>"
 
-" Silver searcher
-let g:ag_working_path_mode="r"
+function! s:check_back_space() "{{{
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction "}}}
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+
+" fzf
+fun! FzfOmniFiles()
+  let is_git = system('git status')
+
+  if v:shell_error
+    :Files
+  else
+    :GitFiles
+  endif
+endfun
+
+noremap <C-b> :Buffers<CR>
+noremap <C-g> :Ag<CR>
+noremap <leader><leader> :Commands<CR>
+noremap <C-p> :call FzfOmniFiles()<CR>
 
 " Vim repeat - Keep at bottom
 silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)

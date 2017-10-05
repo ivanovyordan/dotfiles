@@ -125,7 +125,8 @@ rbenv global $LATEST_RUBY
 gem install \
   bundler \
   rails \
-  scss-lint
+  scss-lint \
+  coderay
 rbenv rehash
 
 # Install docker compose and kubernetes
@@ -137,6 +138,10 @@ sudo curl https://storage.googleapis.com/minikube/releases/latest/minikube-linux
 sudo chmod +x /usr/local/bin/{docker-compose,kubectl,minikube}
 sudo usermod -aG docker $USER
 
+# Install fzf
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install --all --no-zsh
+
 # Install oh-my-zsh
 chsh -s $(which zsh)
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -144,7 +149,6 @@ ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
 
 mkdir -p $ZSH_CUSTOM/plugins
 git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-history-substring-search $ZSH_CUSTOM/plugins/zsh-history-substring-search
 git clone https://github.com/zsh-users/zsh-syntax-highlighting $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 
 mkdir -p $ZSH_CUSTOM/themes
