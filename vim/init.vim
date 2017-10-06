@@ -26,6 +26,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('heavenshell/vim-jsdoc')
   call dein#add('elzr/vim-json')
   call dein#add('HerringtonDarkholme/yats.vim')
+  call dein#add('kchmck/vim-coffee-script')
   "CSS
   call dein#add('hail2u/vim-css3-syntax')
   call dein#add('ap/vim-css-color')
@@ -57,6 +58,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('ryanoasis/vim-devicons')
   call dein#add('majutsushi/tagbar', {'on': 'TagbarToggle'})
   call dein#add('vim-airline/vim-airline')
+  call dein#add('vim-airline/vim-airline-themes')
 
   " Utils
   call dein#add('editorconfig/editorconfig-vim')
@@ -80,6 +82,7 @@ if dein#load_state('~/.cache/dein')
 endif
 
 " Required:
+filetype off
 filetype plugin indent on
 syntax enable
 
