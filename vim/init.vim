@@ -19,6 +19,7 @@ if dein#load_state('~/.cache/dein')
   " HTML
   call dein#add('othree/html5.vim')
   call dein#add('skwp/vim-html-escape')
+  call dein#add('mattn/emmet-vim')
   " JavaScript
   call dein#add('othree/yajs.vim')
   call dein#add('othree/jsdoc-syntax.vim')
@@ -71,7 +72,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('tpope/vim-dispatch')
 
   " Theme
-  call dein#add('mhartington/oceanic-next')
+  call dein#add('gmist/vim-palette')
 
   " Required:
   call dein#end()
@@ -94,7 +95,7 @@ endif
  if (has("termguicolors"))
   set termguicolors
  endif
-colorscheme OceanicNext
+colorscheme tomorrow-night
 " Relative line numbers
 set number relativenumber
 
@@ -264,20 +265,10 @@ if has('conceal')
 endif
 
 " fzf
-fun! FzfOmniFiles()
-  let is_git = system('git status')
-
-  if v:shell_error
-    :Files
-  else
-    :GitFiles
-  endif
-endfun
-
 noremap <C-b> :Buffers<CR>
 noremap <C-g> :Ag<CR>
 noremap <leader><leader> :Commands<CR>
-noremap <C-p> :call FzfOmniFiles()<CR>
+noremap <C-p> :Files<CR>
 
 " Vim repeat - Keep at bottom
 silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
