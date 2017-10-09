@@ -30,8 +30,6 @@ if dein#load_state('~/.cache/dein')
   "CSS
   call dein#add('hail2u/vim-css3-syntax')
   call dein#add('ap/vim-css-color')
-  "Mrkdown
-  call dein#add('tpope/vim-markdown', {'on_ft': 'markdown'})
   " Ruby
   call dein#add('vim-ruby/vim-ruby')
   call dein#add('tpope/vim-rails')
@@ -40,6 +38,9 @@ if dein#load_state('~/.cache/dein')
   call dein#add('thoughtbot/vim-rspec')
   call dein#add('tpope/vim-endwise')
 
+  " Writing
+  call dein#add('tpope/vim-markdown', {'on_ft': 'markdown'})
+  call dein#add('vim-scripts/LanguageTool')
   " Git
   call dein#add('tpope/vim-fugitive')
   call dein#add('mhinz/vim-signify')
@@ -98,9 +99,10 @@ endif
  if (has("termguicolors"))
   set termguicolors
  endif
-colorscheme tomorrow-night
+colorscheme base16-gruvbox-dark-medium
 " Relative line numbers
 set number relativenumber
+
 
 " The encoding displayed
 set encoding=utf-8
@@ -176,6 +178,10 @@ autocmd BufReadPost *
 " center buffer around cursor when opening files
 autocmd BufRead * normal zz
 
+" Highlight current line
+set cursorline
+set colorcolumn=120
+
 " KEYS
 " Make backspace work like most other apps
 set backspace=indent,eol,start
@@ -194,6 +200,9 @@ map <C-l> <C-w>l
 set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types\ 11
 
 " Airline
+set linespace=0
+let g:airline_powerline_fonts = 1
+let g:airline_skip_empty_sections = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 nmap <leader>1 <Plug>AirlineSelectTab1
@@ -212,8 +221,9 @@ nmap <leader>+ <Plug>AirlineSelectNextTab
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
 let g:syntastic_ruby_checkers = ['rubocop']
 
 " Vimfiler
