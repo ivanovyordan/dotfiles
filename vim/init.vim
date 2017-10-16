@@ -37,7 +37,6 @@ if dein#load_state('~/.cache/dein')
   call dein#add('ngmy/vim-rubocop')
   call dein#add('thoughtbot/vim-rspec')
   call dein#add('tpope/vim-endwise')
-
   " Writing
   call dein#add('tpope/vim-markdown', {'on_ft': 'markdown'})
   call dein#add('vim-scripts/LanguageTool')
@@ -49,7 +48,6 @@ if dein#load_state('~/.cache/dein')
   " Autocomplete
   call dein#add('Shougo/neosnippet.vim')
   call dein#add('Shougo/neosnippet-snippets')
-  call dein#add('Shougo/vimfiler.vim')
   call dein#add('Shougo/deoplete.nvim')
 
   " Interfaces
@@ -102,7 +100,6 @@ endif
 colorscheme base16-gruvbox-dark-medium
 " Relative line numbers
 set number relativenumber
-
 
 " The encoding displayed
 set encoding=utf-8
@@ -240,7 +237,7 @@ nmap <F3> :VimFilerExplorer<CR>
 nmap <F2> :TagbarToggle<CR>
 
 " Rspec
-let g:rspec_command = "Dispatch bin/rspec {spec}"
+let g:rspec_command = "Dispatch rspec {spec}"
 map <leader>t :call RunCurrentSpecFile()<CR>
 map <leader>s :call RunNearestSpec()<CR>
 map <leader>l :call RunLastSpec()<CR>
