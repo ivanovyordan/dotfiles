@@ -85,6 +85,8 @@ set title
 " Do not beep
 set visualbell
 set noerrorbells
+" Vertical diff widows
+set diffopt+=vertical
 " Enable mouse
 set mouse=a
 " Set theme
