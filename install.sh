@@ -127,10 +127,10 @@ rbenv global $LATEST_RUBY
 gem install \
   bundler \
   rails \
-  scss-lint \
+  scss_lint \
   coderay \
   rcodetools \
-  ri \
+  fastri \
   neovim
 rbenv rehash
 
