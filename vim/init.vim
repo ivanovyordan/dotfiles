@@ -39,6 +39,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('Shougo/neosnippet.vim') " Snippets engine
   call dein#add('Shougo/neosnippet-snippets') " Snippets
   call dein#add('Shougo/deoplete-rct', {'on_ft': 'ruby'}) " Ruby autocomplete
+  call dein#add('carlitux/deoplete-ternjs', {'on_ft': 'javascript'}) " JavaScript autocomplete
 
 
   " SYNTAX
