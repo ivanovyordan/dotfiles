@@ -108,9 +108,10 @@ source $HOME/.nvm/nvm.sh
 nvm install --lts
 
 # Install npm packages
-npm i -g \
+npm install -g \
   npm \
-  yarn
+  yarn \
+  tern
 
 # Install rbenv
 git clone https://github.com/rbenv/rbenv.git $HOME/.rbenv
@@ -126,7 +127,10 @@ gem install \
   bundler \
   rails \
   scss-lint \
-  coderay
+  coderay \
+  rcodetools \
+  ri \
+  neovim
 rbenv rehash
 
 # Install docker compose and kubernetes
@@ -140,7 +144,7 @@ sudo usermod -aG docker $USER
 
 # Install fzf
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install --all --no-zsh
+~/.fzf/install --all --no-update-rc
 
 # Install oh-my-zsh
 chsh -s $(which zsh)
@@ -164,7 +168,6 @@ rm -rf fonts
 # Install neovim dependencies
 pip install --user --upgrade pip neovim
 pip3 install --user --upgrade pip neovim
-gem install neovim
 curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | bash -s -- $HOME/.cache/dein
 sudo chown -R $USERNAME $HOME/.cache
 

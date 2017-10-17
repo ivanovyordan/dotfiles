@@ -13,67 +13,54 @@ if dein#load_state('~/.cache/dein')
   " Let dein manage dein
   " Required:
   call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
-  call dein#add('haya14busa/dein-command.vim')
 
-  " Syntax
-  " HTML
-  call dein#add('othree/html5.vim')
-  call dein#add('skwp/vim-html-escape')
-  call dein#add('mattn/emmet-vim')
-  " JavaScript
-  call dein#add('othree/yajs.vim')
-  call dein#add('othree/jsdoc-syntax.vim')
-  call dein#add('heavenshell/vim-jsdoc')
-  call dein#add('elzr/vim-json')
-  call dein#add('HerringtonDarkholme/yats.vim')
-  call dein#add('kchmck/vim-coffee-script')
-  "CSS
-  call dein#add('hail2u/vim-css3-syntax')
-  call dein#add('ap/vim-css-color')
-  " Ruby
-  call dein#add('vim-ruby/vim-ruby')
-  call dein#add('tpope/vim-rails')
-  call dein#add('slim-template/vim-slim')
-  call dein#add('ngmy/vim-rubocop')
-  call dein#add('thoughtbot/vim-rspec')
-  call dein#add('tpope/vim-endwise')
-  " Writing
-  call dein#add('tpope/vim-markdown', {'on_ft': 'markdown'})
-  call dein#add('vim-scripts/LanguageTool')
-  " Git
-  call dein#add('tpope/vim-fugitive')
-  call dein#add('mhinz/vim-signify')
-  call dein#add('junegunn/gv.vim')
 
-  " Autocomplete
-  call dein#add('Shougo/neosnippet.vim')
-  call dein#add('Shougo/neosnippet-snippets')
-  call dein#add('Shougo/deoplete.nvim')
+  " INTERFACE BUILDERS
+  call dein#add('Shougo/unite.vim') " The old one. Many plugins depend on it
+  call dein#add('Shougo/denite.nvim') " The new one
 
-  " Interfaces
-  call dein#add('Shougo/unite.vim')
-  call dein#add('Shougo/denite.nvim')
-  call dein#add('Shougo/vimfiler.vim', {'on': 'VimFilerExplorer'})
-  call dein#add('ryanoasis/vim-devicons')
-  call dein#add('majutsushi/tagbar', {'on': 'TagbarToggle'})
-  call dein#add('vim-airline/vim-airline')
-  call dein#add('vim-airline/vim-airline-themes')
 
-  " Utils
-  call dein#add('editorconfig/editorconfig-vim')
-  call dein#add('vim-syntastic/syntastic')
-  call dein#add('rhysd/vim-grammarous')
-  call dein#add('tmux-plugins/vim-tmux')
-  call dein#add('itmammoth/doorboy.vim')
-  call dein#add('tpope/vim-repeat')
-  call dein#add('terryma/vim-multiple-cursors')
-  call dein#add('scrooloose/nerdcommenter')
-  call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
+  " WIDGETS
+  call dein#add('Shougo/vimfiler.vim', {'on': 'VimFilerExplorer'}) " Filesystem
+  call dein#add('majutsushi/tagbar', {'on': 'TagbarToggle'}) " File structure
+  call dein#add('vim-airline/vim-airline') " Buffer and status line
+  call dein#add('vim-airline/vim-airline-themes') " Airline themes
+  call dein#add('ryanoasis/vim-devicons') " Airline icons
+  call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 }) " File searcher
   call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
-  call dein#add('tpope/vim-dispatch')
+  call dein#add('Yggdroot/indentLine') " Indent guidelines
 
-  " Theme
-  call dein#add('gmist/vim-palette')
+
+  " WRITING AUTOMATIZATION
+  call dein#add('itmammoth/doorboy.vim') " Auto closing brackets
+  call dein#add('terryma/vim-multiple-cursors') " Sublime Text style multiple cursors
+  call dein#add('scrooloose/nerdcommenter') " Toggle comments
+  call dein#add('Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }) " Autocompletion engine
+  call dein#add('Shougo/neosnippet.vim') " Snippets engine
+  call dein#add('Shougo/neosnippet-snippets') " Snippets
+  call dein#add('Shougo/deoplete-rct', {'on_ft': 'ruby'}) " Ruby autocomplete
+
+
+  " SYNTAX
+  call dein#add('mattn/emmet-vim') " Automated HTML writing
+  call dein#add('kchmck/vim-coffee-script') " Coffeescript support
+  call dein#add('tpope/vim-rails') " Ruby on Rails support
+  call dein#add('slim-template/vim-slim') " Slim templates support
+
+
+  " EXTERNAL COMMANDS
+  call dein#add('tpope/vim-dispatch') " Exec external commands
+  call dein#add('w0rp/ale') " Linting
+  call dein#add('thoughtbot/vim-rspec') " Run RSpec
+  call dein#add('tpope/vim-fugitive') " Run Git commands
+
+
+  " Random
+  call dein#add('gmist/vim-palette') " A collection of themes
+  call dein#add('editorconfig/editorconfig-vim') " Editor configuration
+  call dein#add('mhinz/vim-signify') " VCS status in gutter
+  call dein#add('ap/vim-css-color') " CSS colors background
+
 
   " Required:
   call dein#end()
@@ -91,52 +78,65 @@ endif
 
 "End dein Scripts-------------------------
 
-" Neovim settings
-" Theme
- syntax enable
+
+" WINDOW
+" Change the terminal's title
+set title
+" Do not beep
+set visualbell
+set noerrorbells
+" Enable mouse
+set mouse=a
+" Set theme
+syntax enable
  if (has("termguicolors"))
   set termguicolors
  endif
 colorscheme base16-gruvbox-dark-medium
-" Relative line numbers
-set number relativenumber
+" Easy window navigation
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
 
+
+" CURSOR
+" Highlight current line
+set cursorline
+let g:multi_cursor_next_key='<C-n>'
+let g:multi_cursor_prev_key='<C-p>'
+
+
+" FILE
+" Set  encoddings
 " The encoding displayed
 set encoding=utf-8
 " The encoding written to file
 set fileencoding=utf-8
 " Keep the changes to the buffer without writing them to the file
 set hidden
+
+
+" LINES
+" Relative line numbers
+set number relativenumber
 " Turn off automatic line wrapping
 set nowrap
+" Prefer Unix-style line endings
+set fileformats=unix,dos,mac
+
+
+" CHARACTERS
+" Devicons
+set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types\ 11
 " Set show matching parenthesis
 set showmatch
-" Scroll quicker
-set ttyfast
-" Enable mouse
-set mouse=a
+" Show invisible characters
+set list
+set listchars=tab:▸·,eol:¬
 
-" Window
-" Change the terminal's title
-set title
-" Do not beep
-set visualbell
-set noerrorbells
 
-" Spellcheck
-set spell
-set spelllang=en_us
-set spellfile=~/.local/share/nvim/site/spell/en.utf-8.add
-
-" Indentation
-" Indent using two spaces
-set expandtab
-" Two spaces instead of a tab
-set tabstop=2 shiftwidth=2 expandtab
-" Use multiple of shiftwidth when indenting with '<' and '>'
-set shiftround
-
-" Searching
+" SEACHING
 " Ignore case when searching
 set ignorecase
 " Ignore case if search pattern is all lowercase, case-sensitive otherwise
@@ -146,18 +146,34 @@ set hlsearch
 " Show search matches as you type
 set incsearch
 
-" History
+
+" HISTORY
 " Remember more commands and search history
 set history=1000
 " Use many levels of undo
 set undolevels=1000
 
-"Invisibles
-" Show invisible characters
-set list
-set listchars=tab:▸·,eol:¬,trail:●
-" Prefer Unix-style line endings
-set fileformats=unix,dos,mac
+
+" SPELLCHECK
+set spell
+set spelllang=en_us
+set spellfile=~/.local/share/nvim/site/spell/en.utf-8.add
+
+
+" INDENTATION
+" Indent using two spaces
+set expandtab
+" Two spaces instead of a tab
+set tabstop=2 shiftwidth=2 expandtab
+" Use multiple of shiftwidth when indenting with '<' and '>'
+set shiftround
+" Show indent guideline
+set colorcolumn=120
+" Make backspace work like most other apps
+set backspace=indent,eol,start
+
+
+" TYPING AUTOMATIZATION
 " Strip trailing whitespace
 fun! <SID>StripTrailingWhitespaces()
   let l = line(".")
@@ -168,35 +184,62 @@ endfun
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
 " Remember cursor position between vim sessions
-autocmd BufReadPost *
-      \ if line("'\"") > 0 && line ("'\"") <= line("$") |
-      \   exe "normal! g'\"" |
-      \ endif
+autocmd BufReadPost * if line("'\"") > 0 && line ("'\"") <= line("$") | exe "normal! g'\"" | endif
 " center buffer around cursor when opening files
 autocmd BufRead * normal zz
 
-" Highlight current line
-set cursorline
-set colorcolumn=120
 
-" KEYS
-" Make backspace work like most other apps
-set backspace=indent,eol,start
+" AUTOCOMPLETION
+" Set autocompletion by file type
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
-" Enter in NORMAL mode with `j-k`
-imap jk <Esc>
+let g:deoplete#enable_at_startup = 1
+if !exists('g:deoplete#omni#input_patterns')
+  let g:deoplete#omni#input_patterns = {}
+endif
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
-" Easy window navigation
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
 
-" PLUGINS
-" Devicons
-set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types\ 11
+" SNIPPETS
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)": pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : deoplete#start_manual_complete()
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)": "\<TAB>"
+function! s:check_back_space() "{{{
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction "}}}
 
-" Airline
+
+" VIMFILER
+let g:vimfiler_as_default_explorer = 1
+let g:vimfiler_ignore_pattern = '^\%(\.git\|\.DS_Store\)$'
+let g:vimfiler_tree_leaf_icon = ' '
+let g:vimfiler_tree_opened_icon = '▾'
+let g:vimfiler_tree_closed_icon = '▸'
+let g:vimfiler_file_icon = '-'
+let g:vimfiler_marked_file_icon = '*'
+nmap <F3> :VimFilerExplorer<CR>
+
+
+" TAGBAR
+nmap <F2> :TagbarToggle<CR>
+
+
+" NERDCommenter
+let g:NERDSpaceDelims = 1
+let g:NERDRemoveExtraSpaces = 1
+let g:NERDCompactSexyComs = 1
+let g:NERDCommentEmptyLines = 1
+
+
+" AIRLINE
 set linespace=0
 let g:airline_powerline_fonts = 1
 let g:airline_skip_empty_sections = 1
@@ -214,73 +257,32 @@ nmap <leader>9 <Plug>AirlineSelectTab9
 nmap <leader>- <Plug>AirlineSelectPrevTab
 nmap <leader>+ <Plug>AirlineSelectNextTab
 
-" Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_ruby_checkers = ['rubocop']
 
-" Vimfiler
-let g:vimfiler_as_default_explorer = 1
-let g:vimfiler_ignore_pattern = '^\%(\.git\|\.DS_Store\)$'
-let g:vimfiler_tree_leaf_icon = ' '
-let g:vimfiler_tree_opened_icon = '▾'
-let g:vimfiler_tree_closed_icon = '▸'
-let g:vimfiler_file_icon = '-'
-let g:vimfiler_marked_file_icon = '*'
-nmap <F3> :VimFilerExplorer<CR>
+" FZF
+noremap <C-b> :Buffers<CR>
+noremap <leader><leader> :Commands<CR>
+noremap <C-p> :Files<CR>
 
-" Tagbar
-nmap <F2> :TagbarToggle<CR>
 
-" Rspec
+" RSPEC
 let g:rspec_command = "Dispatch rspec {spec}"
 map <leader>t :call RunCurrentSpecFile()<CR>
 map <leader>s :call RunNearestSpec()<CR>
 map <leader>l :call RunLastSpec()<CR>
 map <leader>a :call RunAllSpecs()<CR>
 
-" NERDCommenter
-let g:NERDSpaceDelims = 1
-let g:NERDRemoveExtraSpaces = 1
-let g:NERDCompactSexyComs = 1
-let g:NERDCommentEmptyLines = 1
 
-" Use deoplete.
-let g:deoplete#enable_at_startup = 1
+" ALE
+let g:ale_enabled = 1
+let g:ale_completion_enabled = 1
+let g:ale_echo_cursor = 1
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_linters = {'ruby': ['ruby', 'rubocop'], 'javascript': ['eslint'], 'python': ['flake8']}
 
-" Multicursor
-let g:multi_cursor_next_key='<C-n>'
-let g:multi_cursor_prev_key='<C-p>'
-let g:multi_cursor_skip_key='<C-x>'
 
-" Neosnippet
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)": pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : neocomplete#start_manual_complete()
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)": "\<TAB>"
+" RANDOM KEYBINDINGS
+" Enter in NORMAL mode with `j-k`
+imap jk <Esc>
 
-function! s:check_back_space() "{{{
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-endfunction "}}}
-
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
-
-" fzf
-noremap <C-b> :Buffers<CR>
-noremap <C-g> :Ag<CR>
-noremap <leader><leader> :Commands<CR>
-noremap <C-p> :Files<CR>
-
-" Vim repeat - Keep at bottom
-silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
 
 source $HOME/.dotfiles.local/init.vim
