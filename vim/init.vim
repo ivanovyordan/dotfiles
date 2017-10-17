@@ -50,9 +50,9 @@ if dein#load_state('~/.cache/dein')
 
   " EXTERNAL COMMANDS
   call dein#add('tpope/vim-dispatch') " Exec external commands
-  call dein#add('w0rp/ale') " Linting
   call dein#add('thoughtbot/vim-rspec') " Run RSpec
   call dein#add('tpope/vim-fugitive') " Run Git commands
+  call dein#add('vim-syntastic/syntastic') " Linting
 
 
   " Random
@@ -181,8 +181,6 @@ fun! <SID>StripTrailingWhitespaces()
   %s/\s\+$//e
   call cursor(l, c)
 endfun
-autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
-
 " Remember cursor position between vim sessions
 autocmd BufReadPost * if line("'\"") > 0 && line ("'\"") <= line("$") | exe "normal! g'\"" | endif
 " center buffer around cursor when opening files
@@ -209,7 +207,7 @@ inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)": pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : deoplete#start_manual_complete()
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)": pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : deoplete#manual_complete()
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)": "\<TAB>"
 function! s:check_back_space() "{{{
   let col = col('.') - 1
@@ -272,13 +270,17 @@ map <leader>l :call RunLastSpec()<CR>
 map <leader>a :call RunAllSpecs()<CR>
 
 
-" ALE
-let g:ale_enabled = 1
-let g:ale_completion_enabled = 1
-let g:ale_echo_cursor = 1
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_linters = {'ruby': ['ruby', 'rubocop'], 'javascript': ['eslint'], 'python': ['flake8']}
-
+" SYNTASTIC
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_ruby_checkers = ['rubocop']
+" Close automatically
+nnoremap <silent> <C-d> :lclose<CR>:bdelete<CR>
+cabbrev <silent> bd <C-r>=(getcmdtype()==#':' && getcmdpos()==1 ? 'lclose\|bdelete' : 'bd')<CR>
 
 " RANDOM KEYBINDINGS
 " Enter in NORMAL mode with `j-k`
