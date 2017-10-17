@@ -111,7 +111,8 @@ nvm install --lts
 npm install -g \
   npm \
   yarn \
-  tern
+  tern \
+  lighthouse
 
 # Install rbenv
 git clone https://github.com/rbenv/rbenv.git $HOME/.rbenv

@@ -26,7 +26,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('vim-airline/vim-airline') " Buffer and status line
   call dein#add('vim-airline/vim-airline-themes') " Airline themes
   call dein#add('ryanoasis/vim-devicons') " Airline icons
-  call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 }) " File searcher
+  call dein#add('~/.fzf')
   call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
   call dein#add('Yggdroot/indentLine') " Indent guidelines
 
