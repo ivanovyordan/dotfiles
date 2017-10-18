@@ -160,11 +160,9 @@ mkdir -p $ZSH_CUSTOM/themes
 curl curl -O https://gist.githubusercontent.com/schminitz/9931af23bbb59e772eec/raw/schminitz.zsh-theme -o $ZSH_CUSTOM/themes/schminitz.zsh-theme
 
 # Install powerline fonts
-git clone https://github.com/powerline/fonts.git --depth=1
-cd fonts
-./install.sh
-cd ..
-rm -rf fonts
+mkdir -p ~/.local/share/fonts
+curl -fLo ~/.local/share/fonts/DroidSansMonoForPowerlinePlusNerdFileTypesMono.otf https://github.com/ryanoasis/powerline-extra-symbols/raw/master/patched-fonts/DroidSansMonoForPowerlinePlusNerdFileTypesMono.otf
+ fc-cache -f -v
 
 # Install neovim dependencies
 pip install --user --upgrade pip neovim

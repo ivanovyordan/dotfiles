@@ -1,5 +1,19 @@
 {
+  "ecmaVersion": 6,
+  "libs": [
+    "browser"
+  ],
+  "loadEagerly": [
+  ],
+  "dontLoad": [
+    "node_modules/**",
+  ],
   "plugins": {
-    "node": {}
+    "es_modules": {},
+    "node": {},
+    "doc_comment": {
+      "fullDocs": true,
+      "strong": true
+    }
   }
 }

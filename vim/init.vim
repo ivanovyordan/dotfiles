@@ -1,6 +1,6 @@
-"dein Scripts-----------------------------
+" Plugins
 if &compatible
-  set nocompatible               " Be iMproved
+  set nocompatible " Be iMproved
 endif
 
 " Required:
@@ -26,8 +26,8 @@ if dein#load_state('~/.cache/dein')
   call dein#add('vim-airline/vim-airline') " Buffer and status line
   call dein#add('vim-airline/vim-airline-themes') " Airline themes
   call dein#add('ryanoasis/vim-devicons') " Airline icons
-  call dein#add('~/.fzf')
-  call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
+  call dein#add('~/.fzf') " Fast file searching
+  call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' }) " fzf binding
   call dein#add('Yggdroot/indentLine') " Indent guidelines
 
 
@@ -47,6 +47,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('kchmck/vim-coffee-script') " Coffeescript support
   call dein#add('tpope/vim-rails') " Ruby on Rails support
   call dein#add('slim-template/vim-slim') " Slim templates support
+  call dein#add('HerringtonDarkholme/yats.vim') " Typescript support
 
 
   " EXTERNAL COMMANDS
@@ -76,8 +77,7 @@ syntax enable
 if dein#check_install()
   call dein#install()
 endif
-
-"End dein Scripts-------------------------
+" End of plugins
 
 
 " WINDOW
@@ -131,7 +131,7 @@ set fileformats=unix,dos,mac
 
 " CHARACTERS
 " Devicons
-set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types\ 11
+set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types\ Mono\ 11
 " Set show matching parenthesis
 set showmatch
 " Show invisible characters
@@ -149,7 +149,6 @@ set hlsearch
 " Show search matches as you type
 set incsearch
 
-
 " HISTORY
 " Remember more commands and search history
 set history=1000
@@ -161,6 +160,7 @@ set undolevels=1000
 set spell
 set spelllang=en_us
 set spellfile=~/.local/share/nvim/site/spell/en.utf-8.add
+set dictionary=/usr/share/dict/words
 
 
 " INDENTATION
@@ -179,8 +179,8 @@ set backspace=indent,eol,start
 " TYPING AUTOMATIZATION
 " Strip trailing whitespace
 fun! <SID>StripTrailingWhitespaces()
-  let l = line(".")
-  let c = col(".")
+  let l=line(".")
+  let c=col(".")
   %s/\s\+$//e
   call cursor(l, c)
 endfun
@@ -198,34 +198,34 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
-let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup=1
 if !exists('g:deoplete#omni#input_patterns')
-  let g:deoplete#omni#input_patterns = {}
+  let g:deoplete#omni#input_patterns={}
 endif
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 
 " SNIPPETS
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)": pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : deoplete#manual_complete()
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)": "\<TAB>"
 function! s:check_back_space() "{{{
-  let col = col('.') - 1
+  let col=col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
 endfunction "}}}
 
 
 " VIMFILER
-let g:vimfiler_as_default_explorer = 1
-let g:vimfiler_ignore_pattern = '^\%(\.git\|\.DS_Store\)$'
-let g:vimfiler_tree_leaf_icon = ' '
-let g:vimfiler_tree_opened_icon = '▾'
-let g:vimfiler_tree_closed_icon = '▸'
-let g:vimfiler_file_icon = '-'
-let g:vimfiler_marked_file_icon = '*'
+let g:vimfiler_as_default_explorer=1
+let g:vimfiler_ignore_pattern='^\%(\.git\|\.DS_Store\)$'
+let g:vimfiler_tree_leaf_icon=' '
+let g:vimfiler_tree_opened_icon='▾'
+let g:vimfiler_tree_closed_icon='▸'
+let g:vimfiler_file_icon='-'
+let g:vimfiler_marked_file_icon='*'
 nmap <F3> :VimFilerExplorer<CR>
 
 
@@ -234,18 +234,18 @@ nmap <F2> :TagbarToggle<CR>
 
 
 " NERDCommenter
-let g:NERDSpaceDelims = 1
-let g:NERDRemoveExtraSpaces = 1
-let g:NERDCompactSexyComs = 1
-let g:NERDCommentEmptyLines = 1
+let g:NERDSpaceDelims=1
+let g:NERDRemoveExtraSpaces=1
+let g:NERDCompactSexyComs=1
+let g:NERDCommentEmptyLines=1
 
 
 " AIRLINE
 set linespace=0
-let g:airline_powerline_fonts = 1
-let g:airline_skip_empty_sections = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline_powerline_fonts=1
+let g:airline_skip_empty_sections=1
+let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#buffer_idx_mode=1
 nmap <leader>1 <Plug>AirlineSelectTab1
 nmap <leader>2 <Plug>AirlineSelectTab2
 nmap <leader>3 <Plug>AirlineSelectTab3
@@ -266,7 +266,7 @@ noremap <C-p> :Files<CR>
 
 
 " RSPEC
-let g:rspec_command = "Dispatch rspec {spec}"
+let g:rspec_command="Dispatch rspec {spec}"
 map <leader>t :call RunCurrentSpecFile()<CR>
 map <leader>s :call RunNearestSpec()<CR>
 map <leader>l :call RunLastSpec()<CR>
@@ -277,10 +277,10 @@ map <leader>a :call RunAllSpecs()<CR>
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_ruby_checkers = ['rubocop']
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_auto_loc_list=1
+let g:syntastic_check_on_open=1
+let g:syntastic_ruby_checkers=['rubocop']
 " Close automatically
 nnoremap <silent> <C-d> :lclose<CR>:bdelete<CR>
 cabbrev <silent> bd <C-r>=(getcmdtype()==#':' && getcmdpos()==1 ? 'lclose\|bdelete' : 'bd')<CR>

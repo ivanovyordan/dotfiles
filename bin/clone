@@ -1,5 +1,0 @@
-#!/usr/bin/env zsh
-
-# clone a repository and `cd` into the directory
-git clone $1
-cd $(basename $1 .git)
