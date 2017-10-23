@@ -38,24 +38,26 @@ if dein#load_state('~/.cache/dein')
   call dein#add('Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }) " Autocompletion engine
   call dein#add('Shougo/neosnippet.vim') " Snippets engine
   call dein#add('Shougo/neosnippet-snippets') " Snippets
-  call dein#add('Shougo/deoplete-rct', {'on_ft': 'ruby'}) " Ruby autocomplete
   call dein#add('carlitux/deoplete-ternjs', {'on_ft': 'javascript'}) " JavaScript autocomplete
 
 
   " SYNTAX
   call dein#add('mattn/emmet-vim') " Automated HTML writing
   call dein#add('kchmck/vim-coffee-script') " Coffeescript support
-  call dein#add('tpope/vim-rails') " Ruby on Rails support
-  call dein#add('slim-template/vim-slim') " Slim templates support
   call dein#add('HerringtonDarkholme/yats.vim') " Typescript support
 
 
   " EXTERNAL COMMANDS
   call dein#add('tpope/vim-dispatch') " Exec external commands
-  call dein#add('thoughtbot/vim-rspec') " Run RSpec
   call dein#add('tpope/vim-fugitive') " Run Git commands
   call dein#add('vim-syntastic/syntastic') " Linting
 
+  " RUBY
+  call dein#add('slim-template/vim-slim') " Slim templates support
+  call dein#add('tpope/vim-rails') " Ruby on Rails support
+  call dein#add('tpope/vim-endwise') " Add end statements automatically
+  call dein#add('fishbullet/deoplete-ruby') " Ruby autocompletion
+  call dein#add('thoughtbot/vim-rspec') " Run RSpec
 
   " Random
   call dein#add('gmist/vim-palette') " A collection of themes
@@ -111,7 +113,7 @@ let g:multi_cursor_prev_key='<C-p>'
 
 
 " FILE
-" Set  encoddings
+" Set  encodings
 " The encoding displayed
 set encoding=utf-8
 " The encoding written to file
@@ -123,6 +125,16 @@ set hidden
 " LINES
 " Relative line numbers
 set number relativenumber
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set norelativenumber
+    set number
+  else
+    set relativenumber
+  endif
+endfunc
+autocmd InsertLeave * :call NumberToggle()
+autocmd InsertEnter * :call NumberToggle()
 " Turn off automatic line wrapping
 set nowrap
 " Prefer Unix-style line endings
@@ -184,6 +196,7 @@ fun! <SID>StripTrailingWhitespaces()
   %s/\s\+$//e
   call cursor(l, c)
 endfun
+autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 " Remember cursor position between vim sessions
 autocmd BufReadPost * if line("'\"") > 0 && line ("'\"") <= line("$") | exe "normal! g'\"" | endif
 " center buffer around cursor when opening files
@@ -192,11 +205,13 @@ autocmd BufRead * normal zz
 
 " AUTOCOMPLETION
 " Set autocompletion by file type
+set omnifunc=syntaxcomplete#Complete
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 
 let g:deoplete#enable_at_startup=1
 if !exists('g:deoplete#omni#input_patterns')
@@ -242,6 +257,7 @@ let g:NERDCommentEmptyLines=1
 
 " AIRLINE
 set linespace=0
+set noshowmode " Disable default mode indicator
 let g:airline_powerline_fonts=1
 let g:airline_skip_empty_sections=1
 let g:airline#extensions#tabline#enabled=1
@@ -274,12 +290,11 @@ map <leader>a :call RunAllSpecs()<CR>
 
 
 " SYNTASTIC
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_auto_loc_list=1
 let g:syntastic_check_on_open=1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_loc_list_height = 5
 let g:syntastic_ruby_checkers=['rubocop']
 " Close automatically
 nnoremap <silent> <C-d> :lclose<CR>:bdelete<CR>

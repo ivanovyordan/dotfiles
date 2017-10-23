@@ -1,3 +1,8 @@
 #!/usr/bin/env zsh
 
-find-all $1 | xargs kill --
+PID=$(ps -ef | sed 1d | fzf -m | awk '{print $1}')
+
+if [ "x$PID" != "x" ]
+then
+  echo $PID | xargs kill -${1:-9}
+fi
