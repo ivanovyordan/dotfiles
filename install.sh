@@ -114,6 +114,17 @@ npm install -g \
   tern \
   lighthouse
 
+# Install python packages
+pip install --user --upgrade \
+  pip \
+  neovim \
+  jedy \
+  pgcli
+
+pip3 install --user --upgrade \
+  pip \
+  neovim
+
 # Install rbenv
 git clone https://github.com/rbenv/rbenv.git $HOME/.rbenv
 git clone https://github.com/rbenv/ruby-build.git $HOME/.rbenv/plugins/ruby-build
@@ -165,8 +176,6 @@ curl -fLo ~/.local/share/fonts/DroidSansMonoForPowerlinePlusNerdFileTypesMono.ot
  fc-cache -f -v
 
 # Install neovim dependencies
-pip install --user --upgrade pip neovim
-pip3 install --user --upgrade pip neovim
 curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | bash -s -- $HOME/.cache/dein
 sudo chown -R $USERNAME $HOME/.cache
 

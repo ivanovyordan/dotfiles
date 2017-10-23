@@ -50,7 +50,9 @@ if dein#load_state('~/.cache/dein')
   " EXTERNAL COMMANDS
   call dein#add('tpope/vim-dispatch') " Exec external commands
   call dein#add('tpope/vim-fugitive') " Run Git commands
-  call dein#add('vim-syntastic/syntastic') " Linting
+  " call dein#add('vim-syntastic/syntastic') " Linting
+  call dein#add('w0rp/ale') " Linting
+
 
   " RUBY
   call dein#add('slim-template/vim-slim') " Slim templates support
@@ -58,6 +60,10 @@ if dein#load_state('~/.cache/dein')
   call dein#add('tpope/vim-endwise') " Add end statements automatically
   call dein#add('fishbullet/deoplete-ruby') " Ruby autocompletion
   call dein#add('thoughtbot/vim-rspec') " Run RSpec
+
+  " PYTHON
+  call dein#add('timothycrosley/isort') " Sort imports
+  call dein#add('zchee/deoplete-jedi') " Python utocompletion
 
   " Random
   call dein#add('gmist/vim-palette') " A collection of themes
@@ -289,16 +295,24 @@ map <leader>l :call RunLastSpec()<CR>
 map <leader>a :call RunAllSpecs()<CR>
 
 
+" PYTHON
+" Sort imports
+autocmd FileType python nnoremap <LocalLeader>i :!isort %<CR><CR>
+
 " SYNTASTIC
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_auto_loc_list=1
-let g:syntastic_check_on_open=1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_loc_list_height = 5
-let g:syntastic_ruby_checkers=['rubocop']
+" let g:syntastic_always_populate_loc_list=1
+" let g:syntastic_auto_loc_list=1
+" let g:syntastic_check_on_open=1
+" let g:syntastic_check_on_wq = 0
+" let g:syntastic_loc_list_height = 5
+" let g:syntastic_ruby_checkers=['rubocop']
 " Close automatically
-nnoremap <silent> <C-d> :lclose<CR>:bdelete<CR>
-cabbrev <silent> bd <C-r>=(getcmdtype()==#':' && getcmdpos()==1 ? 'lclose\|bdelete' : 'bd')<CR>
+" nnoremap <silent> <C-d> :lclose<CR>:bdelete<CR>
+" cabbrev <silent> bd <C-r>=(getcmdtype()==#':' && getcmdpos()==1 ? 'lclose\|bdelete' : 'bd')<CR>
+
+" ALE
+let g:ale_completion_enabled = 1 " Autocompletion
+let g:airline#extensions#ale#enabled = 1 " Airline support
 
 " RANDOM KEYBINDINGS
 " Enter in NORMAL mode with `j-k`

@@ -21,6 +21,9 @@
 [rerere]
   enabled = true
 
+[fetch]
+  prune = true
+
 [rebase]
   auosquash = true
 
