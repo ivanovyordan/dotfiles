@@ -58,7 +58,6 @@ sudo apt install -y \
   libssl-dev \
   nautilus-dropbox \
   neovim \
-  pepperflashplugin-nonfree \
   postgresql \
   postgresql-contrib \
   python-gpgme \
