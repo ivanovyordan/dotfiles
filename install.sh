@@ -86,7 +86,9 @@ sudo apt autoremove -y
 sudo apt autoclean
 
 # Install Python
-curl  https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh | bash -s -- -b -p "$APPS_DIR/miniconda"
+wget https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
+bash Miniconda-latest-Linux-x86_64.sh -b -p "$APPS_DIR/miniconda"
+rm Miniconda-latest-Linux-x86_64.sh
 export PATH="$APPS_DIR/miniconda/bin:$PATH"
 conda update -y conda
 conda create -y --name python3 python=3
