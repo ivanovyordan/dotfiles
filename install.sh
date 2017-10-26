@@ -38,18 +38,13 @@ sudo apt update
 sudo apt full-upgrade -y
 
 # Install packages
-sudo DEBIAN_FRONTEND=noninteractive apt install -y \
+sudo apt install -y \
   apt-transport-https \
-  artha \
   autojump \
   build-essential \
   ca-certificates \
-  chromium-browser \
   colordiff \
-  com.github.artemanufrij.screencast \
-  com.github.davidmhewitt.clipped \
   com.github.donadigo.eddy \
-  com.github.luizaugustomm.tomato \
   default-jre \
   docker-ce \
   elementary-tweaks \
@@ -66,7 +61,6 @@ sudo DEBIAN_FRONTEND=noninteractive apt install -y \
   pepperflashplugin-nonfree \
   postgresql \
   postgresql-contrib \
-  powerline \
   python-gpgme \
   silversearcher-ag \
   smplayer \
@@ -87,27 +81,10 @@ sudo ubuntu-drivers autoinstall
 # Install Dropbox
 wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
 
-# Install skype
-curl -O https://repo.skype.com/latest/skypeforlinux-64.deb
-sudo dpkg -i skypeforlinux-64.deb
-rm -rf skypeforlinux-64.deb
-
 # Clean up
 sudo apt install -f
 sudo apt autoremove -y
 sudo apt autoclean
-
-# Install nvm
-curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
-source $HOME/.nvm/nvm.sh
-nvm install --lts
-
-# Install npm packages
-npm install -g \
-  npm \
-  yarn \
-  tern \
-  lighthouse
 
 # Install Python
 curl  https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh | bash -s -- -b -p "$APPS_DIR/miniconda"
@@ -120,12 +97,28 @@ conda install -y -c conda-forge \
   neovim \
   jedi \
   pgcli
-pip install httpie
+pip install --upgrade \
+  pip \
+  httpie
 
 source activate python3
 conda install -y -c conda-forge \
   neovim
-pip install httpie
+pip install --upgrade \
+  pip \
+  httpie
+
+# Install nvm
+curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+source $HOME/.nvm/nvm.sh
+nvm install --lts
+
+# Install npm packages
+npm install -g \
+  npm \
+  yarn \
+  tern \
+  lighthouse
 
 # Install rbenv
 git clone https://github.com/rbenv/rbenv.git $HOME/.rbenv
@@ -142,8 +135,6 @@ gem install \
   rails \
   scss_lint \
   coderay \
-  rcodetools \
-  fastri \
   neovim
 rbenv rehash
 
@@ -179,7 +170,7 @@ curl -fLo ~/.local/share/fonts/DroidSansMonoForPowerlinePlusNerdFileTypesMono.ot
 
 # Install neovim dependencies
 curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | bash -s -- $HOME/.cache/dein
-sudo chown -R $USERNAME $HOME/.cache
+sudo chown -R $USERNAME:$USERNAME $HOME/.cache
 
 # Setup pgp agent
 mkdir -p $HOME/.gnupg
@@ -188,11 +179,15 @@ echo "no-tty\nuse-agent" >> $HOME/.gnupg/gpg.conf
 # Download dotfiles
 git clone https://github.com/ivanovyordan/dotfiles.git $DOTFILES_DIR
 
+# Remove zshrc
+chsh -s /usr/bin/zsh
+rm -rf $HOME/.zshrc
+
 # Link files
 for FILE in $DOTFILES_DIR/link/*
 do
   NAME=$(basename $FILE)
-  ln -s $DOTFILES_DIR/link/$NAME $HOME/.$FILE
+  ln -s $FILE $HOME/.$NAME
 done
 
 ln -s $DOTFILES_DIR/vim $HOME/.config/nvim
