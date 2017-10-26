@@ -43,19 +43,16 @@ if dein#load_state('~/.cache/dein')
 
   " SYNTAX
   call dein#add('mattn/emmet-vim') " Automated HTML writing
-  call dein#add('kchmck/vim-coffee-script') " Coffeescript support
-  call dein#add('HerringtonDarkholme/yats.vim') " Typescript support
+  call dein#add('sheerun/vim-polyglot') " A solid language pack for Vim
 
 
   " EXTERNAL COMMANDS
   call dein#add('tpope/vim-dispatch') " Exec external commands
   call dein#add('tpope/vim-fugitive') " Run Git commands
-  " call dein#add('vim-syntastic/syntastic') " Linting
   call dein#add('w0rp/ale') " Linting
 
 
   " RUBY
-  call dein#add('slim-template/vim-slim') " Slim templates support
   call dein#add('tpope/vim-rails') " Ruby on Rails support
   call dein#add('tpope/vim-endwise') " Add end statements automatically
   call dein#add('fishbullet/deoplete-ruby') " Ruby autocompletion
@@ -78,7 +75,6 @@ if dein#load_state('~/.cache/dein')
 endif
 
 " Required:
-filetype off
 filetype plugin indent on
 syntax enable
 
@@ -86,6 +82,11 @@ if dein#check_install()
   call dein#install()
 endif
 " End of plugins
+
+
+" Runtime
+let g:python_host_prog = $HOME . '/.apps/miniconda/bin/python'
+let g:python3_host_prog = $HOME . '/.apps/miniconda/envs/python3/bin/python'
 
 
 " WINDOW
@@ -126,6 +127,10 @@ set encoding=utf-8
 set fileencoding=utf-8
 " Keep the changes to the buffer without writing them to the file
 set hidden
+
+" File types
+autocmd BufNewFile,BufRead *.slim set ft=slim
+autocmd BufNewFile,BufRead *.coffee set ft=coffee
 
 
 " LINES
@@ -285,6 +290,7 @@ nmap <leader>+ <Plug>AirlineSelectNextTab
 noremap <C-b> :Buffers<CR>
 noremap <leader><leader> :Commands<CR>
 noremap <C-p> :Files<CR>
+nmap <Leader>r :Tags<CR>
 
 
 " RSPEC
@@ -299,17 +305,6 @@ map <leader>a :call RunAllSpecs()<CR>
 " Sort imports
 autocmd FileType python nnoremap <LocalLeader>i :!isort %<CR><CR>
 
-" SYNTASTIC
-" let g:syntastic_always_populate_loc_list=1
-" let g:syntastic_auto_loc_list=1
-" let g:syntastic_check_on_open=1
-" let g:syntastic_check_on_wq = 0
-" let g:syntastic_loc_list_height = 5
-" let g:syntastic_ruby_checkers=['rubocop']
-" Close automatically
-" nnoremap <silent> <C-d> :lclose<CR>:bdelete<CR>
-" cabbrev <silent> bd <C-r>=(getcmdtype()==#':' && getcmdpos()==1 ? 'lclose\|bdelete' : 'bd')<CR>
-
 " ALE
 let g:ale_completion_enabled = 1 " Autocompletion
 let g:airline#extensions#ale#enabled = 1 " Airline support
@@ -317,6 +312,7 @@ let g:airline#extensions#ale#enabled = 1 " Airline support
 " RANDOM KEYBINDINGS
 " Enter in NORMAL mode with `j-k`
 imap jk <Esc>
-
+" Close buffer
+nmap <C-d> :b#<bar>bd#<CR>
 
 source $HOME/.dotfiles.local/init.vim

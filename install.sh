@@ -3,6 +3,7 @@
 # this ensures the entire script is downloaded #
 {
 DOTFILES_DIR=$HOME/.dotfiles
+APPS_DIR=$HOME/.apps
 
 function github_release {
   local release=$(curl -s "https://api.github.com/repos/$1/releases/latest" | grep tag_name | cut -d '"' -f 4)
@@ -67,12 +68,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt install -y \
   postgresql \
   postgresql-contrib \
   powerline \
-  python-dev \
   python-gpgme \
-  python-pip \
-  python2.7 \
-  python3-dev \
-  python3-pip \
   silversearcher-ag \
   smplayer \
   spotify-client \
@@ -114,15 +110,20 @@ npm install -g \
   tern \
   lighthouse
 
-# Install python packages
-pip install --user --upgrade \
-  pip \
+# Install Python
+curl  https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh | bash -s -- -b -p "$APPS_DIR/miniconda"
+export PATH="$APPS_DIR/miniconda/bin:$PATH"
+conda update -y conda
+conda create -y --name python3 python=3
+
+# Install Python package
+conda install -y -c conda-forge \
   neovim \
-  jedy \
+  jedi \
   pgcli
 
-pip3 install --user --upgrade \
-  pip \
+source activate python3
+conda install -y -c conda-forge \
   neovim
 
 # Install rbenv
@@ -155,8 +156,8 @@ sudo chmod +x /usr/local/bin/{docker-compose,kubectl,minikube}
 sudo usermod -aG docker $USER
 
 # Install fzf
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install --all --no-update-rc
+git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
+$HOME/.fzf/install --all --no-update-rc
 
 # Install oh-my-zsh
 chsh -s $(which zsh)
