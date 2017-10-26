@@ -298,7 +298,6 @@ let g:rspec_command="Dispatch rspec {spec}"
 map <leader>t :call RunCurrentSpecFile()<CR>
 map <leader>s :call RunNearestSpec()<CR>
 map <leader>l :call RunLastSpec()<CR>
-map <leader>a :call RunAllSpecs()<CR>
 
 
 " PYTHON

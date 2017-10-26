@@ -58,7 +58,6 @@ sudo DEBIAN_FRONTEND=noninteractive apt install -y \
   git-extras \
   git-flow \
   graphviz \
-  httpie \
   libpq-dev \
   libreadline-dev \
   libssl-dev \
@@ -121,10 +120,12 @@ conda install -y -c conda-forge \
   neovim \
   jedi \
   pgcli
+pip install httpie
 
 source activate python3
 conda install -y -c conda-forge \
   neovim
+pip install httpie
 
 # Install rbenv
 git clone https://github.com/rbenv/rbenv.git $HOME/.rbenv
