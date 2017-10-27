@@ -24,11 +24,9 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - # D
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886 0DF731E45CE24F27EEEB1450EFDC8610341D9410 # Spotify
 
 # Add repositories
-sudo apt-add-repository -y multiverse # steam
 sudo apt-add-repository -y ppa:graphics-drivers/ppa # drivers
 sudo apt-add-repository -y ppa:git-core/ppa # git
 sudo apt-add-repository -y ppa:philip.scott/elementary-tweaks # elementary-tweaks
-sudo apt-add-repository -y ppa:cybre/elementaryplus # elementaryplus
 sudo apt-add-repository -y ppa:neovim-ppa/stable # neovim
 sudo apt-add-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable" # docker-ce
 sudo apt-add-repository -y "deb http://repository.spotify.com stable non-free" # Spotify
@@ -38,17 +36,17 @@ sudo apt update
 sudo apt full-upgrade -y
 
 # Install packages
-sudo apt install -y \
-  apt-transport-https \
+sudo DEBIAN_FRONTEND=noninteractive apt install -y \
   autojump \
   build-essential \
   ca-certificates \
+  chromium-browser \
   colordiff \
   com.github.donadigo.eddy \
   default-jre \
   docker-ce \
   elementary-tweaks \
-  elementaryplus \
+  firefox \
   git-core \
   git-extras \
   git-flow \
@@ -56,19 +54,16 @@ sudo apt install -y \
   libpq-dev \
   libreadline-dev \
   libssl-dev \
-  nautilus-dropbox \
   neovim \
   postgresql \
   postgresql-contrib \
   python-gpgme \
-  silversearcher-ag \
   smplayer \
   spotify-client \
-  steam \
+  thnderbird \
   tlp-rdw \
   tmux \
   transmission \
-  ubuntu-restricted-extras \
   virtualbox \
   whois \
   zsh \
@@ -80,8 +75,13 @@ sudo ubuntu-drivers autoinstall
 # Install Dropbox
 wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
 
+# Install steam
+wget http://media.steampowered.com/client/installer/steam.deb
+sudo dpkg -i steam.deb
+rm -rf steam.deb
+
 # Clean up
-sudo apt install -f
+sud apt install -f
 sudo apt autoremove -y
 sudo apt autoclean
 
@@ -108,6 +108,7 @@ conda install -y -c conda-forge \
 pip install --upgrade \
   pip \
   httpie
+source deactivate
 
 # Install nvm
 curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
@@ -165,9 +166,9 @@ mkdir -p $ZSH_CUSTOM/themes
 curl curl -O https://gist.githubusercontent.com/schminitz/9931af23bbb59e772eec/raw/schminitz.zsh-theme -o $ZSH_CUSTOM/themes/schminitz.zsh-theme
 
 # Install powerline fonts
-mkdir -p ~/.local/share/fonts
-curl -fLo ~/.local/share/fonts/DroidSansMonoForPowerlinePlusNerdFileTypesMono.otf https://github.com/ryanoasis/powerline-extra-symbols/raw/master/patched-fonts/DroidSansMonoForPowerlinePlusNerdFileTypesMono.otf
- fc-cache -f -v
+mkdir -p $HOME/.local/share/fonts
+curl -fLo $HOME/.local/share/fonts/DroidSansMonoForPowerlinePlusNerdFileTypesMono.otf https://github.com/ryanoasis/powerline-extra-symbols/raw/master/patched-fonts/DroidSansMonoForPowerlinePlusNerdFileTypesMono.otf
+fc-cache -f -v
 
 # Install neovim dependencies
 curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | bash -s -- $HOME/.cache/dein

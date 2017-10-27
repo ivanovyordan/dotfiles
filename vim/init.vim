@@ -35,7 +35,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('itmammoth/doorboy.vim') " Auto closing brackets
   call dein#add('terryma/vim-multiple-cursors') " Sublime Text style multiple cursors
   call dein#add('scrooloose/nerdcommenter') " Toggle comments
-  call dein#add('Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }) " Autocompletion engine
+  call dein#add('Shougo/deoplete.nvim') " Autocompletion engine
   call dein#add('Shougo/neosnippet.vim') " Snippets engine
   call dein#add('Shougo/neosnippet-snippets') " Snippets
   call dein#add('carlitux/deoplete-ternjs', {'on_ft': 'javascript'}) " JavaScript autocomplete
