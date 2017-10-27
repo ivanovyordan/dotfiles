@@ -60,7 +60,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt install -y \
   python-gpgme \
   smplayer \
   spotify-client \
-  thnderbird \
+  thunderbird \
   tlp-rdw \
   tmux \
   transmission \
@@ -81,7 +81,7 @@ sudo dpkg -i steam.deb
 rm -rf steam.deb
 
 # Clean up
-sud apt install -f
+sudo apt install -f
 sudo apt autoremove -y
 sudo apt autoclean
 
