@@ -76,7 +76,7 @@ endif
 
 " Required:
 filetype plugin indent on
-syntax enable
+syntax on
 
 if dein#check_install()
   call dein#install()
@@ -85,8 +85,8 @@ endif
 
 
 " Runtime
-let g:python_host_prog = $HOME . '/.apps/miniconda/bin/python'
-let g:python3_host_prog = $HOME . '/.apps/miniconda/envs/python3/bin/python'
+let g:python_host_prog = $HOME . '/.apps/miniconda/envs/python2/bin/python'
+let g:python3_host_prog = $HOME . '/.apps/miniconda/bin/python'
 
 
 " WINDOW
@@ -97,6 +97,8 @@ set visualbell
 set noerrorbells
 " Vertical diff widows
 set diffopt+=vertical
+" Scroll quicker
+set ttyfast
 " Enable mouse
 set mouse=a
 " Set theme
@@ -128,10 +130,6 @@ set fileencoding=utf-8
 " Keep the changes to the buffer without writing them to the file
 set hidden
 
-" File types
-autocmd BufNewFile,BufRead *.slim set ft=slim
-autocmd BufNewFile,BufRead *.coffee set ft=coffee
-
 
 " LINES
 " Relative line numbers
@@ -161,6 +159,8 @@ set showmatch
 set list
 set listchars=tab:▸·,eol:¬
 
+" RUNNING
+autocmd FileType python nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>
 
 " SEACHING
 " Ignore case when searching

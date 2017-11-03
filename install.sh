@@ -86,12 +86,12 @@ sudo apt autoremove -y
 sudo apt autoclean
 
 # Install Python
-wget https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
-bash Miniconda-latest-Linux-x86_64.sh -b -p "$APPS_DIR/miniconda"
-rm Miniconda-latest-Linux-x86_64.sh
+wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh -b -p "$APPS_DIR/miniconda"
+rm Miniconda3-latest-Linux-x86_64.sh
 export PATH="$APPS_DIR/miniconda/bin:$PATH"
 conda update -y conda
-conda create -y --name python3 python=3
+conda create -y --name python2 python=2
 
 # Install Python package
 conda install -y -c conda-forge \
@@ -102,7 +102,7 @@ pip install --upgrade \
   pip \
   httpie
 
-source activate python3
+source activate python2
 conda install -y -c conda-forge \
   neovim
 pip install --upgrade \
