@@ -28,6 +28,7 @@ sudo apt-add-repository -y ppa:graphics-drivers/ppa # drivers
 sudo apt-add-repository -y ppa:git-core/ppa # git
 sudo apt-add-repository -y ppa:philip.scott/elementary-tweaks # elementary-tweaks
 sudo apt-add-repository -y ppa:neovim-ppa/stable # neovim
+sudo apt-add-repository -y ppa:tmate.io/archive # tmate
 sudo apt-add-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable" # docker-ce
 sudo apt-add-repository -y "deb http://repository.spotify.com stable non-free" # Spotify
 
@@ -62,6 +63,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt install -y \
   spotify-client \
   thunderbird \
   tlp-rdw \
+  tmate \
   tmux \
   transmission \
   virtualbox \

@@ -39,6 +39,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('Shougo/neosnippet.vim') " Snippets engine
   call dein#add('Shougo/neosnippet-snippets') " Snippets
   call dein#add('carlitux/deoplete-ternjs', {'on_ft': 'javascript'}) " JavaScript autocomplete
+  call dein#add('rhysd/vim-grammarous') " Grammar checker
 
 
   " SYNTAX
@@ -47,26 +48,27 @@ if dein#load_state('~/.cache/dein')
 
 
   " EXTERNAL COMMANDS
-  call dein#add('tpope/vim-dispatch') " Exec external commands
   call dein#add('tpope/vim-fugitive') " Run Git commands
   call dein#add('w0rp/ale') " Linting
+  call dein#add('janko-m/vim-test') " Test runner
 
 
   " RUBY
   call dein#add('tpope/vim-rails') " Ruby on Rails support
   call dein#add('tpope/vim-endwise') " Add end statements automatically
   call dein#add('fishbullet/deoplete-ruby') " Ruby autocompletion
-  call dein#add('thoughtbot/vim-rspec') " Run RSpec
 
   " PYTHON
   call dein#add('timothycrosley/isort') " Sort imports
-  call dein#add('zchee/deoplete-jedi') " Python utocompletion
+  call dein#add('zchee/deoplete-jedi') " Python autocompletion
+  call dein#add('gotcha/vimpdb') " Python autocompletion
 
   " Random
   call dein#add('gmist/vim-palette') " A collection of themes
   call dein#add('editorconfig/editorconfig-vim') " Editor configuration
   call dein#add('mhinz/vim-signify') " VCS status in gutter
   call dein#add('ap/vim-css-color') " CSS colors background
+  call dein#add('metakirby5/codi.vim') " REPL
 
 
   " Required:
@@ -216,6 +218,7 @@ autocmd BufRead * normal zz
 
 " AUTOCOMPLETION
 " Set autocompletion by file type
+set completeopt-=preview
 set omnifunc=syntaxcomplete#Complete
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
@@ -293,19 +296,11 @@ noremap <C-p> :Files<CR>
 nmap <Leader>r :Tags<CR>
 
 
-" RSPEC
-let g:rspec_command="Dispatch rspec {spec}"
-map <leader>t :call RunCurrentSpecFile()<CR>
-map <leader>s :call RunNearestSpec()<CR>
-map <leader>l :call RunLastSpec()<CR>
-
-
 " PYTHON
 " Sort imports
 autocmd FileType python nnoremap <LocalLeader>i :!isort %<CR><CR>
 
 " ALE
-let g:ale_completion_enabled = 1 " Autocompletion
 let g:airline#extensions#ale#enabled = 1 " Airline support
 
 " RANDOM KEYBINDINGS
