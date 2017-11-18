@@ -29,6 +29,7 @@ sudo apt-add-repository -y ppa:git-core/ppa # git
 sudo apt-add-repository -y ppa:philip.scott/elementary-tweaks # elementary-tweaks
 sudo apt-add-repository -y ppa:neovim-ppa/stable # neovim
 sudo apt-add-repository -y ppa:tmate.io/archive # tmate
+sudo add-apt-repository ppa:webupd8team/terminix # tilix
 sudo apt-add-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable" # docker-ce
 sudo apt-add-repository -y "deb http://repository.spotify.com stable non-free" # Spotify
 
@@ -59,10 +60,12 @@ sudo DEBIAN_FRONTEND=noninteractive apt install -y \
   postgresql \
   postgresql-contrib \
   python-gpgme \
+  silversearcher-ag \
   smplayer \
   spotify-client \
   thunderbird \
   tlp-rdw \
+  tilix \
   tmate \
   tmux \
   transmission \
@@ -87,6 +90,9 @@ sudo apt install -f
 sudo apt autoremove -y
 sudo apt autoclean
 
+# Fix terminix
+sudo ln -s /etc/profile.d/vte-2.91.sh /etc/profile.d/vte.sh
+
 # Install Python
 wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3-latest-Linux-x86_64.sh -b -p "$APPS_DIR/miniconda"
@@ -97,8 +103,8 @@ conda create -y --name python2 python=2
 
 # Install Python package
 conda install -y -c conda-forge \
-  neovim \
   jedi \
+  neovim \
   pgcli
 pip install --upgrade \
   pip \
@@ -175,6 +181,7 @@ fc-cache -f -v
 # Install neovim dependencies
 curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | bash -s -- $HOME/.cache/dein
 sudo chown -R $USERNAME:$USERNAME $HOME/.cache
+sudo chown -R $USERNAME:$USERNAME ~/.local/share/nvim/swap
 
 # Setup pgp agent
 mkdir -p $HOME/.gnupg

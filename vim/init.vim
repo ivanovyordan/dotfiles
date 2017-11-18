@@ -37,7 +37,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('scrooloose/nerdcommenter') " Toggle comments
   call dein#add('Shougo/deoplete.nvim') " Autocompletion engine
   call dein#add('Shougo/neosnippet.vim') " Snippets engine
-  call dein#add('Shougo/neosnippet-snippets') " Snippets
+  call dein#add('Shougo/neosnippet-snippets') " Snippets package
   call dein#add('carlitux/deoplete-ternjs', {'on_ft': 'javascript'}) " JavaScript autocomplete
   call dein#add('rhysd/vim-grammarous') " Grammar checker
 
@@ -54,14 +54,13 @@ if dein#load_state('~/.cache/dein')
 
 
   " RUBY
-  call dein#add('tpope/vim-rails') " Ruby on Rails support
-  call dein#add('tpope/vim-endwise') " Add end statements automatically
-  call dein#add('fishbullet/deoplete-ruby') " Ruby autocompletion
+  call dein#add('tpope/vim-rails', {'on_ft': 'ruby'}) " Ruby on Rails support
+  call dein#add('tpope/vim-endwise', {'on_ft': 'ruby'}) " Add end statements automatically
+  call dein#add('fishbullet/deoplete-ruby', {'on_ft': 'ruby'}) " Ruby autocompletion
 
   " PYTHON
-  call dein#add('timothycrosley/isort') " Sort imports
-  call dein#add('zchee/deoplete-jedi') " Python autocompletion
-  call dein#add('gotcha/vimpdb') " Python autocompletion
+  call dein#add('zchee/deoplete-jedi', {'on_ft': 'python'}) " Python autocompletion
+  call dein#add('gotcha/vimpdb', {'on_ft': 'python'}) " Python debugging
 
   " Random
   call dein#add('gmist/vim-palette') " A collection of themes
@@ -159,12 +158,12 @@ set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types\ Mono\ 11
 set showmatch
 " Show invisible characters
 set list
-set listchars=tab:▸·,eol:¬
+set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
 
 " RUNNING
 autocmd FileType python nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>
 
-" SEACHING
+" SEARCHING
 " Ignore case when searching
 set ignorecase
 " Ignore case if search pattern is all lowercase, case-sensitive otherwise
