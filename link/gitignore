@@ -1,5 +1,8 @@
 .DS_Store
 *.iml
-/out/
+/.idea
+/out
+/metastore_db
+/.vscode
 /railways.cache
 /tags

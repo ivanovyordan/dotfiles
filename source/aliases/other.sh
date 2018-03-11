@@ -15,3 +15,5 @@ alias wget='wget -c'
 
 # Start calculator with math support
 alias bc='bc -l'
+
+alias weechat='ssh irc -t tmux a'
