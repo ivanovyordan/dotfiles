@@ -55,7 +55,6 @@ ZSH_THEME="schminitz"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  zsh-syntax-highlighting
   autojump
   command-not-found
   dircycle
@@ -70,6 +69,7 @@ plugins=(
   nvm
   rbenv
   zsh-autosuggestions
+  zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh

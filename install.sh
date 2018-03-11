@@ -108,7 +108,8 @@ conda install -y -c conda-forge \
   pgcli
 pip install --upgrade \
   pip \
-  httpie
+  httpie \
+  awscli
 
 source activate python2
 conda install -y -c conda-forge \

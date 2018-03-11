@@ -1,0 +1,1 @@
+source /home/yordan/.apps/miniconda/bin/aws_zsh_completer.sh
