@@ -1,10 +1,14 @@
 " Enter in NORMAL mode with `j-k`
 imap jk <Esc>
 
-" Close buffer
-nmap <C-d> :b#<bar>bd#<CR>
+" Clear search highlighting
+noremap <CR> :nohl<cr>
 
-" easy window navigation
+" Better navigation in splits
+noremap j gj
+noremap k gk
+
+" Easy window navigation
 map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
@@ -32,3 +36,36 @@ nmap <leader>+ <Plug>AirlineSelectNextTab
 " fzf
 noremap <C-b> :Buffers<CR>
 noremap <C-p> :Files<CR>
+
+" CamelCaseMotion
+map <silent> w <Plug>CamelCaseMotion_w
+map <silent> b <Plug>CamelCaseMotion_b
+map <silent> e <Plug>CamelCaseMotion_e
+map <silent> ge <Plug>CamelCaseMotion_ge
+sunmap w
+sunmap b
+sunmap e
+sunmap ge
+
+" neosnippet
+imap <C-Space> <Plug>(neosnippet_expand_or_jump)
+smap <C-Space> <Plug>(neosnippet_expand_or_jump)
+xmap <C-Space> <Plug>(neosnippet_expand_target)
+imap <expr><TAB> pumvisible() ? "\<C-n>" : neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+function! ExpandOrEnter()
+  if neosnippet#expandable_or_jumpable()
+    return neosnippet#mappings#expand_or_jump_impl()
+  elseif pumvisible()
+    return deoplete#mappings#close_popup()
+  else
+    return "\<Return>"
+  endif
+endfunction
+
+inoremap <Return> <C-R>=ExpandOrEnter()<CR>
+
+if has('conceal')                        " Hide snippet marks
+    set conceallevel=2 concealcursor=niv
+endif

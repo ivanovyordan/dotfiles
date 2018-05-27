@@ -27,14 +27,16 @@ if dein#load_state('~/.cache/dein')
   " Outline viewer
   call dein#add('majutsushi/tagbar', {'on': 'TagbarToggle'})
 
-  " Status/Tab line
+  " Status/Indent line
   call dein#add('vim-airline/vim-airline')
   call dein#add('vim-airline/vim-airline-themes')
   call dein#add('ryanoasis/vim-devicons')
   call dein#add('Yggdroot/indentLine')
 
-  " Commenting
+  " Automation
   call dein#add('scrooloose/nerdcommenter')
+  call dein#add('tpope/vim-surround')
+  call dein#add('bkad/CamelCaseMotion')
 
   " Linting
   call dein#add('vim-syntastic/syntastic')
@@ -47,10 +49,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('sheerun/vim-polyglot')
 
   " Autocompletion
-  call dein#add('jakedouglas/exuberant-ctags')
   call dein#add('Shougo/deoplete.nvim')
-
-  " Snippets
   call dein#add('Shougo/neosnippet.vim')
   call dein#add('Shougo/neosnippet-snippets')
 
@@ -58,7 +57,6 @@ if dein#load_state('~/.cache/dein')
   call dein#add('tpope/vim-rails', {'on_ft': 'ruby'})
   call dein#add('fishbullet/deoplete-ruby', {'on_ft': 'ruby'})
   call dein#add('tpope/vim-endwise', {'on_ft': 'ruby'})
-  call dein#add('jgdavey/vim-blockle', {'on_ft': 'ruby'})
 
   " Python
   call dein#add('zchee/deoplete-jedi', {'on_ft': 'python'})

@@ -14,7 +14,6 @@ let g:startify_list_order = [
 set rtp+=~/.fzf
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, fzf#vim#with_preview('right:40%'), <bang>0)
 command! -bang -nargs=* Files call fzf#vim#files(<q-args>, fzf#vim#with_preview('right:40%'), <bang>0)
-command! -bang -nargs=* Buffers call fzf#vim#buffers(<q-args>, fzf#vim#with_preview('right:40%'), <bang>0)
 
 " Vimfiler
 let g:vimfiler_as_default_explorer=1
@@ -28,7 +27,7 @@ let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#tabline#buffer_idx_mode=1
 
 " Dev icons
-set guifont=Droid\ Sans\ Mono\ Font\ 11
+set guifont=RobotoMono\ Nerd\ Font\ 12
 
 " Identline
 let g:indentLine_fileTypeExclude = ['help', 'man', 'startify', 'vimfiler']
@@ -54,6 +53,7 @@ let g:syntastic_quiet_messages={ "level": "warnings" }
 
 " deoplete
 let g:deoplete#enable_at_startup=1
+autocmd CompleteDone * silent! pclose!
 
 " Neosnippet
 if has('conceal')

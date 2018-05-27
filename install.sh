@@ -28,8 +28,6 @@ sudo apt-add-repository -y ppa:graphics-drivers/ppa # drivers
 sudo apt-add-repository -y ppa:git-core/ppa # git
 sudo apt-add-repository -y ppa:philip.scott/elementary-tweaks # elementary-tweaks
 sudo apt-add-repository -y ppa:neovim-ppa/stable # neovim
-sudo apt-add-repository -y ppa:tmate.io/archive # tmate
-sudo add-apt-repository ppa:webupd8team/terminix # tilix
 sudo apt-add-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable" # docker-ce
 sudo apt-add-repository -y "deb http://repository.spotify.com stable non-free" # Spotify
 
@@ -42,7 +40,6 @@ sudo DEBIAN_FRONTEND=noninteractive apt install -y \
   autojump \
   build-essential \
   ca-certificates \
-  chromium-browser \
   colordiff \
   com.github.donadigo.eddy \
   default-jre \
@@ -57,18 +54,11 @@ sudo DEBIAN_FRONTEND=noninteractive apt install -y \
   libreadline-dev \
   libssl-dev \
   neovim \
-  postgresql \
-  postgresql-contrib \
   python-gpgme \
   silversearcher-ag \
-  smplayer \
   spotify-client \
-  thunderbird \
   tlp-rdw \
-  tilix \
-  tmate \
   tmux \
-  transmission \
   virtualbox \
   whois \
   zsh \
@@ -89,9 +79,6 @@ rm -rf steam.deb
 sudo apt install -f
 sudo apt autoremove -y
 sudo apt autoclean
-
-# Fix terminix
-sudo ln -s /etc/profile.d/vte-2.91.sh /etc/profile.d/vte.sh
 
 # Install Python
 wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
@@ -176,7 +163,7 @@ curl curl -O https://gist.githubusercontent.com/schminitz/9931af23bbb59e772eec/r
 
 # Install powerline fonts
 mkdir -p $HOME/.local/share/fonts
-curl -fLo $HOME/.local/share/fonts/DroidSansMonoForPowerlinePlusNerdFileTypesMono.otf https://github.com/ryanoasis/powerline-extra-symbols/raw/master/patched-fonts/DroidSansMonoForPowerlinePlusNerdFileTypesMono.otf
+curl -fLo "$HOME/.local/share/fonts/Roboto Mono Nerd Font Complete.ttf" "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/RobotoMono/Regular/complete/Roboto%20Mono%20Nerd%20Font%20Complete.ttf"
 fc-cache -f -v
 
 # Install neovim dependencies

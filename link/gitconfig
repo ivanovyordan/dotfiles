@@ -7,13 +7,15 @@
   helper = cache
 
 [core]
-  editor = nvim
   autocrlf = input
   eol = lf
   excludesfile = ~/.gitignore
 
 [color]
   ui = true
+
+[pager]
+  branch = false
 
 [commit]
   gpgsign = true

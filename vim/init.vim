@@ -2,6 +2,8 @@
 let g:python_host_prog = $HOME . '/.apps/miniconda/envs/python2/bin/python'
 let g:python3_host_prog = $HOME . '/.apps/miniconda/bin/python'
 
+" force minimum window with
+set winwidth=130
 
 " set default charset
 set encoding=utf8
@@ -28,6 +30,9 @@ set softtabstop=2
 set autoindent
 set copyindent
 set colorcolumn=120
+
+" Hightlight current line
+set cursorline
 
 " searching
 set incsearch
@@ -88,6 +93,15 @@ autocmd BufRead * normal zz
 " making clipboard system-wide
 set clipboard=unnamed
 set sessionoptions=buffers
+
+" generate ctags automatically
+autocmd BufWritePost *
+  \ if filereadable('tags') |
+    \ call system('ctags -a '.expand('%')) |
+  \ endif
+
+" custom file types
+autocmd BufEnter *.template :setlocal filetype=eruby
 
 source ~/.config/nvim/bundles.vim
 source ~/.config/nvim/plugins.vim

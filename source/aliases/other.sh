@@ -17,3 +17,5 @@ alias wget='wget -c'
 alias bc='bc -l'
 
 alias weechat='ssh irc -t tmux a'
+
+alias screencast='ffmpeg -f x11grab -s 1920x1080 -i :0.0 -f pulse -ac 2 -i default -vcodec libx264 -pix_fmt yuv420p -preset ultrafast -vsync 2 -acodec libmp3lame -ar 44100 -ab 128k -f flv'
