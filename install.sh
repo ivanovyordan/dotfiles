@@ -42,27 +42,19 @@ sudo DEBIAN_FRONTEND=noninteractive apt install -y \
   ca-certificates \
   colordiff \
   com.github.donadigo.eddy \
-  default-jre \
   docker-ce \
   elementary-tweaks \
   firefox \
   git-core \
   git-extras \
-  git-flow \
-  graphviz \
-  libpq-dev \
-  libreadline-dev \
-  libssl-dev \
   neovim \
+  pass \
   python-gpgme \
   silversearcher-ag \
   spotify-client \
-  tlp-rdw \
   tmux \
   virtualbox \
-  whois \
-  zsh \
-  zlib1g-dev
+  zsh
 
 # Install graphics drivers
 sudo ubuntu-drivers autoinstall
@@ -87,24 +79,15 @@ rm Miniconda3-latest-Linux-x86_64.sh
 export PATH="$APPS_DIR/miniconda/bin:$PATH"
 conda update -y conda
 conda create -y --name python2 python=2
+conda create -y --name neovim2 python=2
+conda create -y --name neovim3 python=3
 
-# Install Python package
-conda install -y -c conda-forge \
-  jedi \
-  neovim \
-  pgcli
-pip install --upgrade \
-  pip \
-  httpie \
-  awscli
-
-source activate python2
-conda install -y -c conda-forge \
-  neovim
-pip install --upgrade \
-  pip \
-  httpie
-source deactivate
+pip install --upgrade pip awscli httpie pgcli 'python-language-server[all]'
+conda activate neovim2
+pip install --upgrade pip neovim
+conda activate neovim3
+pip install --upgrade pip neovim 'python-language-server[all]'
+conda deactivate
 
 # Install nvm
 curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
@@ -114,9 +97,8 @@ nvm install --lts
 # Install npm packages
 npm install -g \
   npm \
-  yarn \
-  tern \
-  lighthouse
+  dockerfile-language-server-nodejs \
+  javascript-typescript-langserver
 
 # Install rbenv
 git clone https://github.com/rbenv/rbenv.git $HOME/.rbenv
@@ -130,10 +112,9 @@ rbenv global $LATEST_RUBY
 # Install ruby gems
 gem install \
   bundler \
-  rails \
-  scss_lint \
   coderay \
-  neovim
+  neovim \
+  tmuxinator
 rbenv rehash
 
 # Install docker compose and kubernetes
@@ -161,11 +142,6 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting $ZSH_CUSTOM/plugi
 mkdir -p $ZSH_CUSTOM/themes
 curl curl -O https://gist.githubusercontent.com/schminitz/9931af23bbb59e772eec/raw/schminitz.zsh-theme -o $ZSH_CUSTOM/themes/schminitz.zsh-theme
 
-# Install powerline fonts
-mkdir -p $HOME/.local/share/fonts
-curl -fLo "$HOME/.local/share/fonts/Roboto Mono Nerd Font Complete.ttf" "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/RobotoMono/Regular/complete/Roboto%20Mono%20Nerd%20Font%20Complete.ttf"
-fc-cache -f -v
-
 # Install neovim dependencies
 curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | bash -s -- $HOME/.cache/dein
 sudo chown -R $USERNAME:$USERNAME $HOME/.cache
@@ -178,10 +154,6 @@ echo "no-tty\nuse-agent" >> $HOME/.gnupg/gpg.conf
 # Download dotfiles
 git clone https://github.com/ivanovyordan/dotfiles.git $DOTFILES_DIR
 
-# Remove zshrc
-chsh -s /usr/bin/zsh
-rm -rf $HOME/.zshrc
-
 # Link files
 for FILE in $DOTFILES_DIR/link/*
 do
@@ -189,7 +161,8 @@ do
   ln -s $FILE $HOME/.$NAME
 done
 
-ln -s $DOTFILES_DIR/vim $HOME/.config/nvim
+# Link vim config
+ln -s $DOTFILES_DIR/confing/nvim $HOME/.config
 
 # Custom source scripts
 mkdir -p $HOME/.dotfiles.local/{source,bin}

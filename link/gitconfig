@@ -1,7 +1,6 @@
 [user]
   name = Yordan Ivanov
   email = mail@ivanovyordan.com
-  signkey = 0621C9F3657425C0
 
 [credential]
   helper = cache
