@@ -97,6 +97,7 @@ nvm install --lts
 # Install npm packages
 npm install -g \
   npm \
+  neovim \
   dockerfile-language-server-nodejs \
   javascript-typescript-langserver
 
@@ -114,6 +115,7 @@ gem install \
   bundler \
   coderay \
   neovim \
+  solargraph \
   tmuxinator
 rbenv rehash
 
@@ -162,7 +164,8 @@ do
 done
 
 # Link vim config
-ln -s $DOTFILES_DIR/confing/nvim $HOME/.config
+mkdir -p $HOME/.config/nvim/
+ln -s $DOTFILES_DIR/confing/nvim/init.vim $HOME/.config/nvim
 
 # Custom source scripts
 mkdir -p $HOME/.dotfiles.local/{source,bin}

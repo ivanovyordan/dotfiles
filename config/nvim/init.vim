@@ -88,6 +88,11 @@ imap jk <Esc>
 " Clear search highlighting
 noremap <CR> :nohl<cr>
 
+" Ultisni
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-n>"
+let g:UltiSnipsJumpBackwardTrigger="<c-p>"
+
 " Smaller fzf windows
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, fzf#vim#with_preview('right:40%'), <bang>0)
 command! -bang -nargs=* Files call fzf#vim#files(<q-args>, fzf#vim#with_preview('right:40%'), <bang>0)
@@ -101,6 +106,8 @@ let g:LanguageClient_serverCommands = {
   \ 'dockerfile': ['docker-langserver', '--stdio'],
   \ 'javascript': ['javascript-typescript-stdio'],
   \ 'python': ['pyls'],
+  \ 'ruby': ['solargraph', 'stdio'],
+  \ 'sh': ['bash-language-server', 'start'],
 \ }
 
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
