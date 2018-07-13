@@ -15,6 +15,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'junegunn/fzf.vim'
   Plug 'mhinz/vim-signify'
   Plug 'scrooloose/nerdcommenter'
+  Plug 'thalesmello/lkml.vim'
   Plug 'tpope/vim-endwise'
   Plug 'tpope/vim-eunuch'
   Plug 'tpope/vim-fugitive'
@@ -22,6 +23,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'tpope/vim-rails', { 'for': 'ruby' }
   Plug 'tpope/vim-surround'
   Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+  Plug 'vim-scripts/dbext.vim', { 'for': 'sql' }
   Plug 'vimwiki/vimwiki'
   Plug '~/.fzf'
 call plug#end()
@@ -64,13 +66,16 @@ filetype plugin indent on
 set nowrap
 
 " Visuals
+" Enable 24-bit colors
+set termguicolors
 " Relative line numbers
 set number relativenumber
 " Show wrap line
 set colorcolumn=120
 " Always draw sign column
 set signcolumn=yes
-colorscheme tomorrow-night
+set background=dark
+colorscheme gruvbox
 
 " Copy to clipboard
 vnoremap <leader>y  "+y

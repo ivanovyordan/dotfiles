@@ -82,7 +82,7 @@ conda create -y --name python2 python=2
 conda create -y --name neovim2 python=2
 conda create -y --name neovim3 python=3
 
-pip install --upgrade pip awscli httpie pgcli 'python-language-server[all]'
+pip install --upgrade pip awscli httpie pgcli httpie 'python-language-server[all]'
 conda activate neovim2
 pip install --upgrade pip neovim
 conda activate neovim3
