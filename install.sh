@@ -54,7 +54,10 @@ sudo DEBIAN_FRONTEND=noninteractive apt install -y \
   spotify-client \
   tmux \
   virtualbox \
-  zsh
+  zsh \
+  libssl-dev \
+  libreadline-dev \
+  zlib1g-dev
 
 # Install graphics drivers
 sudo ubuntu-drivers autoinstall
@@ -76,7 +79,7 @@ sudo apt autoclean
 wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3-latest-Linux-x86_64.sh -b -p "$APPS_DIR/miniconda"
 rm Miniconda3-latest-Linux-x86_64.sh
-export PATH="$APPS_DIR/miniconda/bin:$PATH"
+source $HOME/.apps/miniconda/etc/profile.d/conda.sh
 conda update -y conda
 conda create -y --name python2 python=2
 conda create -y --name neovim2 python=2
@@ -85,6 +88,7 @@ conda create -y --name neovim3 python=3
 pip install --upgrade pip awscli httpie pgcli httpie 'python-language-server[all]'
 conda activate neovim2
 pip install --upgrade pip neovim
+conda deactivate
 conda activate neovim3
 pip install --upgrade pip neovim 'python-language-server[all]'
 conda deactivate
@@ -133,7 +137,6 @@ git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
 $HOME/.fzf/install --all --no-update-rc
 
 # Install oh-my-zsh
-chsh -s $(which zsh)
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
 
@@ -145,9 +148,8 @@ mkdir -p $ZSH_CUSTOM/themes
 curl curl -O https://gist.githubusercontent.com/schminitz/9931af23bbb59e772eec/raw/schminitz.zsh-theme -o $ZSH_CUSTOM/themes/schminitz.zsh-theme
 
 # Install neovim dependencies
-curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | bash -s -- $HOME/.cache/dein
-sudo chown -R $USERNAME:$USERNAME $HOME/.cache
-sudo chown -R $USERNAME:$USERNAME ~/.local/share/nvim/swap
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+nvim +PlugInstall +UpdateRemotePlugins +qa
 
 # Setup pgp agent
 mkdir -p $HOME/.gnupg
@@ -157,6 +159,7 @@ echo "no-tty\nuse-agent" >> $HOME/.gnupg/gpg.conf
 git clone https://github.com/ivanovyordan/dotfiles.git $DOTFILES_DIR
 
 # Link files
+rm -rf $HOME/.zshrc
 for FILE in $DOTFILES_DIR/link/*
 do
   NAME=$(basename $FILE)
