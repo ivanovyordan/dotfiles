@@ -75,6 +75,12 @@ call plug#begin('~/.local/share/nvim/plugged')
     \ }
   \]
 
+  Plug 'w0rp/ale'
+  let g:ale_sign_error = "◉"
+  let g:ale_sign_warning = "◉"
+  highlight ALEErrorSign ctermfg=9 ctermbg=15 guifg=#C30500 guibg=#F5F5F5
+  highlight ALEWarningSign ctermfg=11 ctermbg=15 guifg=#ED6237 guibg=#F5F5F5
+
   Plug '~/.fzf'
   Plug 'junegunn/fzf.vim'
   command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, fzf#vim#with_preview('right:40%'), <bang>0)
@@ -90,11 +96,18 @@ set clipboard=unnamed
 set noswapfile
 " Maintain undo history between sessions
 set undofile
+" Enable watchers
+set backupcopy=yes
 " Better searching
 set incsearch
 set hlsearch
 set ignorecase
 set smartcase
+" Enable folding
+set foldmethod=syntax
+set foldnestmax=10
+set nofoldenable
+set foldlevel=2
 
 " Windows
 " Vertical diff windows

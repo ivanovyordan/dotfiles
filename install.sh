@@ -168,7 +168,7 @@ done
 
 # Link vim config
 mkdir -p $HOME/.config/nvim/
-ln -s $DOTFILES_DIR/confing/nvim/init.vim $HOME/.config/nvim
+ln -s $DOTFILES_DIR/config/nvim/init.vim $HOME/.config/nvim
 
 # Custom source scripts
 mkdir -p $HOME/.dotfiles.local/{source,bin}
