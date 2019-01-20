@@ -1,0 +1,71 @@
+snippet select "select statement" b
+select ${1:*}
+
+from ${2:${3:database}.}${4:schema}.${5:table} ${6:as ${7:alias}}
+
+where
+	${8:column}=${9:value}
+;
+endsnippet
+
+snippet table "create table" b
+create table ${1:${2:database}.}${3:schema}.${4:table} (
+	$5
+);
+endsnippet
+
+snippet view "create view" b
+create view ${1:${2:database}.}${2:schema}.${3:view} as (
+
+	select$5
+
+);
+endsnippet
+
+snippet update "update table values table" b
+update ${1:${2:database}.}${3:schema}.${4:table}
+
+set
+	${5:column}=${6:value}
+
+where
+	${7:column}=${8:value}
+
+;
+endsnippet
+
+snippet delete "delete from table" b
+delete from ${1:${2:database}.}${3:schema}.${4:table}
+
+where
+	${5:column}=${6:value}
+
+;
+endsnippet
+
+snippet cte "CTE construction" b
+with ${1:alias} as (
+
+	select
+	  $2
+
+	from $3
+
+)$4
+endsnippet
+
+snippet row "row number partition" b
+row_number() over(partition by ${1:column} order by ${2:column}) as ${3:alias}
+endsnippet
+
+snippet join "join" b
+${1|left,right,inner,full outer|} join ${1:${2:database}.}${3:schema}.${4:table} as ${5:alias} on $5.${6:column}=${7:table}.${8:column}
+endsnippet
+
+snippet drop "drop column" b
+alter table ${1:${2:database}.}${3:schema}.${4:table} drop column ${5:column};
+endsnippet
+
+snippet type "change data type"
+alter table ${1:${2:database}.}${3:schema}.${4:table} alter column ${5:column} set data type ${6:type};
+endsnippet

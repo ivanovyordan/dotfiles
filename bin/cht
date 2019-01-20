@@ -1,7 +1,0 @@
-#!/usr/bin/env zsh
-
-CONTEXT=$1
-shift
-QUERY=$@
-
-curl "cht.sh/$CONTEXT/$QUERY"

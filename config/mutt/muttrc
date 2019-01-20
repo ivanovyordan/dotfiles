@@ -1,0 +1,121 @@
+# General
+set folder = ~/.local/share/mail
+set header_cache = ~/.mutt/cache/headers
+set message_cachedir = ~/.mutt/cache/bodies
+set certificate_file = ~/.mutt/cache/certificates
+set mailcap_path = ~/.dotfiles/config/mutt/mailcap
+set tmpdir = ~/.mutt/tmp
+
+# Basic options
+set wait_key = no
+set mbox_type = Maildir
+set timeout = 3
+set mail_check = 0
+set delete = yes
+set quit = yes
+set thorough_search = yes
+set mail_check_stats = yes
+set confirmappend = no
+set move = no
+set mark_old = no
+set beep_new = no
+
+# Composing
+set envelope_from = yes
+set edit_headers = yes
+set fast_reply = yes
+set askcc = yes
+set fcc_attach = yes
+set forward_format = "Fwd: %s"
+set forward_decode = yes
+set attribution = "On %d, %n wrote:"
+set reply_to = yes
+set reverse_name = yes
+set include = yes
+set forward_quote = yes
+set editor = "nvim"
+set text_flowed = yes
+set sig_dashes = no
+set mime_forward = no
+
+# Status bar, date format, finding stuff etc.
+set status_chars = " *%A"
+set status_format = "[ Folder: %f ] [%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]%>─%?p?( %p postponed )?"
+set date_format = "%d.%m.%Y %H:%M"
+set index_format = "[%Z] %?X?A&-? %D  %-20.20F  %s"
+set sort = threads
+set sort_aux = reverse-last-date-received
+set uncollapse_jump = yes
+set sort_re = yes
+set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
+set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
+set send_charset = "utf-8"
+set charset = "utf-8"
+
+# Pager View Options
+set pager_index_lines = 10
+set pager_context = 3
+set pager_stop = yes
+set menu_scroll = yes
+set tilde = yes
+set markers = no
+
+# Email headers and attachments
+ignore *
+unignore from: to: cc: bcc: date: subject:
+unhdr_order *
+hdr_order from: to: cc: bcc: date: subject:
+alternative_order text/plain text/enriched text/html
+auto_view text/html
+
+# when composing emails, use this command to get addresses from
+# the addressbook with khard first, and everything else from mu index
+set query_command = "khard email --parsable '%s' | sed -n '1!p'; mu cfind --format=mutt-ab '%s'"
+# Sidebar
+set sidebar_visible = yes
+set sidebar_short_path = yes
+set sidebar_width = 30
+set sidebar_folder_indent = yes
+set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
+
+# Mailboxes to show in the sidebar.
+named-mailboxes " ---------- 📨 INBOX ---------- " =empty/inbox
+named-mailboxes " 🧾 Receipt Bank" =receiptbank/Inbox
+named-mailboxes " 👤 Personal" =personal/Inbox
+named-mailboxes " ✉️  Gmail" =gmail/Inbox
+named-mailboxes " ------ 🧾 Receipt Bank ------ " =empty/receiptbank
+named-mailboxes " 📦 Archive" =receiptbank/Archive
+named-mailboxes " 📝 Drafts" =receiptbank/Drafts
+named-mailboxes " 📤 Sent" =receiptbank/Sent
+named-mailboxes " 🗑  Trash" =receiptbank/Trash
+named-mailboxes " 🧻 Spam " =receiptbank/Spam
+named-mailboxes " ---------- 👤 Personal ---------- " =empty/personal
+named-mailboxes " 📦 Archive" =personal/Archive
+named-mailboxes " 📝 Drafts" =personal/Drafts
+named-mailboxes " 📤 Sent" =personal/Sent
+named-mailboxes " 🗑 Trash" =personal/Trash
+named-mailboxes " 🧻 Spam " =personal/Spam
+named-mailboxes " --------- ✉️  Gmail --------- " =empty/gmail
+named-mailboxes " 📦 Archive" =gmail/Archive
+named-mailboxes " 📝 Drafts" =gmail/Drafts
+named-mailboxes " 📤 Sent" =gmail/Sent
+named-mailboxes " 🗑  Trash" =gmail/Trash
+named-mailboxes " 🧻 Spam " =gmail/Spam
+
+# GPG/PGP
+set pgp_default_key = "0xF860753866109BF6"
+set postpone_encrypt = yes
+set crypt_use_gpgme = yes
+set crypt_autosign = yes
+set crypt_replyencrypt = yes
+set crypt_verify_sig = yes
+
+source ~/.dotfiles/config/mutt/colors.muttrc
+source ~/.dotfiles/config/mutt/keybindings.muttrc
+
+# Accounts
+source ~/.dotfiles/config/mutt/account.receiptbank.muttrc
+folder-hook receiptbank/* source ~/.dotfiles/config/mutt/account.receiptbank.muttrc
+folder-hook personal/* source ~/.dotfiles/config/mutt/account.personal.muttrc
+folder-hook gmail/* source ~/.dotfiles/config/mutt/account.gmail.muttrc
+

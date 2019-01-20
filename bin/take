@@ -1,6 +1,0 @@
-#!/usr/bin/env zhs
-
-# Create a directori and `cd` into it
-
-mkdir $1
-cd $1

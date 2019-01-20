@@ -1,0 +1,63 @@
+{
+  "suggest.enablePreview": true,
+  "suggest.echodocSupport": true,
+  "diagnostic.checkCurrentLine": true,
+  "diagnostic.errorSign": "✘",
+  "diagnostic.warningSign": "⚠",
+  "diagnostic.infoSign": "ⓘ ",
+  "diagnostic.hintSign": "💡",
+  "codeLens.enable": true,
+  "python.jediEnabled": false,
+  "python.autoComplete.addBrackets": true,
+  "python.formatting.provider": "autopep8",
+  "python.formatting.autopep8Path": "/Users/ivanovyordan/.pyenv/versions/neovim/bin/autopep8",
+  "python.linting.pylintEnabled": false,
+  "python.linting.flake8Enabled": true,
+  "python.linting.flake8Path": "/Users/ivanovyordan/.pyenv/versions/neovim/bin/flake8",
+  "python.sortImports.path": "/Users/ivanovyordan/.pyenv/versions/neovim/bin/isort",
+  "tsserver.npm": "npm",
+  "eslint.autoFixOnSave": true,
+  "languageserver": {
+    "vim": {
+      "command": "vim-language-server",
+      "args": ["--stdio"],
+      "filetypes": ["vim"]
+    },
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
+    },
+    "dockerfile": {
+      "command": "docker-langserver",
+      "args": ["--stdio"],
+      "filetypes": ["dockerfile"]
+    },
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod"],
+      "filetypes": ["go"]
+    },
+    "terraform": {
+      "command": "terraform-lsp",
+      "filetypes": ["terraform"]
+    }
+  },
+  "diagnostic-languageserver.filetypes": {
+    "markdown": [
+      "languagetool",
+      "/Users/ivanovyordan/.pyenv/versions/neovim/bin/proselint",
+      "markdownlint"
+    ],
+    "mail": [
+      "languagetool",
+      "/Users/ivanovyordan/.pyenv/versions/neovim/bin/proselint"
+    ],
+    "gitcommit": [
+      "languagetool",
+      "/Users/ivanovyordan/.pyenv/versions/neovim/bin/proselint",
+      "/Users/ivanovyordan/.pyenv/versions/neovim/bin/gitlint"
+    ]
+  }
+}

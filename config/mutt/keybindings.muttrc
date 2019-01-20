@@ -1,0 +1,67 @@
+# vim: filetype=neomuttrc
+
+# Some sane vim-like keybindings
+bind attach,pager j next-line
+bind attach,pager k previous-line
+bind attach,pager J next-entry
+bind attach,pager K previous-entry
+bind index,pager \Cu half-up
+bind index,pager \Cd half-down
+bind pager,index g noop
+bind pager gg top
+bind index gg first-entry
+bind pager G bottom
+bind index G last-entry
+
+# Sidebar Navigation
+bind index,pager <down> sidebar-next
+bind index,pager <up> sidebar-prev
+bind index,pager <right> sidebar-open
+
+# Index and pager shortcuts
+bind index,pager @ compose-to-sender
+bind index,pager R group-reply
+bind index <tab> sync-mailbox
+bind index <space> collapse-thread
+# Save all attachments
+macro index,pager S "<pipe-message>ripmime -i - -d ~/Downloads ; rm ~/Downloads/textfile*" "Save all non-text attachments using ripmime"
+# opening urls with urlscan
+macro index,pager \cb "<pipe-message>urlscan<enter>" "call urlscan to extract URLs out of a message"
+# Sync all email
+macro index,pager O "<shell-escape>mbsync -a -q<enter>" "run mbsync to sync all mail"
+
+# View attachments properly.
+bind attach <return> view-mailcap
+
+# Drafts
+bind compose P postpone-message
+bind index p recall-message
+
+# Finding stuff
+bind editor <tab> complete-query
+macro index F "<shell-escape>mu find --clearlinks --format=links --linksdir=~/.mu/results " "Search"
+macro index \cf "<change-folder-readonly>~/.mu/results<enter>" "Find"
+macro index D "<tag-thread><tag-prefix><purge-message><refresh>" "Remove messages from trash"
+macro index n "<next-unread-mailbox><enter><next-new-then-unread><enter>" "Go to new mail"
+
+
+macro index gri "<change-folder>=receiptbank/Inbox<enter>" "Go to Receipt Bank inbox"
+macro index gpi "<change-folder>=personal/Inbox<enter>" "Go to Personal inbox"
+macro index gmi "<change-folder>=gmail/Inbox<enter>" "Go to Gmail inbox"
+
+macro index gra "<change-folder>=receiptbank/Archive<enter>" "Go to Receipt Bank archive"
+macro index gpa "<change-folder>=personal/Archive<enter>" "Go to Personal archive"
+macro index gma "<change-folder>=gmail/Archive<enter>" "Go to Gmail archive"
+
+macro index grs "<change-folder>=receiptbank/Sent <enter>" "Go to Receipt Bank sent mail"
+macro index gps "<change-folder>=personal/Sent <enter>" "Go to Personal sent mail"
+macro index gms "<change-folder>=gmail/Sent <enter>" "Go to Gmail sent mail"
+
+macro index grd "<change-folder>=receiptbank/Drafts<enter>" "Go to Receipt Bank drafts"
+macro index gpd "<change-folder>=personal/Drafts<enter>" "Go to Personal drafts"
+macro index gmd "<change-folder>=gmail/Drafts<enter>" "Go to Gmail drafts"
+
+macro index grt "<change-folder>=receiptbank/Trash<enter>" "Go to Receipt Bank trash"
+macro index gpt "<change-folder>=personal/Trash<enter>" "Go to Personal trash"
+macro index gmt "<change-folder>=gmail/Trash<enter>" "Go to Gmail trash"
+

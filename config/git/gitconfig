@@ -2,19 +2,27 @@
   name = Yordan Ivanov
   email = mail@ivanovyordan.com
 
+[github]
+  user = ivanovyordan
+
 [credential]
-  helper = cache
+  helper = "!gopass git-credential $@"
 
 [core]
   autocrlf = input
   eol = lf
-  excludesfile = ~/.gitignore
+  excludesfile = ~/.dotfiles/config/git/gitignore
 
 [color]
   ui = true
 
 [pager]
   branch = false
+
+[diff]
+  algorithm = patience
+  renameLimit = 0
+  renames = true
 
 [commit]
   gpgsign = true
@@ -32,7 +40,7 @@
   ff = no
 
 [pull]
-  rebase = preserve
+  rebase = true
 
 [push]
-  default = simple
+  default = current

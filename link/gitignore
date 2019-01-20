@@ -1,9 +1,0 @@
-.DS_Store
-*.iml
-/Session.vim
-/.idea
-/out
-/metastore_db
-/.vscode
-/railways.cache
-/tags

@@ -1,0 +1,28 @@
+# vim: filetype=neomuttrc
+
+# Identity
+set realname = "Yordan Ivanov"
+set from = "yordan.t.ivanov@gmail..com"
+
+# Imap folders
+set spoolfile = "+gmail/Inbox"
+set mbox = "+gmail/Archive"
+set postponed = "+gmail/Drafts"
+set record = "+gmail/Sent"
+set trash = "+gmail/Trash"
+
+# SMPT
+set sendmail = "/usr/local/bin/msmtp -a gmail"
+
+# Keys
+macro index gi "<change-folder>=gmailInbox<enter>" "Go to inbox"
+macro index ga "<change-folder>=gmail/Archive<enter>" "Go to archive"
+macro index gs "<change-folder>=gmail/Sent <enter>" "Go to sent mail"
+macro index gd "<change-folder>=gmail/Drafts<enter>" "Go to drafts"
+macro index gt "<change-folder>=gmail/Trash<enter>" "Go to trash"
+macro index,pager I "<tag-thread><tag-prefix><save-message>=gmail/Inbox<enter>" "Move message to Inbox"
+macro index,pager d "<tag-thread><tag-prefix><save-message>=gmail/Trash<enter>" "Move message to trash"
+macro index,pager A "<tag-thread><tag-prefix><save-message>=gmail/Archive<enter>" "Move message to archive"
+macro index,pager ! "<tag-thread><tag-prefix><save-message>=gmail/Spam<enter>" "Move message to spam"
+
+color status green default

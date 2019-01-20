@@ -1,4 +1,0 @@
-#!/usr/bin/env zsh
-
-# Get latest repo release form GITHUB
-echo $(curl -s "https://api.github.com/repos/$1/releases/latest" | grep tag_name | cut -d '"' -f 4)

@@ -1,0 +1,6 @@
+text/html; w3m -I %{charset} -T text/html; copiousoutput;
+application/pdf; pdftotext -layout %s -; copiousoutput;
+image/jpg; imgcat %s || img2txt %s && read tmp;
+image/jpeg; imgcat %s || img2txt %s && read tmp;
+image/png; imgcat %s || img2txt %s && read tmp;
+image/gif; imgcat %s || img2txt %s && read tmp;
