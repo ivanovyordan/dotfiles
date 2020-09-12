@@ -7,9 +7,9 @@ let g:python3_host_prog=$HOME . '/.pyenv/versions/neovim/bin/python'
 
 call plug#begin('~/.vim/plugged')
   " File manager
-   Plug 'rbgrouleff/bclose.vim' | Plug 'francoiscabrol/ranger.vim'
+  Plug 'rbgrouleff/bclose.vim' | Plug 'francoiscabrol/ranger.vim'
   " Fuzzy file search
-  Plug $HOME . '/.fzf' | Plug 'junegunn/fzf.vim'
+  Plug $HOME . '/.fzf' | Plug 'junegunn/fzf.vim' | Plug 'stsewd/fzf-checkout.vim'
   " Better tmux integration
   Plug 'christoomey/vim-tmux-navigator' | Plug 'benmills/vimux'
   " Easier file system operations
@@ -24,8 +24,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-fugitive'
   " Snippets
   Plug 'honza/vim-snippets' | Plug 'mattn/emmet-vim'
-  " Easy movement
-  Plug 'easymotion/vim-easymotion'
   " Language server and liter
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   " Languages
@@ -157,7 +155,15 @@ inoremap <expr> % getline('.')[getpos('.')[2] - 2] == '{' ? '%  %<left><left>' :
 " fzf config
 noremap <c-b> :Buffers<cr>
 noremap <c-p> :Files<cr>
-noremap <c-g> :GitFiles<cr>
+
+let g:fzf_layout = {'window': {'width': 0.8, 'height': 0.8}}
+let $FZF_DEFAULT_OPTS='--reverse'
+
+" Fugitive
+noremap <leader>gs :G<cr>
+noremap <leader>gc :GCheckout<cr>
+noremap <leader>gh :diffget //2<cr>
+noremap <leader>gf :diffget //3<cr>
 
 " coc
 let g:coc_global_entensions=[
