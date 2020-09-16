@@ -29,6 +29,8 @@ function install_prompt() {
   curl -fsSL https://starship.rs/install.sh > install
   bash install -f
   rm install
+
+  wget https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.fish ~/.config/fish/completions/
 }
 
 function main() {

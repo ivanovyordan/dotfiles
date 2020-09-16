@@ -26,4 +26,4 @@ function main
   end
 end
 
-main argv[1..-1]
+main $argv[1..-1]
