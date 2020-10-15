@@ -9,7 +9,7 @@ Host mail.gandi.net
 Port 993
 AuthMech LOGIN
 User mail@ivanovyordan.com
-PassCmd "/usr/local/bin/gopass text/mail.ivanovyordan.com password"
+PassCmd "~/.apps/go/path/bin/gopass show text/mail.ivanovyordan.com password"
 SSLType IMAPS
 
 # Remote storage
@@ -67,7 +67,7 @@ Host imap.gmail.com
 Port 993
 AuthMech LOGIN
 User yordan@receipt-bank.com
-PassCmd "/usr/local/bin/gopass receiptbank/google.com mutt-password"
+PassCmd "~/.apps/go/path/bin/gopass show receiptbank/google.com mutt-password"
 SSLType IMAPS
 
 # Remote storage
@@ -125,7 +125,7 @@ Host imap.gmail.com
 Port 993
 AuthMech LOGIN
 User yordan.t.ivanov@gmail.com
-PassCmd "/usr/local/bin/gopass browsing/google.com mutt-password"
+PassCmd "~/.apps/go/path/bin/gopass show browsing/google.com mutt-password"
 SSLType IMAPS
 
 # Remote storage
