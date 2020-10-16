@@ -36,7 +36,8 @@ function install_python_dependencies
     autopep8 \
     flake8 \
     isort \
-    proselint
+    proselint \
+    gitlint
 
   pyenv deactivate
 end
@@ -51,7 +52,6 @@ function install_node_dependencies
     diagnostic-languageserver \
     dockerfile-language-server-nodejs \
     javascript-typescript-langserver \
-    coc-vimlsp \
     markdownlint \
     neovim
 end

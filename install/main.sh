@@ -49,7 +49,7 @@ function create_local_dotfiles() {
 }
 
 function link_dotfiles() {
-  ln -s $DOTFILES_DIRECTORY/config/git/gitconfig $HOME/.gitcofig
+  ln -s $DOTFILES_DIRECTORY/config/git/gitconfig $HOME/.gitconfig
   ln -s $DOTFILES_DIRECTORY/config/npmrc $HOME/.npmrc
   ln -s $DOTFILES_DIRECTORY/config/pryrc $HOME/.pryrc
   ln -s $DOTFILES_DIRECTORY/config/starship.toml $HOME/.config/starship.toml

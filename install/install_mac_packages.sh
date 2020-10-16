@@ -7,6 +7,7 @@ function install_homebrew() {
 function install_core_packages() {
   brew install \
     colordiff \
+    ctags \
     fd \
     git \
     git-extras \

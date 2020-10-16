@@ -10,6 +10,7 @@ function update_system() {
 function install_apt_packages() {
   sudo apt install -y \
     colordiff \
+    ctags \
     fd-find \
     firefox \
     git \
