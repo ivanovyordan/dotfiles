@@ -33,6 +33,7 @@ function install_python_dependencies
   pip install --upgrade \
     pip \
     pynvim \
+    black \
     autopep8 \
     flake8 \
     isort \

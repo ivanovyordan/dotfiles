@@ -1,4 +1,12 @@
 {
+  "coc.preferences.rootPatterns": [
+    ".git",
+    ".env",
+    "pyproject.toml",
+    "setup.py",
+    "dbt_project.yml"
+  ],
+  "coc.preferences.formatOnSaveFiletypes": ["python"],
   "suggest.enablePreview": true,
   "suggest.echodocSupport": true,
   "diagnostic.checkCurrentLine": true,
@@ -9,12 +17,11 @@
   "codeLens.enable": true,
   "python.jediEnabled": false,
   "python.autoComplete.addBrackets": true,
-  "python.formatting.provider": "autopep8",
-  "python.formatting.autopep8Path": "/Users/ivanovyordan/.pyenv/versions/neovim/bin/autopep8",
+  "python.formatting.provider": "black",
+  "python.formatting.blackPath": "~/.pyenv/versions/neovim/bin/black",
   "python.linting.pylintEnabled": false,
   "python.linting.flake8Enabled": true,
-  "python.linting.flake8Path": "/Users/ivanovyordan/.pyenv/versions/neovim/bin/flake8",
-  "python.sortImports.path": "/Users/ivanovyordan/.pyenv/versions/neovim/bin/isort",
+  "python.linting.flake8Path": "~/.pyenv/versions/neovim/bin/flake8",
   "tsserver.npm": "npm",
   "eslint.autoFixOnSave": true,
   "languageserver": {
@@ -47,17 +54,17 @@
   "diagnostic-languageserver.filetypes": {
     "markdown": [
       "languagetool",
-      "/Users/ivanovyordan/.pyenv/versions/neovim/bin/proselint",
+      "~/.pyenv/versions/neovim/bin/proselint",
       "markdownlint"
     ],
     "mail": [
       "languagetool",
-      "/Users/ivanovyordan/.pyenv/versions/neovim/bin/proselint"
+      "~/.pyenv/versions/neovim/bin/proselint"
     ],
     "gitcommit": [
       "languagetool",
-      "/Users/ivanovyordan/.pyenv/versions/neovim/bin/proselint",
-      "/Users/ivanovyordan/.pyenv/versions/neovim/bin/gitlint"
+      "~/.pyenv/versions/neovim/bin/proselint",
+      "~/.pyenv/versions/neovim/bin/gitlint"
     ]
   }
 }
