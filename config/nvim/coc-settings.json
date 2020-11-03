@@ -6,7 +6,12 @@
     "setup.py",
     "dbt_project.yml"
   ],
-  "coc.preferences.formatOnSaveFiletypes": ["python"],
+  "coc.preferences.formatOnSaveFiletypes": [
+    "python",
+    "javascript",
+    "typescript",
+    "graphql"
+  ],
   "suggest.enablePreview": true,
   "suggest.echodocSupport": true,
   "diagnostic.checkCurrentLine": true,

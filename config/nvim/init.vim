@@ -55,7 +55,7 @@ let g:coc_global_extensions=[
   \ 'coc-html', 'coc-emmet',
   \ 'coc-vimlsp',
   \ 'coc-python',
-  \ 'coc-tsserver', 'coc-eslint', 'coc-json', 'coc-prettier',
+  \ 'coc-tsserver', 'coc-eslint', 'coc-json', 'coc-prettier', 'coc-graphql',
   \ 'coc-snippets',
   \ 'coc-diagnostic',
 \]
