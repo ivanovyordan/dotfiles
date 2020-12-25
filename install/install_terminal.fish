@@ -1,5 +1,12 @@
 #!/usr/bin/env fish
 
+funciton install_font
+  curl -L -o jetbrains.zip "https://download.jetbrains.com/fonts/JetBrainsMono-1.0.0.zip?fromGitHub"
+  unzip jetbrains.zip -d $HOME/.local/share/fonts
+  fc-cache  -f -v
+  rm -rf jetbrains.zip
+end
+
 function install_terminal
   curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 end
@@ -15,6 +22,7 @@ function install_tmux_plugins
 end
 
 function main
+  install_font
   install_terminal
   install_themes
   install_tmux_plugins

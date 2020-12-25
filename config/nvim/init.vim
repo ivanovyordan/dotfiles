@@ -68,6 +68,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'doums/darcula'
   Plug 'joshdick/onedark.vim'
   Plug 'hzchirs/vim-material'
+  Plug 'ryanoasis/vim-devicons'
   Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
 
   " Navigate faster
@@ -125,6 +126,10 @@ inoremap <expr> # getline('.')[getpos('.')[2] - 2] == '{' ? '#  #<left><left>' :
 inoremap <expr> % getline('.')[getpos('.')[2] - 2] == '{' ? '%  %<left><left>' : getline('.')[getpos('.')[2] - 2] == '<' ? '%=  %<left><left>' : '%'
 
 " Plugins
+
+" Airline
+let g:airline_powerline_fonts=1
+
 " Fugitive
 noremap <leader>gs :G<cr>
 noremap <leader>gc :GCheckout<cr>
