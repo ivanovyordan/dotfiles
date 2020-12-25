@@ -46,7 +46,7 @@ set shortmess+=c
 " Change leader
 let mapleader=' '
 " Set Python path
-let g:python3_host_prog=$HOME . '/.pyenv/versions/neovim/bin/python'
+let g:python3_host_prog=$HOME . '/.apps/pyenv/versions/neovim/bin/python'
 
 " coc
 let g:coc_global_extensions=[
@@ -71,7 +71,7 @@ call plug#begin('~/.vim/plugged')
 
   " Navigate faster
   Plug 'tpope/vim-fugitive'
-  Plug $HOME . '/.fzf' | Plug 'junegunn/fzf.vim' | Plug 'stsewd/fzf-checkout.vim'
+  Plug 'junegunn/fzf' | Plug 'junegunn/fzf.vim' | Plug 'stsewd/fzf-checkout.vim'
   Plug 'rbgrouleff/bclose.vim' | Plug 'francoiscabrol/ranger.vim'
   Plug 'mbbill/undotree'
   Plug 'tpope/vim-eunuch'
@@ -79,16 +79,16 @@ call plug#begin('~/.vim/plugged')
   " Code faster
   Plug 'sheerun/vim-polyglot'
   Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
-  Plug 'honza/vim-snippets' | Plug 'mattn/emmet-vim'
+  Plug 'honza/vim-snippets'
+  Plug 'mattn/emmet-vim', {'for': 'html'}
   Plug 'editorconfig/editorconfig-vim'
 
-  " Pretend being a writer
-  " Plug 'dpelle/vim-LanguageTool', {'for': 'markdown'}
-  Plug 'ron89/thesaurus_query.vim', {'for': 'markdown'}
-  Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown', 'do': 'cd app & yarn install'}
-  Plug 'dbmrq/vim-ditto', {'for': 'markdown'}
+  " Pretend being a write
+  Plug 'ron89/thesaurus_query.vim', {'for': ['markdown', 'text', 'gitcommit']}
+  Plug 'iamcco/markdown-preview.nvim', {'for': ['markdown', 'text', 'gitcommit'], 'do': 'cd app & yarn install'}
+  Plug 'dbmrq/vim-ditto', {'for': ['markdown', 'text', 'gitcommit']}
 
-  Plug $HOME . '/workspace/stuff/dbt.vim', {'do': ':UpdateRemotePlugins'}
+  Plug $HOME . '/workspace/stuff/dbt.vim', {'for': 'sql'}
 call plug#end()
 
 " Strip trailing white space
@@ -98,15 +98,14 @@ autocmd BufWritePre * %s/\s\+$//e
 try
   let base16colorspace=256
   let ayucolor='dark'
-  " colorscheme base16-tomorrow-night
-  colorscheme base16-gruvbox-dark-hard
+  colorscheme ayu
 catch
   colorscheme slate
 endtry
 
 " Keyboard shortcuts
 " Enter in NORMAL mode with `j-k`
-imap jk <Esc>
+imap jk <esc>
 
 " Easy window navigation
 map <c-h> <c-w>h
@@ -149,33 +148,49 @@ map <leader>f :Ranger<cr>
 " Undotree
 nnoremap <leader>u :UndotreeShow<cr>
 
+" CoC
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
 " use `:Imports` for organize import of current buffer
 command! -nargs=0 Imports :call CocAction('runCommand', 'editor.action.organizeImport')
 
+" CoC actions
+nnoremap <silent><nowait> <space>c  :<c-u>CocList commands<cr>
+nnoremap <silent><nowait> <space>e  :<c-u>CocList extensions<cr>
+nnoremap <silent><nowait> <space>p  :<c-u>CocListResume<cr>
+
+" Buffer actions
+nmap <leader>ac <Plug>(coc-codeaction)
+nmap <leader>qf <Plug>(coc-fix-current)
+nmap <leader>rf <Plug>(coc-refactor)
+nmap <leader>o :<c-u>CocList outline<cr>
+nmap <leader>s :<c-u>CocList -I symbols<cr>
+nmap <silent> gp <Plug>(coc-diagnostic-prev)
+nmap <silent> gn <Plug>(coc-diagnostic-next)
+
+" Selected tezt
+xmap <leader>ac <Plug>(coc-codeaction-selected)
+nmap <leader>ac <Plug>(coc-codeaction-selected)
+xmap <leader>fo <Plug>(coc-format-selected)
+nmap <leader>fo <Plug>(coc-format-selected)
+
+" Word under cursor
+nmap <leader>rn <Plug>(coc-rename)
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gt <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-nmap <silent> gp <Plug>(coc-diagnostic-prev)
-nmap <silent> gn <Plug>(coc-diagnostic-next)
-
-nmap <leader>rn <Plug>(coc-rename)
-nmap <leader>ac <Plug>(coc-codeaction)
-nmap <leader>rf <Plug>(coc-refactor)
-nmap <leader>o :<c-u>CocList outline<cr>
-nmap <leader>s :<C-u>CocList -I symbols<cr>
 imap <c-j> <Plug>(coc-snippets-expand-jump)
 
 autocmd CursorHold * silent call CocActionAsync('highlight')
-
 nnoremap <silent> K :call <sid>show_documentation()<cr>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
-  else
+  elseif (coc#rpc#ready())
     call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
   endif
 endfunction
 
@@ -185,8 +200,8 @@ nnoremap <leader>th :ThesaurusQueryReplaceCurrentWord<cr>
 
 " DBT
 let g:dbt_autostart=0
-let g:dbt_host="127.0.0.1"
-let g:dbt_path=['run', 'staging', 'dbt']
+let g:dbt_host='127.0.0.1'
+let g:dbt_path='run staging dbt'
 let g:dbt_compile_on_open=0
 let g:dbt_compile_on_save=0
 

@@ -23,10 +23,11 @@
   "python.jediEnabled": false,
   "python.autoComplete.addBrackets": true,
   "python.formatting.provider": "black",
-  "python.formatting.blackPath": "~/.pyenv/versions/neovim/bin/black",
+  "python.formatting.blackPath": "~/.apps/pyenv/versions/neovim/bin/black",
   "python.linting.pylintEnabled": false,
   "python.linting.flake8Enabled": true,
-  "python.linting.flake8Path": "~/.pyenv/versions/neovim/bin/flake8",
+  "python.linting.flake8Path": "~/.apps/pyenv/versions/neovim/bin/flake8",
+  "python.sortImports.path": "~/.apps/pyenv/versions/neovim/isort",
   "tsserver.npm": "npm",
   "eslint.autoFixOnSave": true,
   "languageserver": {
@@ -52,7 +53,7 @@
       "filetypes": ["go"]
     },
     "terraform": {
-      "command": "terraform-lsp",
+      "command": "terraform-ls",
       "filetypes": ["terraform"]
     }
   },
