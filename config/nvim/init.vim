@@ -73,6 +73,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-fugitive'
   Plug 'junegunn/fzf' | Plug 'junegunn/fzf.vim' | Plug 'stsewd/fzf-checkout.vim'
   Plug 'rbgrouleff/bclose.vim' | Plug 'francoiscabrol/ranger.vim'
+  Plug 'christoomey/vim-tmux-navigator'
   Plug 'mbbill/undotree'
   Plug 'tpope/vim-eunuch'
 
@@ -106,12 +107,6 @@ endtry
 " Keyboard shortcuts
 " Enter in NORMAL mode with `j-k`
 imap jk <esc>
-
-" Easy window navigation
-map <c-h> <c-w>h
-map <c-j> <c-w>j
-map <c-k> <c-w>k
-map <c-l> <c-w>l
 
 " Auto close pairs
 inoremap ( ()<left>
