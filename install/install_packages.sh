@@ -37,7 +37,7 @@ function install_cli_packages() {
     pass gopass \
     ranger \
     the_silver_searcher \
-    tmux \
+    tmux tmate \
     unzip \
     vault \
     wget \
