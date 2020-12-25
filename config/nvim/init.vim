@@ -91,6 +91,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'iamcco/markdown-preview.nvim', {'for': ['markdown', 'text', 'gitcommit'], 'do': 'cd app & yarn install'}
   Plug 'dbmrq/vim-ditto', {'for': ['markdown', 'text', 'gitcommit']}
 
+  " Other wierd use-cases
+  Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
   Plug $HOME . '/workspace/stuff/dbt.vim', {'for': 'sql'}
 call plug#end()
 
