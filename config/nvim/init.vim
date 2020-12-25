@@ -68,6 +68,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'doums/darcula'
   Plug 'joshdick/onedark.vim'
   Plug 'hzchirs/vim-material'
+  Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
 
   " Navigate faster
   Plug 'tpope/vim-fugitive'
