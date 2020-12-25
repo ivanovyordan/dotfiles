@@ -1,9 +1,13 @@
 #!/usr/bin/env fish
 
 function install_node
-  curl -so- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+  brew install nodenv
 
-  nvm install --lts
+  set -Ux NODENV_ROOT $HOME/.apps/nodenv
+
+  set latest (nodenv install --list | grep -v - | grep '^[0-9]' | tail -1 | xargs)
+  nodenv install $latest
+  nodenv global $latest
 end
 
 function install_global_packages

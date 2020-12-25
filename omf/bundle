@@ -1,6 +1,4 @@
 package config
-package foreign-env
 package https://github.com/jhillyerd/plugin-git
-package nvm
 package tmux-zen
 theme clearance

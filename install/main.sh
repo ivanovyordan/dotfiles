@@ -54,6 +54,7 @@ function link_dotfiles() {
   ln -s $DOTFILES_DIRECTORY/config/pryrc $HOME/.pryrc
   ln -s $DOTFILES_DIRECTORY/config/starship.toml $HOME/.config/starship.toml
   ln -s $DOTFILES_DIRECTORY/config/tmux/tmux.conf $HOME/.tmux.conf
+  ln -s $DOTFILES_DIRECTORY/config/kitty.conf $HOME/.config/kitty
 
   mkdir -p $HOME/.config/nvim
   ln -s $DOTFILES_DIRECTORY/config/nvim/init.vim ${HOME}/.config/nvim
@@ -68,24 +69,17 @@ function link_dotfiles() {
 }
 
 function install_packages() {
-  local kernel_name="$(uname -s | tr -d '\n')"
-
-  if [ $kernel_name == "Darwin" ]; then
-    bash install_mac_packages.sh
-  elif [ $kernel_name == "Linux" ]; then
-    bash install_linux_packages.sh
-  fi
-
-  bash ./install_fish.sh $kernel_name
-  fish ./install_docker.fish $kernel_name
-  fish ./install_golang.fish $kernel_name
-  fish ./install_python.fish $kernel_name
-  fish ./install_ruby.fish $kernel_name
-  fish ./install_node.fish $kernel_name
-  fish ./install_fzf.fish $kernel_name
-  fish ./install_mail.fish $kernel_name
-  fish ./install_vim.fish $kernel_name
-  fish ./complete_installation.fish $kernel_name
+  bash ./install_packages.sh
+  bash ./install_fish.sh
+  fish ./install_node.fish
+  fish ./install_golang.fish
+  fish ./install_python.fish
+  fish ./install_ruby.fish
+  fish ./install_terraform.fish
+  fish ./install_fzf.fish
+  fish ./install_vim.fish
+  fish ./install_terminal.fish
+  fish ./complete_installation.fish
 }
 
 function main() {

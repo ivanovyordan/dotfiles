@@ -1,22 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-function install_package() {
-  if [ $1 == "Darwin" ]; then
-    install_mac
-  elif [ $1 == "Linux" ]; then
-    install_linux
-  fi
-
-  chsh -s $(which fish)
-}
-
-function install_mac() {
+function install_fish() {
   brew install fish
-}
 
-function install_linux() {
-  sudo apt-add-repository ppa:fish-shell/release-3 -y
-  sudo apt install -y fish
+  echo $(which fish) | sudo tee -a /etc/shells
+  chsh -s $(which fish)
 }
 
 function install_oh_my_fish() {
@@ -34,9 +22,9 @@ function install_prompt() {
 }
 
 function main() {
-  install_package $1
+  install_fish
   install_oh_my_fish
   install_prompt
 }
 
-main $@
+main

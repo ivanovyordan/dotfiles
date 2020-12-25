@@ -1,44 +1,28 @@
 #!/usr/bin/env fish
 
-function install_mac
+function install_neovim
   brew install \
     neovim \
-    languagetool
-
-  curl -s https://api.github.com/repos/juliosueiras/terraform-lsp/releases/latest | \
-    grep darwin_amd64.tar.gz | cut -d : -f 2,3 | tr -d \" | wget -qi -
-end
-
-function install_linux
-  sudo add-apt-repository ppa:neovim-ppa/stable -y
-  sudo apt install -y neovim
-
-  curl -sL https://raw.githubusercontent.com/languagetool-org/languagetool/master/install.sh | sudo bash -a commandline
-end
-
-function install_vim
-  if test $argv[1] = "Darwin"
-    install_mac
-  else
-    install_linux
-  end
+    languagetool \
+    hashicorp/tap/terraform-ls
 end
 
 function install_python_dependencies
-  set latest (pyenv install-latest --print 3)
+  set latest (pyenv install --list | grep -v - | grep -v b | tail -1 | xargs)
 
   pyenv virtualenv $latest neovim
 
   pyenv activate neovim
   pip install --upgrade \
     pip \
-    pynvim \
-    black \
     autopep8 \
+    black \
     flake8 \
+    gitlint \
     isort \
     proselint \
-    gitlint
+    pynvim \
+    rope
 
   pyenv deactivate
 end
@@ -49,6 +33,7 @@ end
 
 function install_node_dependencies
   npm install --global \
+    vim-language-server \
     bash-language-server \
     diagnostic-languageserver \
     dockerfile-language-server-nodejs \
@@ -65,7 +50,7 @@ function install_plugins
 end
 
 function main
-  install_vim $argv[1]
+  install_neovim
 
   install_python_dependencies
   install_ruby_dependencies
@@ -73,4 +58,4 @@ function main
   install_plugins
 end
 
-main $argv[1..-1]
+main
