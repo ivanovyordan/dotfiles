@@ -51,9 +51,11 @@ function create_local_dotfiles() {
 function link_dotfiles() {
   mkdir -p $HOME/.config/tmux
   mkdir -p $HOME/.config/ranger
+  mkdir -p $HOME/.config/pypoetry
   ln -s $DOTFILES_DIRECTORY/config/git/gitconfig $HOME/.gitconfig
   ln -s $DOTFILES_DIRECTORY/config/npmrc $HOME/.npmrc
   ln -s $DOTFILES_DIRECTORY/config/pryrc $HOME/.pryrc
+  ln -s $DOTFILES_DIRECTORY/config/poetry.toml $HOME/.config/pypoetry/config.toml
   ln -s $DOTFILES_DIRECTORY/config/starship.toml $HOME/.config/starship.toml
   ln -s $DOTFILES_DIRECTORY/config/tmux/tmux.conf $HOME/.config/tmux.conf
   ln -s $DOTFILES_DIRECTORY/config/ranger/rc.conf $HOME/.config/ranger/rc.conf
