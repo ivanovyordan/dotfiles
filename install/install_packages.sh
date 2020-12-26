@@ -35,7 +35,6 @@ function install_cli_packages() {
     neomutt isync msmtp mu khard \
     jq \
     pass gopass \
-    ranger \
     the_silver_searcher \
     tmux tmate \
     unzip \

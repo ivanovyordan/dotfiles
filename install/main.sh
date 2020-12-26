@@ -50,11 +50,13 @@ function create_local_dotfiles() {
 
 function link_dotfiles() {
   mkdir -p $HOME/.config/tmux
+  mkdir -p $HOME/.config/ranger
   ln -s $DOTFILES_DIRECTORY/config/git/gitconfig $HOME/.gitconfig
   ln -s $DOTFILES_DIRECTORY/config/npmrc $HOME/.npmrc
   ln -s $DOTFILES_DIRECTORY/config/pryrc $HOME/.pryrc
   ln -s $DOTFILES_DIRECTORY/config/starship.toml $HOME/.config/starship.toml
   ln -s $DOTFILES_DIRECTORY/config/tmux/tmux.conf $HOME/.config/tmux.conf
+  ln -s $DOTFILES_DIRECTORY/config/ranger/rc.conf $HOME/.config/ranger/rc.conf
   ln -s $DOTFILES_DIRECTORY/config/kitty.conf $HOME/.config/kitty
 
   mkdir -p $HOME/.config/nvim
@@ -79,6 +81,7 @@ function install_packages() {
   fish ./install_terraform.fish
   fish ./install_fzf.fish
   fish ./install_vim.fish
+  fish ./install_ranger.fish
   fish ./install_terminal.fish
   fish ./complete_installation.fish
 }

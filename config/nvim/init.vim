@@ -69,6 +69,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'joshdick/onedark.vim'
   Plug 'hzchirs/vim-material'
   Plug 'ryanoasis/vim-devicons'
+  Plug 'mhinz/vim-startify'
   Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
 
   " Navigate faster
@@ -102,7 +103,7 @@ autocmd BufWritePre * %s/\s\+$//e
 " Set color scheme
 try
   let base16colorspace=256
-  let ayucolor='dark'
+  let ayucolor='mirage'
   colorscheme ayu
 catch
   colorscheme slate
@@ -136,8 +137,8 @@ let g:airline_powerline_fonts=1
 noremap <leader>gs :G<cr>
 noremap <leader>gc :GCheckout<cr>
 
-noremap <leader>gh :diffget //2<cr>
-noremap <leader>gf :diffget //3<cr>
+noremap <leader>gl :diffget //2<cr>
+noremap <leader>gh :diffget //3<cr>
 
 " fzf config
 noremap <c-b> :Buffers<cr>
