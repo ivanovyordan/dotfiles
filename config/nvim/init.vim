@@ -21,7 +21,6 @@ set termguicolors
 set scrolloff=8
 set noshowmode
 set completeopt=menuone,noinsert,noselect
-set guifont=JetBrains\ Mono
 
 " Set default split
 set splitright
