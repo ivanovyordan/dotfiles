@@ -85,6 +85,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'honza/vim-snippets'
   Plug 'mattn/emmet-vim', {'for': 'html'}
   Plug 'editorconfig/editorconfig-vim'
+  Plug 'dbeniamine/cheat.sh-vim'
 
   " Pretend being a write
   Plug 'ron89/thesaurus_query.vim', {'for': ['markdown', 'text', 'gitcommit']}
@@ -147,6 +148,9 @@ let $FZF_DEFAULT_OPTS='--reverse'
 
 " Call Ranger
 map <leader>f :Ranger<cr>
+
+" Cheat Sheet
+let g:CheatSheetDoNotMap=1
 
 " Undotree
 nnoremap <leader>u :UndotreeShow<cr>
