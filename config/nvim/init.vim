@@ -54,7 +54,7 @@ let g:coc_global_extensions=[
   \ 'coc-html', 'coc-emmet',
   \ 'coc-vimlsp',
   \ 'coc-python',
-  \ 'coc-tsserver', 'coc-eslint', 'coc-json', 'coc-prettier', 'coc-graphql',
+  \ 'coc-tsserver', 'coc-eslint', 'coc-json', 'coc-prettier', 'coc-graphql', 'coc-react-refactor',
   \ 'coc-snippets',
   \ 'coc-diagnostic',
 \]
@@ -75,7 +75,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-fugitive'
   Plug 'junegunn/fzf' | Plug 'junegunn/fzf.vim' | Plug 'stsewd/fzf-checkout.vim'
   Plug 'rbgrouleff/bclose.vim' | Plug 'francoiscabrol/ranger.vim'
-  Plug 'christoomey/vim-tmux-navigator'
+  Plug 'christoomey/vim-tmux-navigator' | Plug 'benmills/vimux'
   Plug 'mbbill/undotree'
   Plug 'tpope/vim-eunuch'
 
@@ -83,7 +83,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'sheerun/vim-polyglot'
   Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
   Plug 'honza/vim-snippets'
-  Plug 'mattn/emmet-vim', {'for': 'html'}
+  Plug 'mattn/emmet-vim', {'for': ['html', 'css', 'javascript', 'jsx']}
   Plug 'editorconfig/editorconfig-vim'
   Plug 'dbeniamine/cheat.sh-vim'
 
@@ -113,7 +113,6 @@ endtry
 " Enter in NORMAL mode with `j-k`
 imap jk <esc>
 
-" Auto close pairs
 inoremap ( ()<left>
 inoremap <expr> ) getline('.')[getpos('.')[2] - 1] == ')' ? '<right>' : ')'
 inoremap [ []<left>
@@ -146,6 +145,14 @@ noremap <c-p> :Files<cr>
 let g:fzf_layout = {'window': {'width': 0.8, 'height': 0.8}}
 let $FZF_DEFAULT_OPTS='--reverse'
 
+" Vimux
+map <leader>vp :VimuxPromptCommand<cr>
+map <leader>vl :VimuxRunLastCommand<cr>
+map <leader>vi :VimuxInspectRunner<cr>
+map <leader>vq :VimuxCloseRunner<cr>
+map <leader>vs :VimuxInterruptRunner<cr>
+map <leader>vz :VimuxZoomRunner<cr>
+
 " Call Ranger
 map <leader>f :Ranger<cr>
 
@@ -155,6 +162,14 @@ let g:CheatSheetDoNotMap=1
 " Undotree
 nnoremap <leader>u :UndotreeShow<cr>
 
+" Polyglot
+let g:user_emmet_leader_key=','
+let g:user_emmet_settings = {
+\  'javascript' : {
+\      'extends' : 'jsx',
+\  },
+\}
+
 " CoC
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
@@ -162,9 +177,9 @@ command! -nargs=0 Format :call CocAction('format')
 command! -nargs=0 Imports :call CocAction('runCommand', 'editor.action.organizeImport')
 
 " CoC actions
-nnoremap <silent><nowait> <space>c  :<c-u>CocList commands<cr>
-nnoremap <silent><nowait> <space>e  :<c-u>CocList extensions<cr>
-nnoremap <silent><nowait> <space>p  :<c-u>CocListResume<cr>
+nnoremap <silent><nowait> <space>c :<c-u>CocList commands<cr>
+nnoremap <silent><nowait> <space>e :<c-u>CocList extensions<cr>
+nnoremap <silent><nowait> <space>p :<c-u>CocListResume<cr>
 
 " Buffer actions
 nmap <leader>ac <Plug>(coc-codeaction)
@@ -175,7 +190,7 @@ nmap <leader>s :<c-u>CocList -I symbols<cr>
 nmap <silent> gp <Plug>(coc-diagnostic-prev)
 nmap <silent> gn <Plug>(coc-diagnostic-next)
 
-" Selected tezt
+" Selected text
 xmap <leader>ac <Plug>(coc-codeaction-selected)
 nmap <leader>ac <Plug>(coc-codeaction-selected)
 xmap <leader>fo <Plug>(coc-format-selected)
@@ -189,7 +204,8 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 imap <c-j> <Plug>(coc-snippets-expand-jump)
 
-autocmd CursorHold * silent call CocActionAsync('highlight')
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<c-g>u\<cr>\<c-r>=coc#on_enter()\<cr>"
+
 nnoremap <silent> K :call <sid>show_documentation()<cr>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -200,6 +216,8 @@ function! s:show_documentation()
     execute '!' . &keywordprg . " " . expand('<cword>')
   endif
 endfunction
+
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Writing
 let g:languagetool_lang='en-GB'
