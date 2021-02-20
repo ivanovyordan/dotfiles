@@ -86,6 +86,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'mattn/emmet-vim', {'for': ['html', 'css', 'javascript', 'jsx']}
   Plug 'editorconfig/editorconfig-vim'
   Plug 'dbeniamine/cheat.sh-vim'
+  Plug 'puremourning/vimspector' | Plug 'szw/vim-maximizer'
 
   " Pretend being a write
   Plug 'ron89/thesaurus_query.vim', {'for': ['markdown', 'text', 'gitcommit']}
@@ -218,6 +219,30 @@ function! s:show_documentation()
 endfunction
 
 autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Vim maximize
+nnoremap <leader>mt :MaximizerToggle!<cr>
+
+" Vimspector
+nnoremap <leader>ds :call vimspector#Launch()<cr>
+nnoremap <leader>dd :call vimspector#Launch()<cr>
+nnoremap <leader>dc :call GotoWindow(g:vimspector_session_windows.code)<cr>
+nnoremap <leader>dt :call GotoWindow(g:vimspector_session_windows.tagpage)<cr>
+nnoremap <leader>dv :call GotoWindow(g:vimspector_session_windows.variables)<cr>
+nnoremap <leader>dw :call GotoWindow(g:vimspector_session_windows.watches)<cr>
+nnoremap <leader>ds :call GotoWindow(g:vimspector_session_windows.stack_trace)<cr>
+nnoremap <leader>do :call GotoWindow(g:vimspector_session_windows.output)<cr>
+nnoremap <leader>de :call vimspector#Reset()<cr>
+
+nmap <leader>dl <Plug>VimspectorStepInto
+nmap <leader>dj <Plug>VimspectorStepOver
+nmap <leader>dk <Plug>VimspectorStepOut
+nmap <leader>d_ <Plug>VimspectorRestart
+nnoremap <leader>d<space> :call vimspector#Continue()<cr>
+
+nmap <leader>drc <Plug>VimspectorRunToCursor
+nmap <leader>dbp <Plug>VimspectorToggleBreakpoint
+nmap <leader>dcbp <Plug>VimspectorToggleConditionalBreakpoint
 
 " Writing
 let g:languagetool_lang='en-GB'

@@ -49,6 +49,7 @@ function install_desktop_packages() {
       discord \
       dropbox \
       firefox \
+      rectangle \
       slack \
       spotify \
       tunnelblick \
