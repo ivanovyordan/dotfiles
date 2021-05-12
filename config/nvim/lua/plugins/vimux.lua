@@ -1,0 +1,6 @@
+vim.api.nvim_set_keymap("n", "<leader>vp", "<cmd>VimuxPromptCommand<cr>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>vl", "<cmd>VimuxRunLastCommand<cr>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>vi", "<cmd>VimuxInspectRunner<cr>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>vq", "<cmd>VimuxCloseRunner<cr>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>vs", "<cmd>VimuxInterruptRunner<cr>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>vz", "<cmd>VimuxZoomRunner<cr>", { noremap = true, silent = true })

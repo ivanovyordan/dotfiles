@@ -44,3 +44,5 @@
 
 [push]
   default = current
+[init]
+	defaultBranch = master
