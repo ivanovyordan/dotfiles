@@ -21,4 +21,3 @@ if light then
 else
     vim.cmd("colorscheme sonokai")
 end
-

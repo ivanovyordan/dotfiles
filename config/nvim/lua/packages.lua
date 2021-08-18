@@ -17,6 +17,9 @@ return require("packer").startup(function(use)
     -- Code faster
     use {
         "neovim/nvim-lspconfig",
+        requires = {
+            { "kabouzeid/nvim-lspinstall" }
+        },
         config = function() require("plugins.lsp") end
     }
 
@@ -67,13 +70,13 @@ return require("packer").startup(function(use)
     }
 
     use { "christoomey/vim-tmux-navigator" }
-    use { 
+    use {
         "benmills/vimux",
         config = function() require("plugins.vimux") end
     }
     use { "tpope/vim-eunuch" }
-    use { 
-        "francoiscabrol/ranger.vim", 
+    use {
+        "francoiscabrol/ranger.vim",
         requires = { "rbgrouleff/bclose.vim" },
         config = function() require("plugins.ranger") end
     }
@@ -96,16 +99,15 @@ return require("packer").startup(function(use)
         requires = { "nvim-lua/plenary.nvim" },
         config = function() require("gitsigns").setup() end
     }
-    use { 
+    use {
         "nvim-treesitter/nvim-treesitter",
         run = ":TSUpdate",
         config = function() require("plugins.treesitter") end
     }
     use { "sheerun/vim-polyglot" }
- 
+
     use { "sainnhe/sonokai" }
     use { "sainnhe/edge" }
-    use { "marko-cerovac/material.nvim" }
 
     use { "mhinz/vim-startify" }
     use { "kyazdani42/nvim-web-devicons" }

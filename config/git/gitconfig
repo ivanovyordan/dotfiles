@@ -5,9 +5,6 @@
 [github]
   user = ivanovyordan
 
-[credential]
-  helper = "!gopass git-credential $@"
-
 [core]
   autocrlf = input
   eol = lf
@@ -34,7 +31,7 @@
   prune = true
 
 [rebase]
-  auosquash = true
+  autosquash = true
 
 [merge]
   ff = no
@@ -44,5 +41,6 @@
 
 [push]
   default = current
+
 [init]
-	defaultBranch = master
+  defaultBranch = master
