@@ -77,6 +77,7 @@ function install_packages() {
     fish ./install_vim.fish
     fish ./install_ranger.fish
     fish ./install_terminal.fish
+    fish ./install_gaming.fish
 }
 
 function main() {

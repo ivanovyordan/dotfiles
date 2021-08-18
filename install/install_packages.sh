@@ -45,7 +45,7 @@ function install_cli_packages() {
 
 function install_desktop_packages() {
     if [ $1 == "Darwin" ]; then
-        brew cask install \
+        brew install --cask \
             dbeaver-community \
             discord \
             dropbox \
