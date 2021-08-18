@@ -1,14 +1,14 @@
 #!/usr/bin/env fish
 
 function install_ranger
-    brew install ranger ffmpegthumbnailer exiftool pdftotext
+    brew install ranger
 end
 
 function install_plugins
     git clone https://github.com/alexanderjeurissen/ranger_devicons $HOME/.config/ranger/plugins/ranger_devicons
 end
 
-funciton main
+function main
     install_ranger
     install_plugins
 end

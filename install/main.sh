@@ -2,7 +2,7 @@
 
 declare -r GITHUB_REPOSITORY=ivanovyordan/dotfiles
 declare -r DOTFILES_ORIGIN=git@github.com:$GITHUB_REPOSITORY.git
-declare -r DOTFILES_TARBALL=https://github.com/$GITHUB_REPOSITORY/tarball/fish
+declare -r DOTFILES_TARBALL=https://github.com/$GITHUB_REPOSITORY/tarball/master
 declare -r DOTFILES_DIRECTORY=$HOME/.dotfiles
 declare -r LOCAL_DOTFILES_DIRECTORY=$HOME/.dotfiles.local
 
@@ -49,18 +49,16 @@ function create_local_dotfiles() {
 }
 
 function link_dotfiles() {
-    mkdir -p $HOME/.config/tmux
-    mkdir -p $HOME/.config/ranger
-    mkdir -p $HOME/.config/pypoetry
-    ln -s $DOTFILES_DIRECTORY $HOME/.config/nvim
+    mkdir -p $HOME/.config/{tmux,ranger,pypoetry}
+    ln -s $DOTFILES_DIRECTORY/config/nvim $HOME/.config/nvim
     ln -s $DOTFILES_DIRECTORY/config/git/gitconfig $HOME/.gitconfig
     ln -s $DOTFILES_DIRECTORY/config/npmrc $HOME/.npmrc
     ln -s $DOTFILES_DIRECTORY/config/pryrc $HOME/.pryrc
     ln -s $DOTFILES_DIRECTORY/config/poetry.toml $HOME/.config/pypoetry/config.toml
     ln -s $DOTFILES_DIRECTORY/config/starship.toml $HOME/.config/starship.toml
-    ln -s $DOTFILES_DIRECTORY/config/tmux/tmux.conf $HOME/.config/tmux.conf
+    ln -s $DOTFILES_DIRECTORY/config/tmux/tmux.conf $HOME/.config/tmux/tmux.conf
     ln -s $DOTFILES_DIRECTORY/config/ranger/rc.conf $HOME/.config/ranger/rc.conf
-    ln -s $DOTFILES_DIRECTORY/config/kitty.conf $HOME/.config/kitty
+    ln -s $DOTFILES_DIRECTORY/config/kitty.conf $HOME/.config/kitty/kitty.conf
 
     ln -s $DOTFILES_DIRECTORY/config/mutt/muttrc $HOME/.muttrc
     ln -s $DOTFILES_DIRECTORY/config/mutt/mbsyncrc $HOME/.mbsyncrc
@@ -79,7 +77,6 @@ function install_packages() {
     fish ./install_vim.fish
     fish ./install_ranger.fish
     fish ./install_terminal.fish
-    fish ./complete_installation.fish
 }
 
 function main() {
@@ -88,6 +85,8 @@ function main() {
     create_local_dotfiles
     link_dotfiles
     install_packages
+
+    fish ./complete_installation.fish "$DOTFILES_DIRECTORY" "$DOTFILES_ORIGIN"
 }
 
 main

@@ -12,39 +12,41 @@ function install_linux_package_managers() {
     sudo apt autoremove -y
     sudo apt autoclean
 
-    sudo apt install -y build-essential curl file git
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
     test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
     test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-    test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile
-    echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
+    echo "eval \$($(brew --prefix)/bin/brew shellenv)" >> ~/.profile
 
-    sudo apt install -y flatpak gnome-software-plugin-flatpak
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 }
 
 function install_cli_packages() {
     brew install \
+        bitwarden
         colordiff \
         ctags \
         curl \
         docker docker-compose kubectl kind minikube \
         git git-extras hub gh \
-        bat highlight \
         neomutt isync msmtp mu khard \
         jq \
-        pass gopass gopass-jsonapi \
         fd ripgrep the_silver_searcher \
         tmux tmate \
         unzip \
         vault \
         wget \
         xclip
+
+    if [ $1 == "Linux" ]; then
+        brew unlink p11-kit
+    fi
 }
 
 function install_desktop_packages() {
     if [ $1 == "Darwin" ]; then
         brew cask install \
+            dbeaver-community \
             discord \
             dropbox \
             firefox \
@@ -52,6 +54,7 @@ function install_desktop_packages() {
             slack \
             spotify \
             tunnelblick \
+            wire \
             zoom
     else
         flatpak install -y flathub \
@@ -59,6 +62,9 @@ function install_desktop_packages() {
             com.dropbox.Client \
             com.slack.Slack \
             com.spotify.Client \
+            com.wire.WireDesktop \
+            io.dbeaver.DBeaverCommunity \  
+            org.mozilla.firefox \ 
             us.zoom.Zoom
     fi
 }
@@ -73,7 +79,7 @@ function main() {
         install_linux_package_managers
     fi
 
-    install_cli_packages
+    install_cli_packages $kernel_name
     install_desktop_packages $kernel_name
 }
 

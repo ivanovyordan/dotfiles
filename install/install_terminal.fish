@@ -1,9 +1,9 @@
 #!/usr/bin/env fish
 
-funciton install_font
+function install_font
     curl -L -o jetbrains.zip "https://download.jetbrains.com/fonts/JetBrainsMono-1.0.0.zip?fromGitHub"
     unzip jetbrains.zip -d $HOME/.local/share/fonts
-    fc-cache    -f -v
+    fc-cache -f -v
     rm -rf jetbrains.zip
 end
 

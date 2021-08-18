@@ -4,6 +4,7 @@ function install_node
     brew install nodenv
 
     set -Ux NODENV_ROOT $HOME/.apps/nodenv
+    source (nodenv init -|psub)
 
     set latest (nodenv install --list | grep -v - | grep '^[0-9]' | tail -1 | xargs)
     nodenv install $latest
@@ -11,10 +12,7 @@ function install_node
 end
 
 function install_global_packages
-    npm install -g \
-        npm \
-        yarn \
-        tldr
+    npm install -g npm yarn
 end
 
 function main

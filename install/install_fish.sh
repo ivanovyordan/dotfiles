@@ -18,7 +18,7 @@ function install_prompt() {
     bash install -f
     rm install
 
-    wget https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.fish ~/.config/fish/completions/
+    wget -P $HOME/.config/fish/completions https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.fish
 }
 
 function main() {
