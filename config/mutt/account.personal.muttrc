@@ -3,6 +3,8 @@
 # Identity
 set realname = "Yordan Ivanov"
 set from = "mail@ivanovyordan.com"
+# set from = "yordan.t.ivanov@gmail.com"
+set alternates = "yordan.t.ivanov@gmail.com"
 
 # Imap folders
 set spoolfile = "+personal/Inbox"
@@ -25,5 +27,4 @@ macro index,pager d "<tag-thread><tag-prefix><save-message>=personal/Trash<enter
 macro index,pager A "<tag-thread><tag-prefix><save-message>=personal/Archive<enter>" "Move message to archive"
 macro index,pager ! "<tag-thread><tag-prefix><save-message>=personal/Spam<enter>" "Move message to spam"
 
-color status blue default
-
+color status green default

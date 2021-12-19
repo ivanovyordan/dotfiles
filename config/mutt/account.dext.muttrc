@@ -1,0 +1,28 @@
+# vim: filetype=neomuttrc
+
+# Identity
+set realname = "Yordan Ivanov"
+set from = "yordan@receipt-bank.com"
+
+# Imap folders
+set spoolfile = "+dext/Inbox"
+set mbox = "+dext/Archive"
+set postponed = "+dext/Drafts"
+set record = "+dext/Sent"
+set trash = "+dext/Trash"
+
+# SMPT
+set sendmail = "/usr/local/bin/msmtp -a dext"
+
+# Keys
+macro index gi "<change-folder>=dext/Inbox<enter>" "Go to inbox"
+macro index ga "<change-folder>=dext/Archive<enter>" "Go to archive"
+macro index gs "<change-folder>=dext/Sent <enter>" "Go to sent mail"
+macro index gd "<change-folder>=dext/Drafts<enter>" "Go to drafts"
+macro index gt "<change-folder>=dext/Trash<enter>" "Go to trash"
+macro index,pager I "<tag-thread><tag-prefix><save-message>=dext/Inbox<enter>" "Move message to Inbox"
+macro index,pager d "<tag-thread><tag-prefix><save-message>=dext/Trash<enter>" "Move message to trash"
+macro index,pager A "<tag-thread><tag-prefix><save-message>=dext/Archive<enter>" "Move message to archive"
+macro index,pager ! "<tag-thread><tag-prefix><save-message>=dext/Spam<enter>" "Move message to spam"
+
+color status yellow default

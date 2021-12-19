@@ -49,16 +49,15 @@ function create_local_dotfiles() {
 }
 
 function link_dotfiles() {
-    mkdir -p $HOME/.config/{tmux,ranger,pypoetry}
+    mkdir -p $HOME/.config/{ranger,alacritty,pypoetry}
     ln -s $DOTFILES_DIRECTORY/config/nvim $HOME/.config/nvim
-    ln -s $DOTFILES_DIRECTORY/config/git/gitconfig $HOME/.gitconfig
+    ln -s $DOTFILES_DIRECTORY/config/gitconfig $HOME/.gitconfig
     ln -s $DOTFILES_DIRECTORY/config/npmrc $HOME/.npmrc
     ln -s $DOTFILES_DIRECTORY/config/pryrc $HOME/.pryrc
     ln -s $DOTFILES_DIRECTORY/config/poetry.toml $HOME/.config/pypoetry/config.toml
     ln -s $DOTFILES_DIRECTORY/config/starship.toml $HOME/.config/starship.toml
-    ln -s $DOTFILES_DIRECTORY/config/tmux/tmux.conf $HOME/.config/tmux/tmux.conf
-    ln -s $DOTFILES_DIRECTORY/config/ranger/rc.conf $HOME/.config/ranger/rc.conf
-    ln -s $DOTFILES_DIRECTORY/config/kitty.conf $HOME/.config/kitty/kitty.conf
+    ln -s $DOTFILES_DIRECTORY/config/ranger.conf $HOME/.config/ranger/rc.conf
+    ln -s $DOTFILES_DIRECTORY/config/alacritty.yml $HOME/.config/alacritty/alacritty.yml
 
     ln -s $DOTFILES_DIRECTORY/config/mutt/muttrc $HOME/.muttrc
     ln -s $DOTFILES_DIRECTORY/config/mutt/mbsyncrc $HOME/.mbsyncrc

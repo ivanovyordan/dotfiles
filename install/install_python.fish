@@ -14,9 +14,12 @@ function install_python
 end
 
 function install_global_packages
-    pip install --upgrade pip pipx
+    pip install --upgrade \
+        pip \
+        pipx
 
     pipx install httpie
+    pipx install ueberzug
     pipx install pipenv
     pipx install poetry
 end

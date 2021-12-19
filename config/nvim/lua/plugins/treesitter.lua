@@ -3,6 +3,3 @@ require("nvim-treesitter.configs").setup {
     highlight = { enable = true },
     ensure_installed = "maintained"
 }
-
-vim.o.foldmethod = "expr"
-vim.o.foldexpr = vim.fn["nvim_treesitter#foldexpr"]()

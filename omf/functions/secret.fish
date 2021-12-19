@@ -1,13 +1,15 @@
 function secret
-    if not set -q BW_SESSION
-        set -lx session (bw unlock --raw)
-        
-        if test $status -eq 0
-            set -Ux BW_SESSION $session
-        else
-            echo $session
-            return 1
+    set bw_status (bw status | jq -r '.status')
+
+    if test $bw_status = 'locked'
+        set session (bw unlock --raw)
+
+        if not test $status -eq 0
+            echo "Error: Bitwarden is not unlocked!"
+            exit 1
         end
+
+        set -Ux BW_SESSION $session
     end
 
     bw $argv

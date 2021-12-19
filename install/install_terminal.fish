@@ -1,18 +1,22 @@
 #!/usr/bin/env fish
 
 function install_font
-    curl -L -o jetbrains.zip "https://download.jetbrains.com/fonts/JetBrainsMono-1.0.0.zip?fromGitHub"
-    unzip jetbrains.zip -d $HOME/.local/share/fonts
+    curl --fail --location --show-error https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip --output fira_code.zip
+    unzip -o -q -d $HOME/.local/share/fonts fira_code.zip
     fc-cache -f -v
-    rm -rf jetbrains.zip
+    rm -rf fira_code.zip
 end
 
 function install_terminal
-    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+    if test $kernel_name = "Linux"
+      sudo apt install -y alacritty
+    else
+      brew install alacritty
+    end
 end
 
 function install_themes
-    git clone --depth 1 git@github.com:dexpota/kitty-themes.git ~/.config/kitty/kitty-themes
+    git clone --depth 1 git@github.com:eendroroy/alacritty-theme.git ~/.config/alacritty/alacritty-theme
 end
 
 function install_tmux_plugins
@@ -22,8 +26,10 @@ function install_tmux_plugins
 end
 
 function main
+    local kernel_name="$(uname -s | tr -d '\n')"
+
     install_font
-    install_terminal
+    install_terminal $kernel_name
     install_themes
     install_tmux_plugins
 end

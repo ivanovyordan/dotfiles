@@ -1,20 +1,14 @@
 vim.o.backup = false
 vim.o.clipboard = vim.o.clipboard .. "unnamedplus"
-vim.o.cmdheight = 2
-vim.o.completeopt = "menuone,noselect"
-vim.o.errorbells = false
 vim.o.expandtab = true
-vim.o.hidden = true
-vim.o.hlsearch = false
 vim.o.ignorecase = true
-vim.o.inccommand = "nosplit"
 vim.o.incsearch = true
+vim.o.lazyredraw = true
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.scrolloff = 8
 vim.o.shell = "bash"
 vim.o.shiftwidth = 4
-vim.o.shortmess = vim.o.shortmess .. "c"
 vim.o.showmode = false
 vim.o.smartcase = true
 vim.o.smartindent = true
@@ -31,4 +25,4 @@ vim.o.undofile = true
 vim.o.updatetime = 50
 vim.o.wrap = false
 
-vim.g.python3_host_prog = os.getenv("HOME") .. "/.apps/pyenv/versions/neovim/bin/python"
+vim.g.did_load_filetypes = true

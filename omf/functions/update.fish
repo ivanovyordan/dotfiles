@@ -19,10 +19,10 @@ end
 function update
   set kernel_name (uname -s | tr -d '\n')
 
-  __update_brew
-
-  if [ $kernel_name = "Linux" ]
+  if test $kernel_name = "Linux"
     __update_apt
     __update_flatpak
   end
+
+  __update_brew
 end

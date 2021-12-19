@@ -33,15 +33,19 @@ for i, server_name in ipairs(servers) do
   end
 end
 
+require("navigator").setup {
+    lsp_installer = true,
+    lsp = {
+        diagnostic_virtual_text = false,
+    },
+    icons = {
+        code_action_icon = "",
+        code_lens_action_icon = "🔍",
 
-lsp_installer.on_server_ready(
-  function(server)
-    local opts = {}
-
-    server:setup(opts)
-    vim.cmd [[ do User LspAttachBuffers ]]
-  end
-)
-
-
-vim.diagnostic.config({virtual_text = false})
+        diagnostic_head = "",
+        diagnostic_err = "",
+        diagnostic_warn = "",
+        diagnostic_info = "",
+        diagnostic_hint = "",
+    }
+}

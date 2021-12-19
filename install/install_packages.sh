@@ -23,20 +23,22 @@ function install_linux_package_managers() {
 
 function install_cli_packages() {
     brew install \
+        awscli \
         bitwarden
         colordiff \
-        ctags \
+        universal-ctags \
         curl \
         docker docker-compose kubectl kind minikube \
         git git-extras hub gh \
         neomutt isync msmtp mu khard \
         jq \
-        fd ripgrep the_silver_searcher \
-        tmux tmate \
+        saulpw/vd/visidata \
+        the_silver_searcher \
+        tmux \
         unzip \
         vault \
         wget \
-        xclip
+        xclip \
 
     if [ $1 == "Linux" ]; then
         brew unlink p11-kit
@@ -60,6 +62,7 @@ function install_desktop_packages() {
         flatpak install -y flathub \
             com.discordapp.Discord \
             com.dropbox.Client \
+            org.freedesktop.Platform.ffmpeg-full \
             com.slack.Slack \
             com.spotify.Client \
             com.wire.WireDesktop \

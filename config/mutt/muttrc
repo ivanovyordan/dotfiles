@@ -80,27 +80,20 @@ set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
 
 # Mailboxes to show in the sidebar.
 named-mailboxes " ---------- 📨 INBOX ---------- " =empty/inbox
-named-mailboxes " 🧾 Receipt Bank" =receiptbank/Inbox
+named-mailboxes " 🧾 Dext" =dext/Inbox
 named-mailboxes " 👤 Personal" =personal/Inbox
-named-mailboxes " ✉️  Gmail" =gmail/Inbox
-named-mailboxes " ------ 🧾 Receipt Bank ------ " =empty/receiptbank
-named-mailboxes " 📦 Archive" =receiptbank/Archive
-named-mailboxes " 📝 Drafts" =receiptbank/Drafts
-named-mailboxes " 📤 Sent" =receiptbank/Sent
-named-mailboxes " 🗑  Trash" =receiptbank/Trash
-named-mailboxes " 🧻 Spam " =receiptbank/Spam
+named-mailboxes " ------ 🧾 Dext ------ " =empty/dext
+named-mailboxes " 📦 Archive" =dext/Archive
+named-mailboxes " 📝 Drafts" =dext/Drafts
+named-mailboxes " 📤 Sent" =dext/Sent
+named-mailboxes " 🗑  Trash" =dext/Trash
+named-mailboxes " 🧻 Spam " =dext/Spam
 named-mailboxes " ---------- 👤 Personal ---------- " =empty/personal
 named-mailboxes " 📦 Archive" =personal/Archive
 named-mailboxes " 📝 Drafts" =personal/Drafts
 named-mailboxes " 📤 Sent" =personal/Sent
 named-mailboxes " 🗑 Trash" =personal/Trash
 named-mailboxes " 🧻 Spam " =personal/Spam
-named-mailboxes " --------- ✉️  Gmail --------- " =empty/gmail
-named-mailboxes " 📦 Archive" =gmail/Archive
-named-mailboxes " 📝 Drafts" =gmail/Drafts
-named-mailboxes " 📤 Sent" =gmail/Sent
-named-mailboxes " 🗑  Trash" =gmail/Trash
-named-mailboxes " 🧻 Spam " =gmail/Spam
 
 # GPG/PGP
 set pgp_default_key = "0xF860753866109BF6"
@@ -114,8 +107,7 @@ source ~/.dotfiles/config/mutt/colors.muttrc
 source ~/.dotfiles/config/mutt/keybindings.muttrc
 
 # Accounts
-source ~/.dotfiles/config/mutt/account.receiptbank.muttrc
-folder-hook receiptbank/* source ~/.dotfiles/config/mutt/account.receiptbank.muttrc
+source ~/.dotfiles/config/mutt/account.dext.muttrc
+folder-hook dext/* source ~/.dotfiles/config/mutt/account.dext.muttrc
 folder-hook personal/* source ~/.dotfiles/config/mutt/account.personal.muttrc
-folder-hook gmail/* source ~/.dotfiles/config/mutt/account.gmail.muttrc
 

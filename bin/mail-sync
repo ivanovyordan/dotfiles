@@ -1,11 +1,13 @@
-#!/usr/local/bin/fish
+#!/usr/bin/env fish
 
 ## Check mbsync email 3 times per minute based on a cronjob firing this script once
 killall mbsync &>/dev/null
-/usr/local/bin/mbsync -a
+mbsync -a
 sleep 20
+
 killall mbsync &>/dev/null
-/usr/local/bin/mbsync -a
+mbsync -a
 sleep 20
+
 killall mbsync &>/dev/null
-/usr/local/bin/mbsync -a
+mbsync -a

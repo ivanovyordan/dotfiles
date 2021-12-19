@@ -12,13 +12,8 @@ function install_ruby
     rbenv global $latest
 end
 
-function install_gems
-    gem install tmuxinator
-end
-
 function main
     install_ruby
-    install_gems
 end
 
 main
