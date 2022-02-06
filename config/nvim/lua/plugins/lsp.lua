@@ -21,6 +21,21 @@ local servers = {
   "yamlls",
 }
 
+
+local custom_server_options = {
+    ["yamlls"] = function(opts)
+        opts.settings = {
+            yaml = {
+                schemas = {
+                    ["https://gitlab.com/meltano/meltano/-/raw/master/schema/meltano.schema.json"] = "/meltano.yml",
+                    ["https://gitlab.com/meltano/meltano/-/raw/master/schema/discovery.schema.json"] = "/meltano.yml",
+                }
+            },
+        }
+    end,
+}
+
+
 for i, server_name in ipairs(servers) do
   local ok, server = lsp_installer_servers.get_server(server_name)
 
