@@ -8,10 +8,11 @@ function install_font
 end
 
 function install_terminal
-    if test $kernel_name = "Linux"
-      sudo apt install -y alacritty
+    if test $argv[1] = "Darwin"
+        brew install alacritty
     else
-      brew install alacritty
+        sudo add-apt-repository -y ppa:aslatter/ppa
+        sudo apt install -y alacritty
     end
 end
 
@@ -26,12 +27,10 @@ function install_tmux_plugins
 end
 
 function main
-    local kernel_name="$(uname -s | tr -d '\n')"
-
     install_font
-    install_terminal $kernel_name
+    install_terminal $argv[1]
     install_themes
     install_tmux_plugins
 end
 
-main
+main $argv[1]

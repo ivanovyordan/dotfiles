@@ -1,14 +1,11 @@
 #!/usr/bin/env fish
 
 function install_node
-    brew install nodenv
-
-    set -Ux NODENV_ROOT $HOME/.apps/nodenv
-    source (nodenv init -|psub)
-
-    set latest (nodenv install --list | grep -v - | grep '^[0-9]' | tail -1 | xargs)
-    nodenv install $latest
-    nodenv global $latest
+    if test $argv[1] = "Darwin"
+        brew install node
+    else
+        nix-env -iA node
+    end
 end
 
 function install_global_packages
@@ -16,8 +13,8 @@ function install_global_packages
 end
 
 function main
-    install_node
+    install_node $1
     install_global_packages
 end
 
-main
+main $1

@@ -65,18 +65,19 @@ function link_dotfiles() {
 }
 
 function install_packages() {
-    bash ./install_packages.sh
-    bash ./install_fish.sh
-    fish ./install_node.fish
-    fish ./install_golang.fish
-    fish ./install_python.fish
-    fish ./install_ruby.fish
-    fish ./install_terraform.fish
-    fish ./install_fzf.fish
-    fish ./install_vim.fish
-    fish ./install_ranger.fish
-    fish ./install_terminal.fish
-    fish ./install_gaming.fish
+    local kernel_name="$(uname -s | tr -d '\n')"
+
+    bash ./install_packages.sh $kernel_name
+    bash ./install_fish.sh $kernel_name
+    fish ./install_node.fish $kernel_name
+    fish ./install_golang.fish $kernel_name
+    fish ./install_python.fish $kernel_name
+    fish ./install_ruby.fish $kernel_name
+    fish ./install_fzf.fish $kernel_name
+    fish ./install_vim.fish $kernel_name
+    fish ./install_ranger.fish $kernel_name
+    fish ./install_terminal.fish $kernel_name
+    fish ./install_gaming.fish $kernel_name
 }
 
 function main() {

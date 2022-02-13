@@ -12,78 +12,92 @@ function install_linux_package_managers() {
     sudo apt autoremove -y
     sudo apt autoclean
 
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-    test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
-    test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-    echo "eval \$($(brew --prefix)/bin/brew shellenv)" >> ~/.profile
-
+    sh <(curl -L https://nixos.org/nix/install) --daemon
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 }
 
-function install_cli_packages() {
+
+install_mac_cli_packages() {
     brew install \
+        aws-vault \
         awscli \
-        bitwarden
+        bitwarden-cli \
         colordiff \
-        universal-ctags \
         curl \
-        docker docker-compose kubectl kind minikube \
+        direnv \
         git git-extras hub gh \
-        neomutt isync msmtp mu khard \
         jq \
         saulpw/vd/visidata \
+        terraform \
         the_silver_searcher \
-        tmux \
+        tmux tmuxinator \
+        universal-ctags \
         unzip \
         vault \
         wget \
-        xclip \
-
-    if [ $1 == "Linux" ]; then
-        brew unlink p11-kit
-    fi
+        xclip
 }
 
-function install_desktop_packages() {
-    if [ $1 == "Darwin" ]; then
-        brew install --cask \
-            dbeaver-community \
-            discord \
-            dropbox \
-            firefox \
-            rectangle \
-            slack \
-            spotify \
-            tunnelblick \
-            wire \
-            zoom
-    else
-        flatpak install -y flathub \
-            com.discordapp.Discord \
-            com.dropbox.Client \
-            org.freedesktop.Platform.ffmpeg-full \
-            com.slack.Slack \
-            com.spotify.Client \
-            com.wire.WireDesktop \
-            io.dbeaver.DBeaverCommunity \  
-            org.mozilla.firefox \ 
-            us.zoom.Zoom
-    fi
+function install_linux_cli_packages() {
+    nix -iA \
+        nixpkgs.aws-vault \
+        nixpkgs.awscli2 \
+        nixpkgs.bitwarden-cli \
+        nixpkgs.colordiff \
+        nixpkgs.curl \
+        nixpkgs.direnv \
+        nixpkgs.docker nixpkgs.docker-compose nixpkgs.kubectl nixpkgs.kind \
+        nixpkgs.git nixpkgs.git-extras nixpkgs.hub nixpkgs.gh \
+        nixpkgs.jq \
+        nixpkgs.silver-searcher \
+        nixpkgs.terraform \
+        nixpkgs.tmux nixpkgs.tmuxinator \
+        nixpkgs.universal-ctags \
+        nixpkgs.unzip \
+        nixpkgs.vault \
+        nixpkgs.visidata \
+        nixpkgs.wget \
+        nixpkgs.xclip
+}
+
+
+function install_mac_desktop_packages() {
+    brew install --cask \
+        dbeaver-community \
+        discord \
+        dropbox \
+        firefox \
+        rancher \
+        rectangle \
+        slack \
+        spotify \
+        tunnelblick \
+        zoom
+}
+
+function install_linux_desktop_packages() {
+    flatpak install -y flathub \
+        com.discordapp.Discord \
+        com.dropbox.Client \
+        org.freedesktop.Platform.ffmpeg-full \
+        com.slack.Slack \
+        com.spotify.Client \
+        io.dbeaver.DBeaverCommunity \
+        org.mozilla.firefox \
+        us.zoom.Zoom
 }
 
 
 function main() {
-    local kernel_name="$(uname -s | tr -d '\n')"
-
-    if [ $kernel_name == "Darwin" ]; then
-        install_mac_pacakge_managers
+    if [ $1 == "Darwin" ]; then
+        install_mac_package_managers $1
+        install_mac_cli_packages $1
+        install_mac_desktop_packages $1
     else
-        install_linux_package_managers
+        install_linux_package_managers $1
+        install_linux_cli_packages $1
+        install_linux_desktop_packages $1
     fi
-
-    install_cli_packages $kernel_name
-    install_desktop_packages $kernel_name
 }
 
-main
+main $1

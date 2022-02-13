@@ -16,8 +16,6 @@ return require("packer").startup(function()
 
 
     -- Completion
-    use { "github/copilot.vim" }
-
     use {
         "williamboman/nvim-lsp-installer",
         requires = { "neovim/nvim-lspconfig" },

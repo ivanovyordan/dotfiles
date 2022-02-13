@@ -3,3 +3,4 @@ init.author.email=mail@ivanovyordan.com
 init.author.url=https://www.ivanovyordan.dev/
 email=mail@ivanovyordan.com
 save=true
+prefix=~/.local/share/npm

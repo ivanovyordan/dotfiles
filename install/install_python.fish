@@ -1,32 +1,26 @@
 #!/usr/bin/env fish
 
-function install_python
-    brew install pyenv pyenv-virtualenv
-    source (pyenv init -|psub)
-    source (pyenv virtualenv-init -|psub)
+function install_virtual_environments
+    pip install --upgrade pip
 
     set -Ux PYENV_ROOT $HOME/.apps/pyenv
-    set -Ua fish_user_paths $PYENV_ROOT/shims
+    curl https://pyenv.run | PYENV_ROOT=$PYENV_ROOT bash
+    set -Ua fish_user_paths $PYENV_ROOT/bin
+    source (pyenv init -|psub)
 
-    set latest (pyenv install --list | grep "^\s\+[0-9]" | grep -v "[b-]" | tail -1 | xargs)
-    pyenv install $latest
-    pyenv global $latest
-end
-
-function install_global_packages
-    pip install --upgrade \
-        pip \
-        pipx
-
-    pipx install httpie
-    pipx install ueberzug
-    pipx install pipenv
-    pipx install poetry
+    if test $argv[1] = "Darwin"
+        brew install \
+            poetry \
+            pipenv
+    else
+        nix-env -iA \
+            nixpkgs.poetry \
+            nixpkgs.pipenv
+    end
 end
 
 function main
-    install_python
-    install_global_packages
+    install_virtual_environments $argv[1]
 end
 
-main
+main $argv[1]

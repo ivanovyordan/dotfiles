@@ -1,19 +1,18 @@
 #!/usr/bin/env fish
 
 function install_ruby
-    brew install rbenv
-    source (rbenv init -|psub)
+    if test $argv[1] = "Darwin"
+        brew install ruby rbenv
+    else
+        nix-env -iA nixpkgs.ruby nixpkgs.rbenv
+    end
 
     set -Ux RBENV_ROOT $HOME/.apps/rbenv
     set -Ua fish_user_paths $RBENV_ROOT/shims
-
-    set latest (rbenv install -l | grep -v - | tail -1 | xargs)
-    rbenv install $latest
-    rbenv global $latest
 end
 
 function main
-    install_ruby
+    install_ruby $argv[1]
 end
 
-main
+main $argv[1]

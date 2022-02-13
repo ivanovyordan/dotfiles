@@ -1,10 +1,14 @@
 #!/usr/bin/env bash
 
 function install_fish() {
-    brew install fish
+    if [ $1 == "Darwin" ]; then
+        brew install fish
+    else
+        nix-env -iA nixpkgs.fish
+    fi
 
     echo $(which fish) | sudo tee -a /etc/shells
-    chsh -s $(which fish)
+    chsh -s $(which fish) $USER
 }
 
 function install_oh_my_fish() {
@@ -17,14 +21,12 @@ function install_prompt() {
     curl -fsSL https://starship.rs/install.sh > install
     bash install -f
     rm install
-
-    wget -P $HOME/.config/fish/completions https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.fish
 }
 
 function main() {
-    install_fish
+    install_fish $1
     install_oh_my_fish
     install_prompt
 }
 
-main
+main $1

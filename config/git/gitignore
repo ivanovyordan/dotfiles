@@ -1,0 +1,7 @@
+# Python
+/venv
+/.venv
+
+# Direnv
+/.envrc
+/.direnv

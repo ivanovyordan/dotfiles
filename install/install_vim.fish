@@ -5,16 +5,24 @@ function install_dependencies
 end
 
 function install_neovim
-    brew install \
-        bat \
-        fd \
-        ripgrep \
-        neovim
+    if test $argv[1] = "Darwin"
+        brew install \
+            bat \
+            fd \
+            ripgrep \
+            neovim
+    else
+        nix-env -iA \
+            nixpkgs.bat \
+            nixpkgs.fd \
+            nixpkgs.ripgrep \
+            nixpkgs.neovim
+    end
 end
 
 function main
     install_dependencies
-    install_neovim
+    install_neovim $argv[1]
 end
 
-main
+main $argv[1]

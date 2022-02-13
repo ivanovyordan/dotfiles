@@ -1,7 +1,11 @@
 #!/usr/bin/env fish
 
 function install_ranger
-    brew install ranger
+    if test $argv[1] = "Darwin"
+        brew install ranger
+    else
+        nix-env -iA nixpkgs.ranger
+    end
 end
 
 function install_plugins
@@ -13,4 +17,4 @@ function main
     install_plugins
 end
 
-main
+main $argv[1]
