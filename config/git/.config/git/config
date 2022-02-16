@@ -8,7 +8,7 @@
 [core]
   autocrlf = input
   eol = lf
-  excludesfile = ~/.dotfiles/config/git/gitignore
+  excludesfile = ~/.config/git/ignore
 [color]
   ui = true
 

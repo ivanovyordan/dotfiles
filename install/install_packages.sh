@@ -28,6 +28,7 @@ install_mac_cli_packages() {
         git git-extras hub gh \
         jq \
         saulpw/vd/visidata \
+        stow \
         terraform \
         the_silver_searcher \
         tmux tmuxinator \
@@ -50,6 +51,7 @@ function install_linux_cli_packages() {
         nixpkgs.git nixpkgs.git-extras nixpkgs.hub nixpkgs.gh \
         nixpkgs.jq \
         nixpkgs.silver-searcher \
+        nixpkgs.stow \
         nixpkgs.terraform \
         nixpkgs.tmux nixpkgs.tmuxinator \
         nixpkgs.universal-ctags \

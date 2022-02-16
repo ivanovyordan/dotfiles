@@ -49,19 +49,9 @@ function create_local_dotfiles() {
 }
 
 function link_dotfiles() {
-    mkdir -p $HOME/.config/{ranger,alacritty,pypoetry}
-    ln -s $DOTFILES_DIRECTORY/config/nvim $HOME/.config/nvim
-    ln -s $DOTFILES_DIRECTORY/config/gitconfig $HOME/.gitconfig
-    ln -s $DOTFILES_DIRECTORY/config/npmrc $HOME/.npmrc
-    ln -s $DOTFILES_DIRECTORY/config/pryrc $HOME/.pryrc
-    ln -s $DOTFILES_DIRECTORY/config/poetry.toml $HOME/.config/pypoetry/config.toml
-    ln -s $DOTFILES_DIRECTORY/config/starship.toml $HOME/.config/starship.toml
-    ln -s $DOTFILES_DIRECTORY/config/ranger.conf $HOME/.config/ranger/rc.conf
-    ln -s $DOTFILES_DIRECTORY/config/alacritty.yml $HOME/.config/alacritty/alacritty.yml
-
-    ln -s $DOTFILES_DIRECTORY/config/mutt/muttrc $HOME/.muttrc
-    ln -s $DOTFILES_DIRECTORY/config/mutt/mbsyncrc $HOME/.mbsyncrc
-    ln -s $DOTFILES_DIRECTORY/config/mutt/msmtprc $HOME/.msmtprc
+    cd $DOTFILES_DIRECTORY/config
+    stow -vSt ~ $(ls)
+    cd -
 }
 
 function install_packages() {
@@ -84,8 +74,8 @@ function main() {
     request_sudo
     download_dotfiles
     create_local_dotfiles
-    link_dotfiles
     install_packages
+    link_dotfiles
 
     fish ./complete_installation.fish "$DOTFILES_DIRECTORY" "$DOTFILES_ORIGIN"
 }
