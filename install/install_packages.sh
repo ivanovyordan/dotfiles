@@ -40,7 +40,9 @@ install_mac_cli_packages() {
 }
 
 function install_linux_cli_packages() {
-    nix -iA \
+    export NIXPKGS_ALLOW_UNFREE=1
+
+    nix-env -iA \
         nixpkgs.aws-vault \
         nixpkgs.awscli2 \
         nixpkgs.bitwarden-cli \
@@ -51,6 +53,7 @@ function install_linux_cli_packages() {
         nixpkgs.git nixpkgs.git-extras nixpkgs.hub nixpkgs.gh \
         nixpkgs.jq \
         nixpkgs.silver-searcher \
+        nixpkgs.snowsql \
         nixpkgs.stow \
         nixpkgs.terraform \
         nixpkgs.tmux nixpkgs.tmuxinator \
