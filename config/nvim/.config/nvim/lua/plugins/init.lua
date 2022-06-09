@@ -1,4 +1,3 @@
-local exec = vim.api.nvim_command
 local fn, cmd = vim.fn, vim.cmd
 
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
@@ -74,7 +73,7 @@ return require("packer").startup(function()
     use {
         "nvim-telescope/telescope.nvim",
         requires = {
-            { "nvim-lua/popup.nvim" },
+            { "nvim-lua/plenary.nvim" },
             { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
         },
         config = function() require("plugins.telescope") end
@@ -110,7 +109,6 @@ return require("packer").startup(function()
     }
 
     -- Colours
-
     use {
         "nvim-treesitter/nvim-treesitter",
         run = ":TSUpdate",

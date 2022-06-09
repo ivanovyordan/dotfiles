@@ -1,3 +1,3 @@
-config/nvim/plugin
+config/tmux/.config/tmux/plugins/
 config/nvim/.config/nvim/plugin/packer_compiled.lua
 config/snowsql/.snowsql/history

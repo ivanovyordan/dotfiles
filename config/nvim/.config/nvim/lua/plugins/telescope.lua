@@ -5,6 +5,16 @@ local M = {}
 telescope.setup {
     defaults = {
         color_devicons = true,
+        vimgrep_arguments = {
+            "rg",
+            "--hidden",
+            -- "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case"
+        },
         mappings = {
           i = {
             ["<esc>"] = actions.close,
@@ -28,7 +38,7 @@ end
 
 
 vim.api.nvim_set_keymap("n", "gd", "<cmd>Telescope lsp_definitions<cr>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<c-p>", "<cmd>Telescope find_files<cr>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<c-p>", "<cmd>Telescope find_files hidden=true<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<c-b>", "<cmd>Telescope buffers<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>lg", "<cmd>Telescope live_grep<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>sr", "<cmd>Telescope lsp_references<cr>", { noremap = true, silent = true })

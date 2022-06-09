@@ -11,7 +11,7 @@ lspsaga.setup {
 }
 
 local opts = { noremap = true, silent = true }
-vim.api.nvim_set_keymap("n", "<leader>ca", "<cmd>Lspsaga code_action<<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>ca", "<cmd>Lspsaga code_action<cr>", opts)
 vim.api.nvim_set_keymap("v", "<leader>ca", "<cmd>Lspsaga range_code_action<cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>hm", "<cmd>Lspsaga hover_doc<cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>rn", "<cmd>Lspsaga rename<cr>", opts)

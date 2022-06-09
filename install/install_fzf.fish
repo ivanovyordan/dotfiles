@@ -12,8 +12,8 @@ function install_fzf
 end
 
 function set_env_vars
-    set -Ux FZF_CTRL_T_OPTS "--reverse --preview 'highlight_item {}'"
-    set -Ux FZF_DEFAULT_COMMAND "fd --type f --hidden --follow --exclude .git"
+    set -Ux FZF_CTRL_T_OPTS "--reverse --preview 'bat --style=full --color=always --highlight-line {2} {1}'"
+    set -Ux FZF_DEFAULT_COMMAND "fd --hidden --follow"
 end
 
 function main

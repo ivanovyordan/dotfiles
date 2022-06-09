@@ -9,6 +9,7 @@
   autocrlf = input
   eol = lf
   excludesfile = ~/.config/git/ignore
+
 [color]
   ui = true
 

@@ -28,7 +28,6 @@ local custom_server_options = {
             yaml = {
                 schemas = {
                     ["https://gitlab.com/meltano/meltano/-/raw/master/schema/meltano.schema.json"] = "/meltano.yml",
-                    ["https://gitlab.com/meltano/meltano/-/raw/master/schema/discovery.schema.json"] = "/meltano.yml",
                 }
             },
         }
