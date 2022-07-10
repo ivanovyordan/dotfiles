@@ -1,20 +1,27 @@
 #!/usr/bin/env fish
 
-function install_ranger
-    if test $argv[1] = "Darwin"
-        brew install ranger
+function install_lf
+    if test $argv[1] = Darwin
+        brew install lf
     else
-        nix-env -iA nixpkgs.ranger
+        nix-env -iA nixpkgs.lf
     end
 end
 
 function install_plugins
-    git clone https://github.com/alexanderjeurissen/ranger_devicons $HOME/.config/ranger/plugins/ranger_devicons
+    if test $argv[1] = Darwin
+        brew install \
+            xpdf
+    else
+        nix-env -iA \
+            nixpkgs.xpdf
+    end
+
 end
 
 function main
-    install_ranger
-    install_plugins
+    install_lf $argv[1]
+    install_plugins $argv[1]
 end
 
 main $argv[1]

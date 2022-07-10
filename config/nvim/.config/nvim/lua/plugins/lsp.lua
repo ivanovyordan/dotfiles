@@ -12,7 +12,7 @@ local servers = {
   "json",
   "pyright",
   "solargraph",
-  "sqls",
+  -- "sqls",
   "sumneko_lua",
   "tailwindcss",
   "terraformls",
