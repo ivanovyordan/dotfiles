@@ -8,7 +8,6 @@ telescope.setup {
         vimgrep_arguments = {
             "rg",
             "--hidden",
-            -- "--color=never",
             "--no-heading",
             "--with-filename",
             "--line-number",
@@ -36,16 +35,16 @@ M.git_branches = function()
     })
 end
 
+local opts = { noremap = true, silent = true }
+vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<cr>", opts)
+vim.keymap.set("n", "<c-p>", "<cmd>Telescope find_files hidden=true<cr>", opts)
+vim.keymap.set("n", "<c-b>", "<cmd>Telescope buffers<cr>", opts)
+vim.keymap.set("n", "<leader>lg", "<cmd>Telescope live_grep<cr>", opts)
+vim.keymap.set("n", "<leader>sr", "<cmd>Telescope lsp_references<cr>", opts)
+vim.keymap.set("n", "<leader>ds", "<cmd>Telescope lsp_document_symbols<cr>", opts)
 
-vim.api.nvim_set_keymap("n", "gd", "<cmd>Telescope lsp_definitions<cr>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<c-p>", "<cmd>Telescope find_files hidden=true<cr>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<c-b>", "<cmd>Telescope buffers<cr>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>lg", "<cmd>Telescope live_grep<cr>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>sr", "<cmd>Telescope lsp_references<cr>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>ds", "<cmd>Telescope lsp_document_symbols<cr>", { noremap = true, silent = true })
-
-vim.api.nvim_set_keymap("n", "<leader>gb", "<cmd>Telescope git_branches<cr>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>gc", "<cmd>Telescope git_commits<cr>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>gbc", "<cmd>Telescope git_bcommits<cr>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<cr>", opts)
+vim.keymap.set("n", "<leader>gc", "<cmd>Telescope git_commits<cr>", opts)
+vim.keymap.set("n", "<leader>gbc", "<cmd>Telescope git_bcommits<cr>", opts)
 
 return M

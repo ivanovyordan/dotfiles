@@ -1,4 +1,4 @@
-local icons = { 
+local icons = {
     Array = { icon = "" },
     Boolean = { icon = "⊨" },
     Class = { icon = "ﴯ" },
@@ -34,7 +34,6 @@ local icons = {
     Lsp = { icon = "" },
     Buffer = { icon = "" },
     Path = { icon = "" },
-    Snippet = { icon = "" },
     Spell = { icon = "" },
     Terminal = { icon = "" },
     Tag = { icon = "炙" },
