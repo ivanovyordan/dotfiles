@@ -3,5 +3,5 @@ function cheat --description "cheat <language> <question>"
   set --erase argv[1]
   set question (string join '+' $argv)
 
-  curl https://cheat.sh/$lang/$question
+  http https://cheat.sh/$lang/$question
 end

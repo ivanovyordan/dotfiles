@@ -25,11 +25,15 @@ install_mac_cli_packages() {
         colordiff \
         curl \
         direnv \
+        exa \
         git git-extras hub gh \
+        httpie \
         jq \
         saulpw/vd/visidata \
         stow \
+        tealdeer \
         terraform \
+        sd \
         the_silver_searcher \
         tmux tmuxinator \
         universal-ctags \
@@ -50,11 +54,15 @@ function install_linux_cli_packages() {
         nixpkgs.curl \
         nixpkgs.direnv \
         nixpkgs.docker nixpkgs.docker-compose nixpkgs.kubectl nixpkgs.kind \
+        nixpkgrs.exa \
         nixpkgs.git nixpkgs.git-extras nixpkgs.hub nixpkgs.gh \
+        nixpkgs.httpie \
         nixpkgs.jq \
+        nixpkgs.sd \
         nixpkgs.silver-searcher \
         nixpkgs.snowsql \
         nixpkgs.stow \
+        nixpkgs.tealdeer \
         nixpkgs.terraform \
         nixpkgs.tmux nixpkgs.tmuxinator \
         nixpkgs.universal-ctags \
