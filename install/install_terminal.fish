@@ -7,7 +7,21 @@ function install_font
     rm -rf fira_code.zip
 end
 
-function install_terminal
+
+function install_kitty
+    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+
+
+    if test $argv[1] = "Linux"
+        ln -s ~/.local/kitty.app/bin/kitty ~/.local/bin/
+        cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
+        cp ~/.local/kitty.app/share/applications/kitty-open.desktop ~/.local/share/applications/
+        sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop
+        sed -i "s|Exec=kitty|Exec=/home/$USER/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
+    end
+end
+
+function install_alacritty
     if test $argv[1] = "Darwin"
         brew install alacritty
     else
@@ -16,7 +30,13 @@ function install_terminal
     end
 end
 
+function install_terminal
+    install_kitty
+    install_alacritty $argv[1]
+end
+
 function install_themes
+    git clone --depth 1 git@github.com:dexpota/kitty-themes.git ~/.config/kitty/kitty-themes
     git clone --depth 1 git@github.com:eendroroy/alacritty-theme.git ~/.config/alacritty/alacritty-theme
 end
 
