@@ -54,7 +54,7 @@ function install_linux_cli_packages() {
         nixpkgs.curl \
         nixpkgs.direnv \
         nixpkgs.docker nixpkgs.docker-compose nixpkgs.kubectl nixpkgs.kind \
-        nixpkgrs.exa \
+        nixpkgs.exa \
         nixpkgs.git nixpkgs.git-extras nixpkgs.hub nixpkgs.gh \
         nixpkgs.httpie \
         nixpkgs.jq \

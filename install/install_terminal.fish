@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 
 function install_font
-    curl --fail --location --show-error https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip --output fira_code.zip
+    http --download https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip -o fira_code.zip
     unzip -o -q -d $HOME/.local/share/fonts fira_code.zip
     fc-cache -f -v
     rm -rf fira_code.zip
@@ -9,8 +9,7 @@ end
 
 
 function install_kitty
-    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
-
+    http https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 
     if test $argv[1] = "Linux"
         ln -s ~/.local/kitty.app/bin/kitty ~/.local/bin/

@@ -1,7 +1,7 @@
-local gps = require("nvim-gps")
+local navic = require("nvim-navic")
 local icons = require("icons")
 
-gps.setup {
+navic.setup {
   icons = {
     ["class-name"] = icons.Class.icon,
     ["function-name"] = icons.Function.icon,
@@ -9,6 +9,9 @@ gps.setup {
     ["container-name"] = icons.Constant.icon,
     ["tag-name"] = icons.Tag.icon,
   },
+  on_attach = function(client, bufnr)
+    navic.attach(client, bufnr)
+  end
 }
 
 require("lualine").setup {
@@ -16,8 +19,8 @@ require("lualine").setup {
     lualine_c = {
       "filename",
       {
-        gps.get_location,
-        cond = gps.is_available
+        navic.get_location,
+        cond = navic.is_available
       },
     },
   },
