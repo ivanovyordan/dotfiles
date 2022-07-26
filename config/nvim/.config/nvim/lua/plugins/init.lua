@@ -9,21 +9,17 @@ end
 
 return require("packer").startup(function()
     use { "wbthomason/packer.nvim" }
-
     use { "nathom/filetype.nvim" }
 
     -- Completion
-
     use {
-        "ray-x/navigator.lua",
+        "williamboman/mason.nvim",
         requires = {
-            { "ray-x/guihua.lua", run = "cd lua/fzy && make" },
+            { "williamboman/mason-lspconfig.nvim" },
             { "neovim/nvim-lspconfig" },
-            { "williamboman/nvim-lsp-installer" },
         },
-        config = function() require("plugins.navigator") end
+        config = function() require("plugins.lsp") end
     }
-
 
     use {
         "L3MON4D3/LuaSnip",
@@ -34,6 +30,7 @@ return require("packer").startup(function()
     use {
         "hrsh7th/nvim-cmp",
         requires = {
+            { "neovim/nvim-lspconfig" },
             { "onsails/lspkind-nvim" },
             { "hrsh7th/cmp-buffer" },
             { "hrsh7th/cmp-cmdline" },
@@ -44,6 +41,17 @@ return require("packer").startup(function()
             { "f3fora/cmp-spell" },
         },
         config = function() require("plugins.cmp") end
+    }
+
+    use {
+        "jose-elias-alvarez/null-ls.nvim",
+        requires = { "jose-elias-alvarez/null-ls.nvim" },
+        config = function() require("plugins.null_ls") end
+    }
+
+    use {
+        "ray-x/lsp_signature.nvim",
+        config = function() require("plugins.lsp_signature") end
     }
 
     use {
@@ -59,6 +67,8 @@ return require("packer").startup(function()
         requires = {
             { "nvim-lua/plenary.nvim" },
             { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+            { "kyazdani42/nvim-web-devicons" },
+
         },
         config = function() require("plugins.telescope") end
     }
@@ -66,13 +76,14 @@ return require("packer").startup(function()
 
     -- UI
     use {
-        "lukas-reineke/indent-blankline.nvim",
-        config = function() require("plugins.indentline") end
+        "glepnir/lspsaga.nvim",
+        requires = { "neovim/nvim-lspconfig" },
+        config = function() require("plugins.lspsaga") end
     }
 
     use {
-        "folke/trouble.nvim",
-        config = function() require("plugins.trouble") end
+        "lukas-reineke/indent-blankline.nvim",
+        config = function() require("plugins.indentline") end
     }
 
     use {

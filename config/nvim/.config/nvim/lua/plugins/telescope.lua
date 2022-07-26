@@ -47,4 +47,6 @@ vim.keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<cr>", opts)
 vim.keymap.set("n", "<leader>gc", "<cmd>Telescope git_commits<cr>", opts)
 vim.keymap.set("n", "<leader>gbc", "<cmd>Telescope git_bcommits<cr>", opts)
 
+vim.keymap.set('n', '<leader>dd', '<cmd>Telescope diagnostics<cr>', opts)
+
 return M
