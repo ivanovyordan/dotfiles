@@ -77,7 +77,10 @@ return require("packer").startup(function()
 
     use {
         "nvim-lualine/lualine.nvim",
-        requires = { "SmiteshP/nvim-gps" },
+        requires = {
+            { "SmiteshP/nvim-navic" },
+            { "neovim/nvim-lspconfig" },
+        },
         config = function() require("plugins.lualine") end
     }
 

@@ -6,7 +6,7 @@ function install_virtual_environments
     set -Ux PYENV_ROOT $HOME/.apps/pyenv
     set -Ux PIPENV_VENV_IN_PROJECT true
 
-    curl https://pyenv.run | PYENV_ROOT=$PYENV_ROOT bash
+    http https://pyenv.run | PYENV_ROOT=$PYENV_ROOT bash
     set -Ua fish_user_paths $PYENV_ROOT/bin
     source (pyenv init -|psub)
 

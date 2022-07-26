@@ -22,7 +22,7 @@ function __update_brew
     brew cleanup
 end
 
-function update
+function update --description "Update OS packages"
     set kernel_name (uname -s | tr -d '\n')
 
     if test $kernel_name = "Linux"
@@ -32,4 +32,6 @@ function update
     else
         __update_brew
     end
+
+    omf update
 end
