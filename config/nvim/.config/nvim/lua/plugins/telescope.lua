@@ -15,10 +15,10 @@ telescope.setup {
             "--smart-case"
         },
         mappings = {
-          i = {
-            ["<esc>"] = actions.close,
-            ["<c-w>"] = actions.send_selected_to_qflist + actions.open_qflist,
-          },
+            i = {
+                ["<esc>"] = actions.close,
+                ["<c-w>"] = actions.send_selected_to_qflist + actions.open_qflist,
+            },
         },
     },
 }
@@ -46,7 +46,5 @@ vim.keymap.set("n", "<leader>ds", "<cmd>Telescope lsp_document_symbols<cr>", opt
 vim.keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<cr>", opts)
 vim.keymap.set("n", "<leader>gc", "<cmd>Telescope git_commits<cr>", opts)
 vim.keymap.set("n", "<leader>gbc", "<cmd>Telescope git_bcommits<cr>", opts)
-
-vim.keymap.set('n', '<leader>dd', '<cmd>Telescope diagnostics<cr>', opts)
 
 return M

@@ -33,6 +33,7 @@ null_ls.setup {
         diagnostics.flake8,
         diagnostics.mypy,
         formatting.black,
+        formatting.isort,
 
         -- Prose
         diagnostics.alex,

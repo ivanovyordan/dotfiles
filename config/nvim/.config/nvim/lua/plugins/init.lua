@@ -87,6 +87,12 @@ return require("packer").startup(function()
     }
 
     use {
+        "folke/trouble.nvim",
+        requires = { "kyazdani42/nvim-web-devicons" },
+        config = function() require("plugins.trouble") end
+    }
+
+    use {
         "nvim-lualine/lualine.nvim",
         requires = {
             { "SmiteshP/nvim-navic" },
