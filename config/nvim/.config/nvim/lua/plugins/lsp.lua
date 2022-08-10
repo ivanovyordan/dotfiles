@@ -59,6 +59,7 @@ end
 
 -- Key map
 vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = { "*" },
     desc = "Format file before saving it",
     callback = vim.lsp.buf.formatting_sync,
 })
