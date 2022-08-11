@@ -43,6 +43,8 @@ local icons = {
     Information = { icon = "" },
     Diagnostic = { icon = "" },
     CodeAction = { icon = "" },
+    Definition = { icon = "" },
+    Link = { icon = "" },
  }
 
 return icons

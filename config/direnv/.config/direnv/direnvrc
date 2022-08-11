@@ -2,7 +2,7 @@
 
 layout_poetry() {
     if ! test -f "pyproject.toml"; then
-        log_error "No pyproject.toml found.  Use \`poetry init\` to create a ptproject.toml first."
+        log_error "No pyproject.toml found. Use \`poetry init\` to create a ptproject.toml first."
         exit 2
     fi
 
@@ -13,14 +13,15 @@ layout_poetry() {
 }
 
 install_python_version() {
+    local required=$(head .python-version)
+    echo "Using Python $required"
+
     # Install It
     pyenv install -s
     # Activate it
     layout pyenv $required
     # Update pip
     pip install --upgrade pip
-    # Deactivate it
-    unset PYENV_VERSION
 }
 
 use_python() {
@@ -29,36 +30,29 @@ use_python() {
         pyenv local $1
     fi
 
-    # Exit if no version is set
-    if ! test -f ".python-version"; then
-        exit 0
-    fi
-
-    local required=$(head .python-version)
-    local avaiable=$(pyenv versions --bare)
-
-    # If Python version is not installed
-    if [[ ! $avaiable =~ $required ]]; then
+    # Install python version if required
+    if test -f ".python-version"; then
         install_python_version
     fi
 
     # If Pipenv project
     if test -f "Pipfile"; then
+        echo "Pip Project"
         # Activate it
+        pipenv install --dev
         layout pipenv
 
     # Poetry/venv project
     else
-        # Activate it
-        layout pyenv $required
-
         # If Poetry project
         if test -f "pyproject.toml"; then
+            echo "Poetry"
             # Activate it
             layout poetry
 
         # Use venv
         else
+            echo "Venv"
             layout python
         fi
     fi

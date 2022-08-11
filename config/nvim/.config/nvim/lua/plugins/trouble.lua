@@ -1,4 +1,5 @@
 require("trouble").setup {
+    use_diagnostic_signs = true,
 }
 
 local opts = { noremap = true, silent = true }

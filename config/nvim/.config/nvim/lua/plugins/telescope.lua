@@ -15,10 +15,10 @@ telescope.setup {
             "--smart-case"
         },
         mappings = {
-          i = {
-            ["<esc>"] = actions.close,
-            ["<c-w>"] = actions.send_selected_to_qflist + actions.open_qflist,
-          },
+            i = {
+                ["<esc>"] = actions.close,
+                ["<c-w>"] = actions.send_selected_to_qflist + actions.open_qflist,
+            },
         },
     },
 }
