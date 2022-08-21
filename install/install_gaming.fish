@@ -5,7 +5,9 @@ function install_graphics_drivers
         rpmfusion-free-release-tainted \
         rpmfusion-nonfree-release-tainted \
         libdvdcss \
-        \*-firmware
+        \*-firmware \
+        akmod-nvidia \
+        xorg-x11-drv-nvidia-cuda
 end
 
 function install_steam
