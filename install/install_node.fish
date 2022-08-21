@@ -4,7 +4,7 @@ function install_node
     if test $argv[1] = "Darwin"
         brew install node
     else
-        nix-env -iA node
+        sudo dnf install -y nodejs
     end
 end
 
@@ -13,8 +13,8 @@ function install_global_packages
 end
 
 function main
-    install_node $1
+    install_node $argv
     install_global_packages
 end
 
-main $1
+main $argv

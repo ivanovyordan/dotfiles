@@ -7,7 +7,7 @@ function install_fzf
         set brew_prefix (brew --prefix)
         $brew_prefix/opt/fzf/install --no-bash --no-zsh --key-bindings --completion --update-rc
     else
-        nix-env -iA nixpkgs.fzf
+        sudo dnf install -y fzf
     end
 end
 
@@ -17,8 +17,8 @@ function set_env_vars
 end
 
 function main
-    install_fzf
+    install_fzf $argv
     set_env_vars
 end
 
-main $argv[1]
+main $argv

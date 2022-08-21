@@ -139,9 +139,13 @@ function install_mac_desktop_packages() {
 }
 
 function install_linux_desktop_packages() {
+    sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
+    sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+
     sudo dnf install -y \
-          gnome-tweaks \
-          gnome-extensions-app
+        brave-browser \
+        gnome-tweaks \
+        gnome-extensions-app
 
     flatpak install -y flathub \
         com.discordapp.Discord \
@@ -154,7 +158,7 @@ function install_linux_desktop_packages() {
 
 
 function main() {
-    if [ $1 == "Darwin" ]; then
+    if [[ $1 = "Darwin" ]]; then
         install_mac_package_managers $1
         install_mac_cli_packages $1
         install_mac_desktop_packages $1

@@ -1,32 +1,41 @@
 #!/usr/bin/env bash
 
+function prepare_fish() {
+    mkdir -p $HOME/.dotfiles.local
+    touch $HOME/.dotfiles.local/init.fish
+}
+
 function install_fish() {
-    if [ $1 == "Darwin" ]; then
+    if [[ $1 = "Darwin" ]]; then
         brew install fish
     else
-        nix-env -iA nixpkgs.fish
+        sudo dnf install -y fish
     fi
 
     echo $(which fish) | sudo tee -a /etc/shells
-    chsh -s $(which fish) $USER
+
+    if [[ $1 = "Darwin" ]]; then
+        chsh -s $(which fish) $USER
+    else
+        sudo lchsh $(which fish) $USER
+    fi
 }
 
 function install_oh_my_fish() {
     curl -L https://get.oh-my.fish > install
-    fish install --config="${HOME}/.dotfiles/omf" -y
+    fish install -y --config "${HOME}/.dotfiles/omf"
     rm install
+    sudo usermod -s $(which fish) $USER
 }
 
-function install_prompt() {
-    curl -fsSL https://starship.rs/install.sh > install
-    bash install -f
-    rm install
+function install_oh_my_fish() {
+    curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
 }
 
 function main() {
+    prepare_fish
     install_fish $1
     install_oh_my_fish
-    install_prompt
 }
 
 main $1

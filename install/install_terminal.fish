@@ -7,31 +7,16 @@ function install_font
     rm -rf fira_code.zip
 end
 
-
-function install_kitty
-    http https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
-
-    if test $argv[1] = "Linux"
-        ln -s ~/.local/kitty.app/bin/kitty ~/.local/bin/
-        cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
-        cp ~/.local/kitty.app/share/applications/kitty-open.desktop ~/.local/share/applications/
-        sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop
-        sed -i "s|Exec=kitty|Exec=/home/$USER/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
-    end
-end
-
-function install_alacritty
+function install_emulators
     if test $argv[1] = "Darwin"
-        brew install alacritty
+        brew install \
+            alacritty \
+            kitty
     else
-        sudo add-apt-repository -y ppa:aslatter/ppa
-        sudo apt install -y alacritty
+        sudo dnf install -y \
+            alacritty \
+            kitty
     end
-end
-
-function install_terminal
-    install_kitty
-    install_alacritty $argv[1]
 end
 
 function install_themes
@@ -47,9 +32,9 @@ end
 
 function main
     install_font
-    install_terminal $argv[1]
+    install_emulators $argv
     install_themes
     install_tmux_plugins
 end
 
-main $argv[1]
+main $argv
