@@ -15,14 +15,14 @@ function install_virtual_environments
             poetry \
             pipenv
     else
-        nix-env -iA \
-            nixpkgs.poetry \
-            nixpkgs.pipenv
+        sudo dnf install -y \
+            poetry \
+            pipenv
     end
 end
 
 function main
-    install_virtual_environments $argv[1]
+    install_virtual_environments $argv
 end
 
-main $argv[1]
+main $argv

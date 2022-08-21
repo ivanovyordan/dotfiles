@@ -1,23 +1,29 @@
 #!/usr/bin/env fish
 
 function install_graphics_drivers
-    sudo apt install -y software-properties-gtk
-    sudo add-apt-repository -y ppa:graphics-drivers/ppa
-    sudo ubuntu-drivers autoinstall
+    sudo dnf install -y \
+        rpmfusion-free-release-tainted \
+        rpmfusion-nonfree-release-tainted \
+        libdvdcss \
+        \*-firmware
 end
 
 function install_steam
-    flatpak install flathub com.valvesoftware.Steam
+    flatpak install -y flathub com.valvesoftware.Steam
     flatpak override --user --filesystem=/media/data com.valvesoftware.Steam
 end
 
 function install_lutris
-    sudo add-apt-repository -y ppa:lutris-team/lutris
-    sudo apt install lutris
+    flatpak install flathub -y \
+        org.gnome.Platform.Compat.i386 \
+        org.freedesktop.Platform.GL32.default \
+        org.freedesktop.Platform.GL.default
+
+    flatpak install flathub-beta -y net.lutris.Lutris
 end
 
 function main
-    if test $argv[1] != "Linux"
+    if test $argv[1] != Linux
         return 0
     end
 

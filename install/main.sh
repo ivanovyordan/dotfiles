@@ -57,7 +57,6 @@ function link_dotfiles() {
 function install_packages() {
     local kernel_name="$(uname -s | tr -d '\n')"
 
-    bash ./install_packages.sh $kernel_name
     bash ./install_fish.sh $kernel_name
     fish ./install_node.fish $kernel_name
     fish ./install_golang.fish $kernel_name
@@ -74,8 +73,11 @@ function main() {
     request_sudo
     download_dotfiles
     create_local_dotfiles
-    install_packages
+
+    bash ./install_essential_packages.sh $kernel_name
+
     link_dotfiles
+    install_packages
 
     fish ./complete_installation.fish "$DOTFILES_DIRECTORY" "$DOTFILES_ORIGIN"
 }

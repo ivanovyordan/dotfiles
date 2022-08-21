@@ -4,7 +4,11 @@ function install_lf
     if test $argv[1] = Darwin
         brew install lf
     else
-        nix-env -iA nixpkgs.lf
+        wget https://github.com/gokcehan/lf/releases/latest/download/lf-linux-amd64.tar.gz -O lf-linux-amd64.tar.gz
+        tar xvf lf-linux-amd64.tar.gz
+        rm lf-linux-amd64.tar.gz
+        chmod +x lf
+        sudo mv lf /usr/local/bin
     end
 end
 
@@ -13,15 +17,14 @@ function install_plugins
         brew install \
             xpdf
     else
-        nix-env -iA \
-            nixpkgs.xpdf
+        sudo dnf install -y xpdf
     end
 
 end
 
 function main
-    install_lf $argv[1]
-    install_plugins $argv[1]
+    install_lf $argv
+    install_plugins $argv
 end
 
 main $argv[1]
