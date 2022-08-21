@@ -2,3 +2,4 @@ config/tmux/.config/tmux/plugins/
 config/nvim/.config/nvim/plugin/packer_compiled.lua
 config/snowsql/.snowsql/history
 config/kitty/.config/kitty/kitty-themes
+config/alacritty/.config/alacritty/alacritty-theme

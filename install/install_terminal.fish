@@ -8,7 +8,7 @@ function install_font
 end
 
 function install_emulators
-    if test $argv[1] = "Darwin"
+    if test $argv[1] = Darwin
         brew install \
             alacritty \
             kitty
@@ -20,8 +20,8 @@ function install_emulators
 end
 
 function install_themes
-    git clone --depth 1 git@github.com:dexpota/kitty-themes.git ~/.config/kitty/kitty-themes
-    git clone --depth 1 git@github.com:eendroroy/alacritty-theme.git ~/.config/alacritty/alacritty-theme
+    git clone --depth 1 https://github.com/dexpota/kitty-themes.git ~/.config/kitty/kitty-themes
+    git clone --depth 1 https://github.com/eendroroy/alacritty-theme ~/.config/alacritty/alacritty-theme
 end
 
 function install_tmux_plugins

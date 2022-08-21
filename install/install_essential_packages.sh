@@ -10,8 +10,10 @@ function install_linux_package_managers() {
     sudo dnf upgrade --refresh -y
 
     # Enable RPM Fusion
-    sudo dnf install -y https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-    sudo dnf install -y https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+    sudo dnf install -y \
+        https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+        https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
     sudo dnf group update -y core
 
     # Add flathub
@@ -141,11 +143,7 @@ function install_mac_desktop_packages() {
 function install_linux_desktop_packages() {
     sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
     sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-
-    sudo dnf install -y \
-        brave-browser \
-        gnome-tweaks \
-        gnome-extensions-app
+    sudo dnf install -y brave-browser
 
     flatpak install -y flathub \
         com.discordapp.Discord \
@@ -153,6 +151,7 @@ function install_linux_desktop_packages() {
         com.slack.Slack \
         com.spotify.Client \
         io.dbeaver.DBeaverCommunity \
+        org.gnome.Geary \
         us.zoom.Zoom
 }
 
