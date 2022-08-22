@@ -1,12 +1,8 @@
 # vim: syntax=sh
 
 layout_poetry() {
-    if ! test -f "pyproject.toml"; then
-        log_error "No pyproject.toml found. Use \`poetry init\` to create a ptproject.toml first."
-        exit 2
-    fi
-
     poetry run true
+
     export VIRTUAL_ENV=$(poetry env info --path)
     export POETRY_ACTIVE=1
     PATH_add "$VIRTUAL_ENV/bin"
@@ -14,45 +10,25 @@ layout_poetry() {
 
 install_python_version() {
     local required=$(head .python-version)
-    echo "Using Python $required"
-
-    # Install It
     pyenv install -s
-    # Activate it
-    layout pyenv $required
-    # Update pip
-    pip install --upgrade pip
 }
 
 use_python() {
-    # Set local python version if passed
-    if [ -n "$1" ]; then
-        pyenv local $1
-    fi
-
-    # Install python version if required
     if test -f ".python-version"; then
         install_python_version
     fi
 
-    # If Pipenv project
     if test -f "Pipfile"; then
-        echo "Pip Project"
-        # Activate it
-        pipenv install --dev
         layout pipenv
 
-    # Poetry/venv project
     else
-        # If Poetry project
         if test -f "pyproject.toml"; then
-            echo "Poetry"
-            # Activate it
+            if test -f ".python-version"; then
+                layout pyenv $(head .python-version)
+            fi
             layout poetry
 
-        # Use venv
         else
-            echo "Venv"
             layout python
         fi
     fi

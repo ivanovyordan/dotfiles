@@ -1,14 +1,6 @@
-function __update_apt
-    sudo apt update
-    sudo apt upgrade -y
-    sudo apt dist-upgrade -y
-    sudo apt autoremove -y
-    sudo apt autoclean
-end
-
-function __update_nix
-    nix-channel --update
-    nix-env -u
+function __update_dnf
+    sudo dnf upgrade -y
+    sudo dnf autoremove -y
 end
 
 function __update_flatpak
@@ -26,9 +18,8 @@ function update --description "Update OS packages"
     set kernel_name (uname -s | tr -d '\n')
 
     if test $kernel_name = "Linux"
-      __update_apt
-      __update_nix
-      __update_flatpak
+        __update_dnf
+        __update_flatpak
     else
         __update_brew
     end
