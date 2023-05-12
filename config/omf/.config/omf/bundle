@@ -4,4 +4,5 @@ package fzf
 package https://github.com/jhillyerd/plugin-git
 package pyenv
 package rbenv
+package rustup
 package tmux-zen

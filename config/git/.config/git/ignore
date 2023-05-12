@@ -5,3 +5,6 @@
 # Direnv
 /.envrc
 /.direnv
+
+# VS Code
+/.vscode

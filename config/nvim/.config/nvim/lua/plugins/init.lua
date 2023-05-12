@@ -9,16 +9,21 @@ end
 
 return require("packer").startup(function()
     use { "wbthomason/packer.nvim" }
-    use { "nathom/filetype.nvim" }
 
     -- Completion
     use {
         "williamboman/mason.nvim",
         requires = {
-            { "williamboman/mason-lspconfig.nvim" },
             { "neovim/nvim-lspconfig" },
+            { "williamboman/mason-lspconfig.nvim" },
+            { "jose-elias-alvarez/null-ls.nvim" },
         },
         config = function() require("plugins.lsp") end
+    }
+
+    use {
+        "github/copilot.vim",
+        config = function() require("plugins.copilot") end
     }
 
     use {
@@ -44,17 +49,6 @@ return require("packer").startup(function()
     }
 
     use {
-        "jose-elias-alvarez/null-ls.nvim",
-        requires = { "jose-elias-alvarez/null-ls.nvim" },
-        config = function() require("plugins.null_ls") end
-    }
-
-    use {
-        "ray-x/lsp_signature.nvim",
-        config = function() require("plugins.lsp_signature") end
-    }
-
-    use {
         "windwp/nvim-autopairs",
         config = function() require("nvim-autopairs").setup() end
     }
@@ -74,22 +68,9 @@ return require("packer").startup(function()
     }
 
 
-    -- UI
-    use {
-        "glepnir/lspsaga.nvim",
-        requires = { "neovim/nvim-lspconfig" },
-        config = function() require("plugins.lspsaga") end
-    }
-
     use {
         "lukas-reineke/indent-blankline.nvim",
         config = function() require("plugins.indentline") end
-    }
-
-    use {
-        "folke/trouble.nvim",
-        requires = { "kyazdani42/nvim-web-devicons" },
-        config = function() require("plugins.trouble") end
     }
 
     use {
@@ -115,6 +96,7 @@ return require("packer").startup(function()
 
     use { "Luxed/ayu-vim" }
     use { "projekt0n/github-nvim-theme" }
+    use { "sam4llis/nvim-tundra" }
 
 
     -- Workflow
@@ -125,13 +107,5 @@ return require("packer").startup(function()
         "TimUntersberger/neogit",
         requires = { "sindrets/diffview.nvim" },
         config = function() require("plugins.neogit") end
-    }
-
-
-    -- Utility
-    use {
-        "lewis6991/spellsitter.nvim",
-        requires = { "nvim-treesitter/nvim-treesitter" },
-        config = function() require("spellsitter").setup() end
     }
 end)

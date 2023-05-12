@@ -22,12 +22,9 @@ function install_fish() {
 }
 
 function install_oh_my_fish() {
-    curl -L https://get.oh-my.fish | fish
-    sudo usermod -s $(which fish) $USER
-}
-
-function install_oh_my_fish() {
-    curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
+    curl -L https://get.oh-my.fish > install
+    fish install --config="${HOME}/.config/omf" -y
+    rm install
 }
 
 function main() {

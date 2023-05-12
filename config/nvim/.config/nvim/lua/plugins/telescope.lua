@@ -36,7 +36,6 @@ M.git_branches = function()
 end
 
 local opts = { noremap = true, silent = true }
-vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<cr>", opts)
 vim.keymap.set("n", "<c-p>", "<cmd>Telescope find_files hidden=true<cr>", opts)
 vim.keymap.set("n", "<c-b>", "<cmd>Telescope buffers<cr>", opts)
 vim.keymap.set("n", "<leader>lg", "<cmd>Telescope live_grep<cr>", opts)

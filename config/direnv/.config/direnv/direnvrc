@@ -23,9 +23,6 @@ use_python() {
 
     else
         if test -f "pyproject.toml"; then
-            if test -f ".python-version"; then
-                layout pyenv $(head .python-version)
-            fi
             layout poetry
 
         else

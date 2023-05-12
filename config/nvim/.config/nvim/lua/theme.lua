@@ -8,7 +8,7 @@ vim.g.edge_style = "light"
 vim.g.edge_enable_italic = 1
 vim.g.edge_disable_italic_comment = 1
 
--- vim.g.ayucolor = "dark"
+vim.g.ayucolor = "dark"
 
 if light then
     vim.o.background = "light"
@@ -17,3 +17,4 @@ else
 end
 
 vim.cmd("colorscheme ayu")
+-- vim.cmd("colorscheme tundra")
