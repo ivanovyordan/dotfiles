@@ -1,15 +1,16 @@
 vim.o.backup = false
 vim.o.clipboard = vim.o.clipboard .. "unnamedplus"
+vim.opt.completeopt = { "menuone", "noselect", "noinsert" }
 vim.o.expandtab = true
 vim.o.ignorecase = true
 vim.o.incsearch = true
 vim.o.lazyredraw = true
-vim.o.mouse = false
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.scrolloff = 8
 vim.o.shell = "bash"
 vim.o.shiftwidth = 4
+vim.opt.shortmess = vim.opt.shortmess + { c = true }
 vim.o.showmode = false
 vim.o.smartcase = true
 vim.o.smartindent = true

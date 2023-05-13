@@ -3,7 +3,8 @@ local lsp_packages = {
     ["bash-language-server"] = { "bashls", {} },
     ["dockerfile-language-server"] = { "dockerls", {} },
     ["pyright"] = { "pyright", {} },
-    ["lua_ls"] = { "lua_ls", {} },
+    ["lua-language-server"] = { "lua_ls", {} },
+    ["rust-analyzer"] = { "rust_analyzer", {} },
     ["terraform-ls"] = { "terraformls", {} },
     ["typescript-language-server"] = { "tsserver", {} },
     ["yaml-language-server"] = { "yamlls", {
@@ -34,8 +35,6 @@ local lsp_packages = {
 
 local null_ls_packages = {
     ["black"] = {},
-    ["fish"] = {},
-    ["fish_indent"] = {},
     ["flake8"] = {},
     ["gitlint"] = {},
     ["isort"] = {},
@@ -45,9 +44,15 @@ local null_ls_packages = {
     ["shellcheck"] = {}
 }
 
+local nvim_dap = {
+    ["codelldb"] = { "rust", {} }
+}
+
 local pakcages = {
     lsp = lsp_packages,
     null_ls = null_ls_packages,
+    dap = nvim_dap,
 }
+
 
 return pakcages

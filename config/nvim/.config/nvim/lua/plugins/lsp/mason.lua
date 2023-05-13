@@ -4,21 +4,28 @@ local packages = require("plugins.lsp.packages")
 
 mason.setup()
 
--- Install missing servers
-local all_packages = registry.get_all_packages()
 
-for _, package in pairs(all_packages) do
-    local in_lsp = packages.lsp[package.name] ~= nil
-    local in_null_ls = packages.null_ls[package.name] ~= nil
-    local in_spec = in_lsp or in_null_ls
+local function install_package(package_name)
+    if not registry.has_package(package_name) then
+        print("Package " .. package_name .. " not found")
+        return
+    end
 
-    if in_spec and not package:is_installed() then
+    local package = registry.get_package(package_name)
+    if not package:is_installed() then
         package:install()
-        print("Installed Mason Package " .. package.name)
+        print("Installed Mason Package " .. package_name)
     end
+end
 
-    if not in_spec and package:is_installed() then
-        package:uninstall()
-        print("Removed Mason Package " .. package.name)
-    end
+for package_name, _ in pairs(packages.lsp) do
+    install_package(package_name)
+end
+
+for package_name, _ in pairs(packages.null_ls) do
+    install_package(package_name)
+end
+
+for package_name, _ in pairs(packages.dap) do
+    install_package(package_name)
 end

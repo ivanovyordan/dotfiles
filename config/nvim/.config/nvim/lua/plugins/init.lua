@@ -17,7 +17,9 @@ return require("packer").startup(function()
             { "neovim/nvim-lspconfig" },
             { "williamboman/mason-lspconfig.nvim" },
             { "jose-elias-alvarez/null-ls.nvim" },
+            { "mfussenegger/nvim-dap" },
         },
+        run = ":MasonUpdate",
         config = function() require("plugins.lsp") end
     }
 
@@ -35,15 +37,16 @@ return require("packer").startup(function()
     use {
         "hrsh7th/nvim-cmp",
         requires = {
-            { "neovim/nvim-lspconfig" },
-            { "onsails/lspkind-nvim" },
             { "hrsh7th/cmp-buffer" },
             { "hrsh7th/cmp-cmdline" },
             { "saadparwaiz1/cmp_luasnip" },
             { "hrsh7th/cmp-nvim-lsp" },
+            { "hrsh7th/cmp-nvim-lsp-signature-help" },
             { "hrsh7th/cmp-nvim-lua" },
             { "hrsh7th/cmp-path" },
             { "f3fora/cmp-spell" },
+            { "neovim/nvim-lspconfig" },
+            { "onsails/lspkind-nvim" },
         },
         config = function() require("plugins.cmp") end
     }
@@ -67,10 +70,21 @@ return require("packer").startup(function()
         config = function() require("plugins.telescope") end
     }
 
-
     use {
         "lukas-reineke/indent-blankline.nvim",
         config = function() require("plugins.indentline") end
+    }
+
+    use {
+        "preservim/tagbar",
+        config = function() require("plugins.tagbar") end
+    }
+    use {
+        "folke/trouble.nvim",
+        requires = {
+            { "nvim-lua/plenary.nvim" },
+        },
+        config = function() require("plugins.trouble") end
     }
 
     use {
@@ -85,6 +99,14 @@ return require("packer").startup(function()
     use {
         "lewis6991/gitsigns.nvim",
         config = function() require("plugins.gitsigns") end
+    }
+
+    use {
+        "simrat39/rust-tools.nvim",
+        requires = {
+            { "nvim-lua/plenary.nvim" },
+        },
+        config = function() require("rust-tools").setup() end
     }
 
     -- Colours

@@ -1,29 +1,16 @@
 require("plugins.lsp.mason")
 require("plugins.lsp.lsp_config")
 require("plugins.lsp.null_ls")
+require("plugins.lsp.diagnostic")
 
-local icons = require("icons")
-
-
--- Diagnostics UI
-local signs = {
-    Info = icons.Information.icon,
-    Hint = icons.Hint.icon,
-    Warn = icons.Warn.icon,
-    Error = icons.Error.icon,
-}
-for type, icon in pairs(signs) do
-    local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
 
 -- Autoformat on save
--- vim.api.nvim_create_autocmd({ "BufWritePre" }, {
---     pattern = { "*" },
---     desc = "Format file before saving it",
---     callback = function() vim.lsp.buf.format() end,
--- })
---
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+    pattern = { "*" },
+    desc = "Format file before saving it",
+    callback = function() vim.lsp.buf.format() end,
+})
+
 -- Key maps
 local opts = { noremap = true, silent = true }
 

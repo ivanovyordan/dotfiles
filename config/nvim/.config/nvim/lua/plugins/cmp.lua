@@ -19,10 +19,14 @@ cmp.setup {
         { name = "cmdline" },
         { name = "luasnip" },
         { name = "nvim_lsp" },
+        { name = "nvim_lsp_signature_help" },
+        { name = "nvim_lua" },
         { name = "path" },
     },
 
     formatting = {
+        fields = { "menu", "abbr", "kind" },
+
         format = lspkind.cmp_format({
             mode = "symbol",
 
