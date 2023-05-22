@@ -7,12 +7,13 @@ telescope.setup {
         color_devicons = true,
         vimgrep_arguments = {
             "rg",
-            "--hidden",
-            "--no-heading",
-            "--with-filename",
-            "--line-number",
             "--column",
-            "--smart-case"
+            "--follow",
+            "--hidden",
+            "--line-number",
+            "--no-heading",
+            "--smart-case",
+            "--with-filename",
         },
         mappings = {
             i = {
