@@ -63,6 +63,7 @@ function install_packages() {
     fish ./install_golang.fish $kernel_name
     fish ./install_python.fish $kernel_name
     fish ./install_ruby.fish $kernel_name
+    fish ./install_rust.fish $kernel_name
     fish ./install_fzf.fish $kernel_name
     fish ./install_vim.fish $kernel_name
     fish ./install_ranger.fish $kernel_name
