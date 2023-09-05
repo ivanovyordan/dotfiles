@@ -15,9 +15,8 @@ function install_virtual_environments
             poetry \
             pipenv
     else
-        sudo apt install -y \
-            python3-poetry \
-            pipenv
+        curl -sSL https://install.python-poetry.org | python3 -
+        sudo apt install -y pipenv
     end
 end
 
