@@ -1,11 +1,9 @@
 #!/usr/bin/env fish
 
 function install_node
-    if test $argv[1] = "Darwin"
-        brew install node
-    else
-        sudo dnf install -y nodejs
-    end
+    asdf plugin add nodejs
+    asd install nodejs latest
+    asdf global nodejs latest
 end
 
 function install_global_packages

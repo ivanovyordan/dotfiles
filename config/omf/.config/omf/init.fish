@@ -6,5 +6,6 @@ end
 # fish_vi_key_bindings
 
 starship init fish | source
+source $ASDF_DATA_DIR/asdf.fish
 
 source "$HOME/.dotfiles.local/init.fish"

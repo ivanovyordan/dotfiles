@@ -6,25 +6,13 @@ function install_mac_pacakge_managers() {
 }
 
 function install_linux_package_managers() {
-    # Update Packages
-    sudo dnf upgrade --refresh -y
+    sudo apt update
+    sudo apt upgrade -y
+    sudo apt dist-upgrade -y
+    sudo apt autoremove -y
+    sudo apt autoclean
 
-    # Enable RPM Fusion
-    sudo dnf install -y \
-        https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
-        https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-
-    sudo dnf group update -y core
-
-    # Add flathub
-    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    flatpak remote-add --if-not-exists flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo
-    flatpak update --appstream
-
-    # Faster downloads with dnf
-    echo fastestmirror=True | sudo tee -a /etc/dnf/dnf.conf
-    echo deltarpm=True | sudo tee -a /etc/dnf/dnf.conf
-    echo max_parallel_downloads=10| sudo tee -a /etc/dnf/dnf.conf
+    flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo
 }
 
 
@@ -58,48 +46,32 @@ install_mac_cli_packages() {
         xclip
 }
 
-function install_linux_aws_vault() {
-    sudo curl -L -o /usr/local/bin/aws-vault https://github.com/99designs/aws-vault/releases/latest/download/aws-vault-linux-amd64
-    sudo chmod 755 /usr/local/bin/aws-vault
-}
-
-function install_linux_bitwarden() {
-  curl -L -o bw.zip 'https://vault.bitwarden.com/download/?app=cli&platform=linux'
-  sudo unzip -j bw.zip -d /usr/local/bin/
-  sudo chmod 755 /usr/local/bin/bw
-  rm -rf bw.zip
-}
 
 function install_linux_docker() {
-    cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
-[kubernetes]
-name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
-enabled=1
-gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-EOF
+    local UBUNTU_CODENAME=$(cat /etc/os-release | grep UBUNTU_CODENAME | awk -F= '{print $2}')
 
-    sudo dnf install -y \
-      kubectl \
-      podman \
-      podman-compose
+    sudo install -m 0755 -d /etc/apt/keyrings
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+    sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+    echo \
+        "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+        "$(. /etc/os-release && echo "$UBUNTU_CODENAME")" stable" | \
+        sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+        sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+        sudo usermod -aG docker $USER
+        newgrp docker
+
 }
 
-function install_linux_hashicorp_tools() {
-  sudo dnf config-manager --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo -y
-
-  sudo dnf install -y \
-      terraform \
-      vault
-}
 
 function install_linux_cli_packages() {
-     sudo dnf install -y \
+     sudo apt install -y \
       awscli \
       bat \
       colordiff \
-      ctags \
       curl \
       direnv \
       exa \
@@ -109,21 +81,15 @@ function install_linux_cli_packages() {
       jq \
       python3-tmuxp \
       ripgrep \
-      sd \
-      starship \
+      silversearcher-ag \
       stow \
-      tealdeer \
-      the_silver_searcher \
       tmux \
-      unzip \
-      visidata \
-      wget \
       xclip
 
-      install_linux_aws_vault
-      install_linux_bitwarden
       install_linux_docker
-      install_linux_hashicorp_tools
+
+    sudo ln -s $(which batcat) /usr/local/bin/bat
+    curl -sS https://starship.rs/install.sh | sh
 }
 
 
@@ -140,19 +106,22 @@ function install_mac_desktop_packages() {
         zoom
 }
 
-function install_linux_desktop_packages() {
-    sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
-    sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-    sudo dnf install -y brave-browser
 
+function install_asdf() {
+    mkdir -p $HOME/.apps
+    git clone https://github.com/asdf-vm/asdf.git ~/.apps/asdf
+
+    . "$HOME/.apps/asdf/asdf.sh"
+}
+
+
+function install_linux_desktop_packages() {
     flatpak install -y flathub \
         com.discordapp.Discord \
         com.dropbox.Client \
+        org.mozilla.firefox \
         com.slack.Slack \
-        com.spotify.Client \
-        io.dbeaver.DBeaverCommunity \
-        org.gnome.Geary \
-        us.zoom.Zoom
+        com.spotify.Client
 }
 
 

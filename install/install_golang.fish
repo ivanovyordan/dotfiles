@@ -1,11 +1,9 @@
 #!/usr/bin/env fish
 
 function install_golang
-    if test $argv[1] = "Darwin"
-        brew install golang
-    else
-       sudo dnf install -y golang
-    end
+    asdf plugin add golang
+    asdf install golang latest
+    asdf global golang latest
 end
 
 function create_workspace
