@@ -5,15 +5,15 @@ require("plugins.lsp.diagnostic")
 
 
 -- Autoformat on save
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-  pattern = { "*" },
-  desc = "Format file before saving it",
-  callback = function()
-    if vim.bo.filetype ~= "yaml" then
-      vim.lsp.buf.format()
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+--   pattern = { "*" },
+--   desc = "Format file before saving it",
+--   callback = function()
+--     if vim.bo.filetype ~= "yaml" then
+--       vim.lsp.buf.format()
+--     end
+--   end,
+-- })
 
 -- Key maps
 local opts = { noremap = true, silent = true }
@@ -28,6 +28,7 @@ vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
 vim.keymap.set("v", "<leader>ca", vim.lsp.buf.code_action, opts)
 vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+vim.keymap.set("n", "<leader>fd", vim.lsp.buf.format, opts)
 
 -- More Info
 vim.keymap.set("n", "H", vim.lsp.buf.hover, opts)

@@ -56,6 +56,15 @@ return require("packer").startup(function()
         config = function() require("nvim-autopairs").setup() end
     }
 
+    use {
+        "PedramNavid/dbtpal",
+        requires = {
+            { "nvim-lua/plenary.nvim" },
+            { "nvim-telescope/telescope.nvim" },
+        },
+        config = function() require("plugins.dbtpal") end
+    }
+
     -- Navigations
     use { "christoomey/vim-tmux-navigator" }
 

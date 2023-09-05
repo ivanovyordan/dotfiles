@@ -3,13 +3,13 @@
 layout_poetry() {
     poetry run true
 
-    export VIRTUAL_ENV=$(poetry env info --path)
+    local VENV=$(dirname $(poetry run which python))
+    export VIRTUAL_ENV=$(echo "$VENV" | rev | cut -d'/' -f2- | rev)
     export POETRY_ACTIVE=1
-    PATH_add "$VIRTUAL_ENV/bin"
+    PATH_add "$VENV"
 }
 
 install_python_version() {
-    local required=$(head .python-version)
     pyenv install -s
 }
 
@@ -20,10 +20,12 @@ use_python() {
 
     if test -f "Pipfile"; then
         layout pipenv
+        pipenv install --dev
 
     else
         if test -f "pyproject.toml"; then
             layout poetry
+            poetry install
 
         else
             layout python

@@ -1,6 +1,8 @@
 package config
 package direnv
+package foreign-env
 package fzf
 package https://github.com/jhillyerd/plugin-git
+package pyenv
 package rustup
 package tmux-zen
