@@ -1,6 +1,5 @@
 local cmp = require("cmp")
 local lspkind = require("lspkind")
-local icons = require("icons")
 
 cmp.setup {
     snippet = {
@@ -29,45 +28,6 @@ cmp.setup {
 
         format = lspkind.cmp_format({
             mode = "symbol",
-
-            symbol_map = {
-                Class = icons.Class.icon,
-                Color = icons.Color.icon,
-                Constant = icons.Constant.icon,
-                Constructor = icons.Constructor.icon,
-                Enum = icons.Enum.icon,
-                EnumMember = icons.EnumMember.icon,
-                Event = icons.Event.icon,
-                Field = icons.Field.icon,
-                File = icons.File.icon,
-                Folder = icons.Folder.icon,
-                Function = icons.Function.icon,
-                Interface = icons.Interface.icon,
-                Keyword = icons.Key.icon,
-                Method = icons.Method.icon,
-                Module = icons.Module.icon,
-                Operator = icons.Operator.icon,
-                Property = icons.Property.icon,
-                Reference = icons.Reference.icon,
-                Snippet = icons.Snippet.icon,
-                Struct = icons.Struct.icon,
-                Text = icons.String.icon,
-                TypeParameter = icons.TypeParameter.icon,
-                Unit = icons.Unit.icon,
-                Value = icons.Value.icon,
-                Variable = icons.Variable.icon,
-            },
-
-            menu = ({
-                nvim_lsp = icons.Lsp.icon,
-                nvim_lua = icons.Lsp.icon,
-                luanisp = icons.Snippet.icon,
-                path = icons.Path.icon,
-                buffer = icons.Lsp.icon,
-                tmux = icons.Terminal.icon,
-                spell = icons.Spell.icon,
-
-            }),
         })
     },
 

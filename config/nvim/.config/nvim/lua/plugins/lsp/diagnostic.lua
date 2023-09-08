@@ -1,17 +1,3 @@
-local icons = require("icons")
-
-local signs = {
-    Info = icons.Information.icon,
-    Hint = icons.Hint.icon,
-    Warn = icons.Warn.icon,
-    Error = icons.Error.icon,
-}
-
-for type, icon in pairs(signs) do
-    local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
-
 vim.diagnostic.config({
     virtual_text = false,
     signs = true,

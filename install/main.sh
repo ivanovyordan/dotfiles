@@ -68,6 +68,7 @@ function install_packages() {
     fish ./install_vim.fish $kernel_name
     fish ./install_ranger.fish $kernel_name
     fish ./install_terminal.fish $kernel_name
+    fish ./install_duckdb.fish $kernel_name
     fish ./install_gaming.fish $kernel_name
 }
 

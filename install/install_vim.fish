@@ -2,6 +2,8 @@
 
 function install_dependencies
     npm install --global neovim
+    pip install --user pynvim
+    gem install neovim
 end
 
 function install_neovim
