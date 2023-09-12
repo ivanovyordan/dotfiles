@@ -72,6 +72,7 @@ return require("packer").startup(function()
 
     use {
         "lukas-reineke/indent-blankline.nvim",
+        main = "ibl",
         config = function() require("plugins.indentline") end
     }
 

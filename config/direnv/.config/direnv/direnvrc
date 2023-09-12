@@ -9,13 +9,9 @@ layout_poetry() {
     PATH_add "$VENV"
 }
 
-install_python_version() {
-    pyenv install -s
-}
-
 use_python() {
     if test -f ".python-version"; then
-        install_python_version
+        pyenv install -s
     fi
 
     if test -f "Pipfile"; then

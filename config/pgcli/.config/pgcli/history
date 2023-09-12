@@ -1,6 +1,0 @@
-
-# 2023-04-06 09:53:56.356262
-+update users set first_name = 'Dancho' where id = 3;
-
-# 2023-04-06 11:56:05.660770
-+exit
