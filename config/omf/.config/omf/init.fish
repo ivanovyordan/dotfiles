@@ -4,8 +4,8 @@ end
 
 # Enable vim mode
 # fish_vi_key_bindings
+alias mux="tmuxinator"
 
 starship init fish | source
-source $ASDF_DATA_DIR/asdf.fish
 
 source "$HOME/.dotfiles.local/init.fish"

@@ -1,24 +1,35 @@
 #!/usr/bin/env fish
 
-function set_environment_variables
-    set -Ux EDITOR "nvim"
-    set -Ua fish_user_paths $HOME/.dotfiles/bin
+function enable_fish
+    fish_add_path /opt/homebrew/bin
+    fish_add_path $HOME/.dotfiles/bin
+
+    echo (which fish) | sudo tee -a /etc/shells
+    chsh -s (which fish) $USER
 end
 
-function create_git_repository
-    set DOTFILES_DIRECTORY $argv[1]
-    set DOTFILES_ORIGIN $argv[2]
+function set_environment_vars
+    set -Ux EDITOR "nvim"
+    set -Ux FZF_CTRL_T_OPTS "--reverse --preview 'bat --style=full --color=always --highlight-line {2} {1}'"
+    set -Ux FZF_DEFAULT_COMMAND "fd --hidden --follow"
+end
 
-    cd $DOTFILES_DIRECTORY
-    git init
-    git remote add origin $DOTFILES_ORIGIN
-    git pull
-    cd -
+function install_tmux_plugins
+    git clone https://github.com/tmux-plugins/tpm $HOME/.local/share/tmux/plugins/tpm
+    tmux source $HOME/.config/tmux/tmux.conf
+end
+
+function install_oh_my_fish
+    curl -Lo install_omf.fish https://get.oh-my.fish
+    fish install_omf.fish --config="$HOME/.config/omf" -y
+    rm install_omf.fish
 end
 
 function main
-    set_environment_variables
-    create_git_repository $argv
+    enable_fish
+    set_environment_vars
+    install_tmux_plugins
+    install_oh_my_fish
 end
 
-main $argv
+main

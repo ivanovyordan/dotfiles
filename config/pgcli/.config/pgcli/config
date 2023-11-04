@@ -1,5 +1,0 @@
-[main]
-asterisk_column_order = alphabetic
-destructive_warning = False
-less_chatty = True
-syntax_style = tango

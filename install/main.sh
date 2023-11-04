@@ -1,88 +1,45 @@
 #!/usr/bin/env bash
 
-declare -r GITHUB_REPOSITORY=ivanovyordan/dotfiles
-declare -r DOTFILES_ORIGIN=git@github.com:$GITHUB_REPOSITORY.git
-declare -r DOTFILES_TARBALL=https://github.com/$GITHUB_REPOSITORY/tarball/master
-declare -r DOTFILES_DIRECTORY=$HOME/.dotfiles
-declare -r LOCAL_DOTFILES_DIRECTORY=$HOME/.dotfiles.local
-
-function request_sudo() {
-    sudo -v &> /dev/null
-
-    while true; do
-        sudo -n true
-        sleep 60
-        kill -0 "$$" || exit
-    done 2>/dev/null &
-}
-
-function download() {
-    local source=$1
-    local target=$2
-
-    if command -v curl &> /dev/null; then
-        curl -LsSo $target $source &> /dev/null
-    else
-        wget -qO $target $source &> /dev/null
-    fi
-}
+declare -r DOTFILES_DIR=$HOME/.dotfiles
+declare -r LOCAL_DOTFILES_DIR=$HOME/.dotfiles.local
 
 function download_dotfiles() {
-    tmp_dotfiles=$(mktemp /tmp/XXXXXXXX)
-    download $DOTFILES_TARBALL $tmp_dotfiles
-
-    if [ -e $DOTFILES_DIRECTORY ]; then
-        mv $DOTFILES_DIRECTORY $DOTFILES_DIRECTORY.back
-    fi
-
-    mkdir -p $DOTFILES_DIRECTORY
-    tar -zxf $tmp_dotfiles --strip-components 1 -C $DOTFILES_DIRECTORY
-    rm -f $tmp_dotfiles
-
-    cd $DOTFILES_DIRECTORY/install
+    xcode-select --install
+    git clone https://github.com/ivanovyordan/dotfiles.git $DOTFILES_DIR
 }
 
 function create_local_dotfiles() {
-    mkdir -p $LOCAL_DOTFILES_DIRECTORY
-    touch $LOCAL_DOTFILES_DIRECTORY/init.fish
-    touch $LOCAL_DOTFILES_DIRECTORY/init.vim
+    mkdir -p $LOCAL_DOTFILES_DIR
+    touch $LOCAL_DOTFILES_DIR/init.fish
+    touch $LOCAL_DOTFILES_DIR/init.vim
+}
+
+function install_homebrew() {
+    NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    (echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> /Users/yordan/.zprofile
+    eval "$(/opt/homebrew/bin/brew shellenv)"
 }
 
 function link_dotfiles() {
-    cd $DOTFILES_DIRECTORY/config
+    cd $DOTFILES_DIR/config
     stow -vSt ~ $(ls)
     cd -
 }
 
 function install_packages() {
-    local kernel_name="$(uname -s | tr -d '\n')"
-
-    bash ./install_fish.sh $kernel_name
-    fish ./install_asdf.fish $kernel_name
-    fish ./install_node.fish $kernel_name
-    fish ./install_golang.fish $kernel_name
-    fish ./install_python.fish $kernel_name
-    fish ./install_ruby.fish $kernel_name
-    fish ./install_rust.fish $kernel_name
-    fish ./install_fzf.fish $kernel_name
-    fish ./install_vim.fish $kernel_name
-    fish ./install_ranger.fish $kernel_name
-    fish ./install_terminal.fish $kernel_name
-    fish ./install_duckdb.fish $kernel_name
-    fish ./install_gaming.fish $kernel_name
+    cd $DOTFILES_DIR/install
+    brew bundle
+    cd -
 }
 
 function main() {
-    request_sudo
     download_dotfiles
     create_local_dotfiles
-
-    bash ./install_essential_packages.sh $kernel_name
-
-    link_dotfiles
+    install_homebrew
     install_packages
+    link_dotfiles
 
-    fish ./complete_installation.fish "$DOTFILES_DIRECTORY" "$DOTFILES_ORIGIN"
+    fish $DOTFILES_DIR/install/complete_installation.fish
 }
 
 main
