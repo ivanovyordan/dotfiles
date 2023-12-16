@@ -10,6 +10,7 @@
   eol = lf
   excludesfile = ~/.config/git/ignore
   filemode = false
+  editor = code --wait
 
 [color]
   ui = true
