@@ -21,7 +21,7 @@ use_python() {
     else
         if test -f "pyproject.toml"; then
             layout poetry
-            poetry install
+            poetry install --no-root
 
         else
             layout python

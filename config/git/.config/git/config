@@ -23,9 +23,6 @@
   renameLimit = 0
   renames = true
 
-[commit]
-  gpgsign = true
-
 [rerere]
   enabled = true
 
@@ -42,7 +39,8 @@
   rebase = true
 
 [push]
-	default = current
+  default = current
+  autoSetupRemote = true
 
 [init]
   defaultBranch = master
