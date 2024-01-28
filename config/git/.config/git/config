@@ -7,32 +7,37 @@
 
 [core]
   autocrlf = input
+  editor = code --wait
   eol = lf
   excludesfile = ~/.config/git/ignore
   filemode = false
-  editor = code --wait
+  pager = delta
 
 [color]
   ui = true
 
-[pager]
-  branch = false
+[delta]
+  light = false
+  navigate = true
+  side-by-side = true
 
 [diff]
   algorithm = patience
+  colorMoved = default
   renameLimit = 0
   renames = true
-
-[rerere]
-  enabled = true
 
 [fetch]
   prune = true
 
-[rebase]
-  autosquash = true
+[init]
+  defaultBranch = master
+
+[interactive]
+  diffFilter = delta
 
 [merge]
+  conflictstyle = diff3
   ff = no
 
 [pull]
@@ -42,5 +47,8 @@
   default = current
   autoSetupRemote = true
 
-[init]
-  defaultBranch = master
+[rebase]
+  autosquash = true
+
+[rerere]
+  enabled = true
