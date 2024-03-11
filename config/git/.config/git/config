@@ -7,7 +7,6 @@
 
 [core]
   autocrlf = input
-  editor = code --wait
   eol = lf
   excludesfile = ~/.config/git/ignore
   filemode = false
