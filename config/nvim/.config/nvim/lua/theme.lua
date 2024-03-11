@@ -16,5 +16,6 @@ else
     vim.o.background = "dark"
 end
 
-vim.cmd("colorscheme ayu")
+-- vim.cmd("colorscheme ayu")
 -- vim.cmd("colorscheme tundra")
+vim.cmd("colorscheme github_dark_high_contrast")
