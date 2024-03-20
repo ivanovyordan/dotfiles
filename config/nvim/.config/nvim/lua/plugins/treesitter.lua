@@ -1,7 +1,15 @@
-require("nvim-treesitter.install").compilers = { "clang" }
+-- Highlight, edit, and navigate code
+return { 
+  'nvim-treesitter/nvim-treesitter',
+  build = ':TSUpdate',
 
-require("nvim-treesitter.configs").setup {
-    indent = { enable = true },
-    highlight = { enable = true },
+  opts = {
     auto_install = true,
+    highlight = { enable = true },
+    indent = { enable = true },
+  },
+
+  config = function(_, opts)
+    require('nvim-treesitter.configs').setup(opts)
+  end,
 }

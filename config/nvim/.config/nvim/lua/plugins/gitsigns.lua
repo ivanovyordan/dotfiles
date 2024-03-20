@@ -1,3 +1,7 @@
-require("gitsigns").setup {
+-- Git integration for buffers
+return {
+  'lewis6991/gitsigns.nvim',
+  config = {
     current_line_blame = true,
+  }
 }

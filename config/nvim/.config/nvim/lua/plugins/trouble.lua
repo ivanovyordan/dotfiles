@@ -1,5 +1,9 @@
-local trouble = require("trouble")
-
-trouble.setup {}
-
-vim.keymap.set("n", "<space>td", "<cmd>TroubleToggle<cr>", { noremap = true, silent = true })
+return {
+  'folke/trouble.nvim',
+  dependencies = {
+    { 'nvim-lua/plenary.nvim' },
+  },
+  keys = {
+    { '<leader>tt', "<cmd>TroubleToggle<cr>", { desc = '[T]oggle [T]rouble diagnostic window' } },
+  }
+}

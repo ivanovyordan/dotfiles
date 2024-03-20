@@ -1,19 +1,22 @@
-local navic = require("nvim-navic")
-
-navic.setup {
-  on_attach = function(client, bufnr)
-    navic.attach(client, bufnr)
-  end
-}
-
-require("lualine").setup {
-  sections = {
-    lualine_c = {
-      "filename",
-      {
-        navic.get_location,
-        cond = navic.is_available
-      },
-    },
+return {
+  'nvim-lualine/lualine.nvim',
+  dependencies = {
+    'nvim-tree/nvim-web-devicons',
+    'SmiteshP/nvim-navic',
   },
+  config = function()
+    local navic = require('nvim-navic')
+
+    require('lualine').setup({
+      sections = {
+        lualine_c = {
+          "filename",
+          {
+            navic.get_location,
+            cond = navic.is_available
+          },
+        },
+      },
+    })
+  end
 }
