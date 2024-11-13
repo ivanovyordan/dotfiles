@@ -16,6 +16,26 @@ return {
             cond = navic.is_available
           },
         },
+        lualine_x = {
+          {
+            function()
+              return 'A'
+            end,
+            color = { fg = '#8FBCBB' }, -- green
+            cond = function()
+              return _G.aider_background_status == 'idle'
+            end
+          },
+          {
+            function()
+              return 'A'
+            end,
+            color = { fg = '#BF616A' }, -- red
+            cond = function()
+              return _G.aider_background_status == 'working'
+            end
+          }
+        },
       },
     })
   end

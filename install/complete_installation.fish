@@ -25,6 +25,17 @@ function install_oh_my_fish
     rm install_omf.fish
 end
 
+function setup_ai
+  uv tool install aider-chat
+  uv tool install playwright
+  playwright install --with-deps chromium
+
+  set -Ux AIDER_DARK_MODE true
+  set -Ux AIDER_SHOW_MODEL_WARNINGS false
+  set -Ux AIDER_GITIGNORE false
+end
+
+
 function main
     enable_fish
     set_environment_vars

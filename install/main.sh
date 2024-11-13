@@ -39,8 +39,7 @@ function main() {
   install_packages
   link_dotfiles
 
-  # fish $DOTFILES_DIR/install/complete_installation.fish
-  zsh $DOTFILES_DIR/install/complete_installation.sh
+  fish $DOTFILES_DIR/install/complete_installation.fish
 }
 
 main

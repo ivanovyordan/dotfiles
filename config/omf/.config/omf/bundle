@@ -4,5 +4,4 @@ package foreign-env
 package https://github.com/jhillyerd/plugin-git
 package nvm
 package pyenv
-package rbenv
 package tmux-zen
