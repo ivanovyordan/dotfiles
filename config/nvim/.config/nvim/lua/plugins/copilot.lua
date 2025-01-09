@@ -1,4 +1,1 @@
--- AI assistant
-return {
-  'github/copilot.vim',
-}
+return { "github/copilot.vim" }

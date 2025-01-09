@@ -6,7 +6,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup {
-  require 'plugins.ai',
   require 'plugins.autopairs',
   require 'plugins.cmp',
   require 'plugins.comments',

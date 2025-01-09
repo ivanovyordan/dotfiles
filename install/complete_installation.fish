@@ -30,15 +30,19 @@ function setup_ai
   uv tool install playwright
   playwright install --with-deps chromium
 
+  set -Ux AIDER_AUTO_COMMITS false
   set -Ux AIDER_DARK_MODE true
-  set -Ux AIDER_SHOW_MODEL_WARNINGS false
   set -Ux AIDER_GITIGNORE false
+  set -Ux AIDER_SHOW_DIFFS true
+  set -Ux AIDER_SHOW_MODEL_WARNINGS false
+  set -Ux OPENAI_API_KEY lm-studio
 end
 
 
 function main
     enable_fish
     set_environment_vars
+    setup_ai
     install_tmux_plugins
     install_oh_my_fish
 end

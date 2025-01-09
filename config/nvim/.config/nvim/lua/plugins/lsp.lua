@@ -46,59 +46,11 @@ return {
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
-    local servers = {
-      bashls = {},
-      dockerls = {},
-      pyright = {},
-      rust_analyzer = {},
-      terraformls = {},
-      yamlls = {
-        settings = {
-          yaml = {
-            schemas = {
-              ['https://raw.githubusercontent.com/dbt-labs/dbt-jsonschema/main/schemas/dbt_yml_files.json'] = {
-                '/models/**/*.yml',
-                '/models/schema.yml'
-              },
-              ['https://raw.githubusercontent.com/dbt-labs/dbt-jsonschema/main/schemas/dbt_project.json'] = {
-                'dbt_project.yml'
-              },
-              ['https://raw.githubusercontent.com/dbt-labs/dbt-jsonschema/main/schemas/selectors.json'] = {
-                'selectors.yml'
-              },
-              ['https://raw.githubusercontent.com/dbt-labs/dbt-jsonschema/main/schemas/packages.json'] = {
-                'packages.yml'
-              },
-            },
-          },
-        },
-      },
-
-      lua_ls = {
-        settings = {
-          Lua = {
-            runtime = { version = 'LuaJIT' },
-            workspace = {
-              checkThirdParty = false,
-              library = {
-                unpack(vim.api.nvim_get_runtime_file('', true)),
-              },
-            },
-            completion = {
-              callSnippet = 'Replace',
-            },
-          },
-        },
-      },
-    }
 
     require('mason').setup()
 
+    local servers = {}
     local ensure_installed = vim.tbl_keys(servers or {})
-    vim.list_extend(ensure_installed, {
-      'stylua',
-    })
-
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
     require('mason-lspconfig').setup {
