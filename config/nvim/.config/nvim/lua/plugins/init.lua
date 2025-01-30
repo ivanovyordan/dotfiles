@@ -16,6 +16,7 @@ require('lazy').setup {
   require 'plugins.indentline',
   require 'plugins.lsp',
   require 'plugins.lualine',
+  require 'plugins.noice',
   require 'plugins.sleuth',
   require 'plugins.telescope',
   require 'plugins.theme',
