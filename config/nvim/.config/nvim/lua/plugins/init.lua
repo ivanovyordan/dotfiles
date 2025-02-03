@@ -20,10 +20,8 @@ require('lazy').setup {
   require 'plugins.sleuth',
   require 'plugins.telescope',
   require 'plugins.theme',
-  require 'plugins.tmux',
   require 'plugins.todo',
   require 'plugins.treesitter',
   require 'plugins.trouble',
-  require 'plugins.typescript',
   require 'plugins.whichkey',
 }
