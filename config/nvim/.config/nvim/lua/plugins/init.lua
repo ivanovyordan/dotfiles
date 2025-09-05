@@ -10,7 +10,6 @@ require('lazy').setup {
   require 'plugins.cmp',
   require 'plugins.comments',
   require 'plugins.conform',
-  require 'plugins.copilot',
   require 'plugins.eunuch',
   require 'plugins.gitsigns',
   require 'plugins.indentline',

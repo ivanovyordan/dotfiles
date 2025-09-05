@@ -2,4 +2,3 @@ package config
 package direnv
 package https://github.com/jhillyerd/plugin-git
 package pyenv
-package tmux-zen
