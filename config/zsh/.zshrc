@@ -1,46 +1,43 @@
-# Editor
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='nvim'
-fi
+export EDITOR='nvim'
 
+# local bins
+export PATH="${HOME}/.local/bin:${PATH}"
 
-# Aliases
-alias ls="eza"
-alias bat="cat"
-alias mux="tmuxinator"
+# fzf
+export EDITOR="nvim"
+export FZF_CTRL_T_OPTS="--reverse --preview 'bat --style=full --color=always --highlight-line {2} {1}'"
+export FZF_DEFAULT_COMMAND="fd --hidden --follow"
+source <(fzf --zsh)
 
-
-# Direnv
+# direnv
 eval "$(direnv hook zsh)"
 
+# Volta
+export PATH="${HOME}/.volta/bin:${PATH}"
 
-# Pyenv
-export PYENV_ROOT="$HOME/.local/share/pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
-
-
-# Rbenv
+# rbenv
 export RBENV_ROOT="$HOME/.local/share/rbenv"
 export PATH="$RBENV_ROOT/bin:$PATH"
+eval "$(rbenv init - --no-rehash zsh)"
 
-
-# Zoxide
+# zoxide
 eval "$(zoxide init zsh)"
 
-
-# Starship
+# starship
 eval "$(starship init zsh)"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# Alternative software
+alias ls="eza"
+alias bat="cat"
 
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/yordan/.rd/bin:$PATH"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+# Custom functions
+alias update="brew update && brew upgrade && brew cleanup"
+alias ..="cd .."
+alias ...="cd ../.."
 
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/yordan/.cache/lm-studio/bin"
+take() {
+  mkdir -p "$1"
+  cd "$1"
+}
+
+source ${HOME}/.config/git/aliases.sh
