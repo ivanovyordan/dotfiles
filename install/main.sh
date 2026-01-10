@@ -1,17 +1,10 @@
 #!/usr/bin/env bash
 
 declare -r DOTFILES_DIR=$HOME/.dotfiles
-declare -r LOCAL_DOTFILES_DIR=$HOME/.dotfiles.local
 
 function download_dotfiles() {
   xcode-select --install
   git clone https://github.com/ivanovyordan/dotfiles.git $DOTFILES_DIR
-}
-
-function create_local_dotfiles() {
-  mkdir -p $LOCAL_DOTFILES_DIR
-  touch $LOCAL_DOTFILES_DIR/init.fish
-  touch $LOCAL_DOTFILES_DIR/init.vim
 }
 
 function install_homebrew() {
@@ -37,8 +30,6 @@ function main() {
   install_homebrew
   install_packages
   link_dotfiles
-
-  # fish $DOTFILES_DIR/install/complete_installation.fish
 }
 
 main

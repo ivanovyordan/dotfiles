@@ -15,16 +15,11 @@ eval "$(direnv hook zsh)"
 # Volta
 export PATH="${HOME}/.volta/bin:${PATH}"
 
-# rbenv
-export RBENV_ROOT="$HOME/.local/share/rbenv"
-export PATH="$RBENV_ROOT/bin:$PATH"
-eval "$(rbenv init - --no-rehash zsh)"
-
-# zoxide
-eval "$(zoxide init zsh)"
-
 # starship
 eval "$(starship init zsh)"
+
+# zoxide
+eval "$(zoxide init --cmd=cd zsh)"
 
 # Alternative software
 alias ls="eza"
