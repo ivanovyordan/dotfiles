@@ -30,6 +30,8 @@ function main() {
   install_homebrew
   install_packages
   link_dotfiles
+
+  fish $DOTFILES_DIR/install/complete_installation.fish
 }
 
 main
