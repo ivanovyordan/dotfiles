@@ -1,10 +1,14 @@
 #!/usr/bin/env fish
 
 function enable_fish
-    fish_add_path /opt/homebrew/bin
+    if test (uname -s) = "Darwin"
+        fish_add_path /opt/homebrew/bin
+    end
     fish_add_path $HOME/.dotfiles/bin
 
-    echo (which fish) | sudo tee -a /etc/shells
+    if not grep -q (which fish) /etc/shells
+        echo (which fish) | sudo tee -a /etc/shells
+    end
     chsh -s (which fish) $USER
 end
 
