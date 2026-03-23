@@ -24,11 +24,17 @@ function install_oh_my_fish
     rm install_omf.fish
 end
 
+function install_node
+    volta install node
+    volta install npm
+end
+
 
 function main
     enable_fish
     set_environment_vars
     install_oh_my_fish
+    install_node
 end
 
 main
