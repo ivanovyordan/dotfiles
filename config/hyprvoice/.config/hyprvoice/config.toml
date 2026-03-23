@@ -1,0 +1,25 @@
+[recording]
+  sample_rate = 16000
+  channels = 1
+  format = "s16"
+  buffer_size = 8192
+  channel_buffer_size = 120
+  timeout = "5m"
+
+[transcription]
+  provider = "whisper-cpp"
+  model = "large-v3-turbo"
+  language = ""
+  threads = 0
+
+[llm]
+  enabled = false
+
+[injection]
+  backends = ["clipboard"]
+  clipboard_timeout = "3s"
+
+[notifications]
+  enabled = true
+  type = "desktop"
+

@@ -1,5 +1,21 @@
 vim.opt.breakindent = true                          -- Enable break indent
 vim.opt.clipboard = 'unnamedplus'                   -- Copy/paste to system clipboard
+
+if vim.fn.has('mac') == 1 then
+  vim.g.clipboard = {
+    name = 'macOS',
+    copy = { ['+'] = 'pbcopy', ['*'] = 'pbcopy' },
+    paste = { ['+'] = 'pbpaste', ['*'] = 'pbpaste' },
+    cache_enabled = 0,
+  }
+elseif os.getenv('WAYLAND_DISPLAY') then
+  vim.g.clipboard = {
+    name = 'wl-clipboard',
+    copy = { ['+'] = 'wl-copy', ['*'] = 'wl-copy' },
+    paste = { ['+'] = 'wl-paste', ['*'] = 'wl-paste' },
+    cache_enabled = 0,
+  }
+end
 vim.opt.cursorline = true                           -- Highlight current line
 vim.opt.hlsearch = true                             -- Highlight search results
 vim.opt.ignorecase = true                           -- Ignore case when searching

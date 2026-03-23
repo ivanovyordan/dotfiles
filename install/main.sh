@@ -30,7 +30,18 @@ function install_linux_packages() {
     rm -rf "$tmpdir"
   fi
 
-  paru -S --needed --noconfirm - < $DOTFILES_DIR/install/packages.txt
+  grep -v '^\s*#\|^\s*$' $DOTFILES_DIR/install/packages.txt | paru -S --needed --noconfirm -
+
+  setup_ai
+}
+
+function setup_ai() {
+  systemctl --user enable --now ollama
+  systemctl --user enable --now hyprvoice.service
+  systemctl --user enable --now ydotool
+
+  ollama run qwen3.5
+  hyprvoice model download large-v3-turbo
 }
 
 function install_packages() {
@@ -41,15 +52,26 @@ function install_packages() {
   fi
 }
 
+function configure_firewall() {
+  if [ "$OS" != "Linux" ]; then
+    return
+  fi
+
+  sudo ufw allow 1714:1764/tcp
+  sudo ufw allow 1714:1764/udp
+  sudo ufw reload
+}
+
 function link_dotfiles() {
   cd $DOTFILES_DIR/config
-  stow -vSt ~ $(ls)
+  stow -vSt ~ $(command ls)
   cd -
 }
 
 function main() {
   download_dotfiles
   install_packages
+  configure_firewall
   link_dotfiles
 
   fish $DOTFILES_DIR/install/complete_installation.fish
